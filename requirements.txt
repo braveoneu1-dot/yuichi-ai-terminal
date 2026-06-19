@@ -3,3 +3,4 @@ plotly
 pandas
 yfinance
 anthropic
+streamlit-autorefresh
