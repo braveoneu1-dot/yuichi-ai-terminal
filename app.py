@@ -2004,8 +2004,13 @@ with watchlist_tab:
         if hist.empty:
             continue
 
-        latest = hist["Close"].iloc[-1]
-        previous = hist["Close"].iloc[-2]
+        close_prices = hist["Close"].dropna()
+
+        if len(close_prices) < 2:
+            continue
+
+        latest = close_prices.iloc[-1]
+        previous = close_prices.iloc[-2]
 
         pct = (
             (latest - previous)
@@ -2019,7 +2024,7 @@ with watchlist_tab:
                 "1 Day %": round(pct, 2)
             }
         )
-    st.write(rows)
+    
     watchlist_df = pd.DataFrame(rows)
 
     watchlist_df = watchlist_df.dropna(
