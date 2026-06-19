@@ -1,0 +1,26 @@
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       —— Anthropic API Key —————————————————————————————————        
+remote:        locations:        
+remote:          - commit: a37073841b450cec8d60aa3a5fbbe3644b849d2d        
+remote:            path: core/ai_brain.py:4        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/braveoneu1-dot/yuichi-ai-terminal/security/secret-scanning/unblock-secret/3FKrKTUi3CKaUttxA6V1ZbA77zH        
+remote:             
+remote: 
+remote: 
+To https://github.com/braveoneu1-dot/yuichi-ai-terminal.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/braveoneu1-dot/yuichi-ai-terminal.git'

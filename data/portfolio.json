@@ -1,0 +1,31 @@
+{
+  "TSLA": {
+    "shares": 83,
+    "cost_basis": 122
+  },
+
+  "META": {
+    "shares": 40,
+    "cost_basis": 266
+  },
+
+  "PLTR": {
+    "shares": 85,
+    "cost_basis": 15
+  },
+
+  "AAPL": {
+    "shares": 87,
+    "cost_basis": 126
+  },
+
+  "MU": {
+    "shares": 2,
+    "cost_basis": 898.25
+  },
+
+  "SPCX": {
+    "shares": 5,
+    "cost_basis": 163.69
+  }
+}

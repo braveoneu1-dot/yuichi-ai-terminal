@@ -1,0 +1,82 @@
+[
+    {
+        "headline": "Fed Chair Warsh Signals Possible Rate Hike, Triggers Worst New-Chair \"Fed Day\" Since 1994",
+        "source": "CNBC",
+        "category": "Fed & Macro",
+        "summary": "In Kevin Warsh's first meeting as chairman, the Fed's statement was revamped to be dramatically shorter and removed key language indicating a bias toward future cuts. Stocks fell and Treasury yields surged as investors grew uncertain over monetary policy, with the Dow dropping 507 points, the S&P 500 losing 1.21%, and the Nasdaq shedding 1.34%.",
+        "impact": "High",
+        "why": "A hawkish pivot from the new Fed chair directly raises borrowing costs and pressures equity valuations across all sectors.",
+        "portfolio": "Higher rates compress growth-stock multiples, posing near-term headwinds for Tesla, Nvidia, Meta, and Palantir, all of which trade at elevated P/E ratios.",
+        "vocab": "hawkish — favoring tighter monetary policy and higher interest rates; dot plot — Fed chart showing officials' anonymous interest rate forecasts; benchmark rate — the key reference interest rate set by a central bank"
+    },
+    {
+        "headline": "Strait of Hormuz Peace Deal Struck, But Oil Flow Recovery Could Take Weeks",
+        "source": "PBS NewsHour / Al Jazeera",
+        "category": "Geopolitics",
+        "summary": "President Trump announced he had authorized the toll-free reopening of the Strait of Hormuz and the immediate removal of the U.S. naval blockade of Iranian ports. Even as oil prices dropped, many questions remained about when flow would resume, as the strait previously carried a fifth of the world's crude oil, and hundreds of trapped ships plus throttled-back Gulf producers will need time to restart.",
+        "impact": "High",
+        "why": "Reopening the world's most critical oil chokepoint directly determines global energy prices, inflation, and the Fed's rate path.",
+        "portfolio": "Falling oil prices ease energy-cost pressures for Tesla's manufacturing and logistics, while copper-related miners may benefit from recovering global trade flows through the strait.",
+        "vocab": "chokepoint — a narrow strategic waterway critical to global shipping; memorandum of understanding — a non-binding agreement outlining terms between parties; shut-in — the halting of oil well production, often due to lack of storage"
+    },
+    {
+        "headline": "SpaceX Surges 19% in History's Largest-Ever IPO Debut",
+        "source": "NPR / CNN Business",
+        "category": "Tesla & Elon",
+        "summary": "SpaceX stock, listed on the Nasdaq under SPCX, rose 19% on its first day of trading to close at $160.95, becoming one of the world's biggest listed companies with a valuation above $2 trillion. SpaceX had priced its IPO at $135 per share, giving it an initial market capitalization of $1.77 trillion — making it the largest IPO on record.",
+        "impact": "High",
+        "why": "SpaceX's $2+ trillion public debut reshapes the Musk empire's capital structure and raises questions about focus and resources at Tesla.",
+        "portfolio": "SpaceX's IPO success as the sixth-largest publicly traded U.S. company amplifies Musk's influence, but investors are watching whether attention shifts away from Tesla's product roadmap.",
+        "vocab": "IPO — Initial Public Offering, the first sale of a company's stock to the public; market capitalization — total market value of a company's outstanding shares; greenshoe — an overallotment option allowing underwriters to issue additional shares post-IPO"
+    },
+    {
+        "headline": "Musk Exercises $116 Billion Tesla Options in One of Largest Single Transactions in Corporate History",
+        "source": "Electrek / Teslarati",
+        "category": "Tesla & Elon",
+        "summary": "A Form 4 filed with the SEC on June 17, 2026 disclosed that Musk exercised 303,960,630 Tesla stock options from his 2018 compensation package, with no shares sold on the open market. He exercised the options at a split-adjusted strike price of $23.34, with Tesla at $404.66, generating roughly $115.9 billion in paper gains; Tesla withheld shares through a net share settlement, meaning Musk paid nothing out of pocket.",
+        "impact": "High",
+        "why": "Musk's dramatically increased ownership stake in Tesla raises corporate governance questions and fuels speculation about a potential Tesla-SpaceX merger.",
+        "portfolio": "Tesla investors should note Musk's ownership rising to ~20% with a 5-year lockup, reducing near-term sell-off risk but intensifying scrutiny of dual-company leadership.",
+        "vocab": "net share settlement — paying for stock option exercises using withheld shares rather than cash; Form 4 — an SEC filing disclosing insider transactions in a company's securities; restricted stock — shares subject to vesting conditions and lockup periods before they can be sold"
+    },
+    {
+        "headline": "Tesla Converts Fremont Factory from Model S/X to Optimus Robot Production",
+        "source": "Robozaps",
+        "category": "Tesla & Elon",
+        "summary": "Tesla announced on its Q4 2025 earnings call that both the Model S sedan and Model X SUV will cease production in Q2 2026 to free up manufacturing capacity at its Fremont, California factory — not for a new electric vehicle, but for Optimus humanoid robots. On-site staff at a Shanghai electronics show reportedly stated that mass production of the robot could begin by end of 2026, with Tesla's initial Fremont production line targeting up to 1 million units annually.",
+        "impact": "High",
+        "why": "Tesla's strategic pivot from legacy EVs to humanoid robotics signals where future revenue growth — and investor risk — is concentrated.",
+        "portfolio": "Tesla bulls should monitor Optimus production ramp milestones closely, as Wall Street projects negative free cash flow of ~$5.19 billion for Tesla in 2026 specifically in anticipation of Optimus revenue returns.",
+        "vocab": "capex — capital expenditure, funds spent on acquiring or upgrading physical assets; production ramp — the process of scaling up manufacturing volume over time; free cash flow — operating cash remaining after capital expenditures"
+    },
+    {
+        "headline": "Anthropic and Google DeepMind Call for U.S.-Led AI Coalition at G7 Summit",
+        "source": "CNBC / The Next Web",
+        "category": "Big Tech",
+        "summary": "Anthropic CEO Dario Amodei and Google DeepMind's Demis Hassabis used a closed-door G7 lunch to call for a U.S.-led coalition to shape international AI rules and standards, with Canadian Prime Minister Mark Carney agreeing to U.S. leadership. Meanwhile, Chinese Foreign Minister Wang Yi separately called for a global AI cooperation organization open to all countries, presenting a competing framework to the U.S.-led model.",
+        "impact": "High",
+        "why": "A coordinated U.S.-led AI governance framework would directly shape chip export rules, model access, and the competitive landscape for all major AI companies.",
+        "portfolio": "A U.S.-led AI coalition with coordinated chip export controls to China is directly relevant to Nvidia's international revenue and Palantir's government AI contracts.",
+        "vocab": "export controls — government restrictions on the sale of specific technologies to foreign nations; AI governance — frameworks of rules and oversight for the development and deployment of artificial intelligence; coalition — an alliance of parties united around a common goal"
+    },
+    {
+        "headline": "Stock Futures Rise as Markets Partially Recover from Fed Shock; Chip Stocks Lead",
+        "source": "Trading Economics / Charles Schwab",
+        "category": "US Markets",
+        "summary": "U.S. equity futures rebounded on Thursday to erase Wednesday's losses as chip producers extended their rally and markets reconsidered rate-hike risks, with S&P 500 contracts up 1% and Nasdaq 100 contracts gaining 2%. Intel shares surged more than 10% after the U.S. President said the chipmaker struck a deal with Apple, while Micron rose 8% and Nvidia was 2% higher.",
+        "impact": "Medium",
+        "why": "The rebound in chip stocks and easing Treasury yields suggest markets are recalibrating — not panicking — over the hawkish Fed shift, a key signal for risk appetite.",
+        "portfolio": "Nvidia rose 2% to trim Wednesday's losses, while Intel surged 10%+ on an Apple chip deal, making both directly relevant to Nvidia and Apple portfolio positions.",
+        "vocab": "futures contracts — agreements to buy or sell an asset at a predetermined price on a future date; basis points — units of measure for interest rates, where 100 basis points equals 1%; yield curve — a graph showing interest rates across different bond maturities"
+    },
+    {
+        "headline": "Tesla Integrates Grok AI Into Full Self-Driving as Optimus Gen 3 Enters 24/7 Industrial Shift Tests",
+        "source": "Teslarati / Optimusk.blog",
+        "category": "Tesla & Elon",
+        "summary": "Tesla plans to allow drivers to control Full Self-Driving navigation more explicitly using Grok in approximately three months, targeting around September, CEO Elon Musk confirmed on X. As of June 2026, Optimus Gen 3 hands are in their first 24/7 industrial shift tests , with the first concrete performance data expected at Tesla's upcoming Q2 earnings call.",
+        "impact": "Medium",
+        "why": "Grok-powered FSD and round-the-clock Optimus factory tests represent the dual pillars of Tesla's AI monetization strategy, critical to long-term valuation.",
+        "portfolio": "Tesla investors should watch September as the target date for Grok-FSD integration, while Optimus Gen 3 industrial test data expected at the Q2 2026 earnings call in July will be a key catalyst.",
+        "vocab": "FSD — Full Self-Driving, Tesla's advanced driver-assistance and autonomous navigation software; industrial shift test — continuous around-the-clock operational testing of machinery in a factory environment; AI training — the process of feeding real-world data to machine learning models to improve their performance"
+    }
+]

@@ -1,0 +1,38 @@
+STORY: Tesla Shares Rise After Optimus Production Update
+SOURCE: Bloomberg
+CATEGORY: Tesla & Elon
+IMPACT: High
+WHY IT MATTERS: Higher Treasury yields tend to pressure high-growth stocks like Tesla and Nvidia.
+PORTFOLIO NOTE: Strong AI infrastructure spending may benefit Nvidia and copper-related holdings.
+SUMMARY: Tesla shares gained after Elon Musk said Optimus robot production is ahead of schedule. Investors reacted positively to the company’s long-term AI and robotics ambitions.
+VOCAB: rally — a strong upward price movement; automation — the use of machines to perform tasks; outlook — future expectations
+
+
+STORY: Nvidia Extends Gains as AI Datacenter Spending Accelerates
+SOURCE: CNBC
+CATEGORY: Big Tech
+IMPACT: High
+WHY IT MATTERS: Higher Treasury yields tend to pressure high-growth stocks like Tesla and Nvidia.
+PORTFOLIO NOTE: Strong AI infrastructure spending may benefit Nvidia and copper-related holdings.
+SUMMARY: Nvidia climbed again after analysts raised revenue forecasts tied to AI infrastructure demand. Datacenter expansion continues to support semiconductor momentum.
+VOCAB: momentum — strength behind a market trend; forecast — prediction about future performance; infrastructure — foundational systems and facilities
+
+
+STORY: Treasury Yields Climb Following Hawkish Fed Commentary
+SOURCE: Reuters
+CATEGORY: Fed & Macro
+IMPACT: High
+WHY IT MATTERS: Higher Treasury yields tend to pressure high-growth stocks like Tesla and Nvidia.
+PORTFOLIO NOTE: Strong AI infrastructure spending may benefit Nvidia and copper-related holdings.
+SUMMARY: U.S. Treasury yields moved higher after Federal Reserve officials signaled concern about persistent inflation. Markets reduced expectations for near-term rate cuts.
+VOCAB: hawkish — favoring higher interest rates; inflation — rising prices over time; yield — return earned on a bond
+
+
+STORY: Oil Prices Rise Amid Renewed Middle East Tensions
+SOURCE: Financial Times
+CATEGORY: Energy
+IMPACT: High
+WHY IT MATTERS: Higher Treasury yields tend to pressure high-growth stocks like Tesla and Nvidia.
+PORTFOLIO NOTE: Strong AI infrastructure spending may benefit Nvidia and copper-related holdings.
+SUMMARY: Crude oil prices increased after renewed geopolitical tensions raised concerns about global supply disruptions. Energy traders monitored developments closely.
+VOCAB: crude — unrefined petroleum; disruption — interruption to normal operations; supply — available amount of a resource
