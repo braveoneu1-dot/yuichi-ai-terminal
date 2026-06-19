@@ -2022,8 +2022,16 @@ with watchlist_tab:
 
     watchlist_df = pd.DataFrame(rows)
 
+    watchlist_df = watchlist_df.dropna(
+        subset=["1 Day %"]
+    )
+
+    if watchlist_df.empty:
+        st.warning("Watchlist data unavailable right now.")
+        st.stop()
+
     strongest = watchlist_df.loc[
-    watchlist_df["1 Day %"].idxmax()
+        watchlist_df["1 Day %"].idxmax()
     ]
 
     weakest = watchlist_df.loc[
