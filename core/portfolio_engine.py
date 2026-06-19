@@ -5,7 +5,7 @@
 import json
 from pathlib import Path
 import yfinance as yf
-
+import pandas as pd
 # =====================================================
 # PORTFOLIO FILE
 # =====================================================
@@ -51,8 +51,12 @@ def calculate_portfolio():
         if history.empty:
             continue
 
-        current_price = history["Close"].iloc[-1]
+        close_prices = history["Close"].dropna()
 
+        if close_prices.empty:
+            continue
+
+        current_price = close_prices.iloc[-1]
         market_value = current_price * shares
         cost_value = cost_basis * shares
 
