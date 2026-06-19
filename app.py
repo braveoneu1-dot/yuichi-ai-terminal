@@ -2019,7 +2019,7 @@ with watchlist_tab:
                 "1 Day %": round(pct, 2)
             }
         )
-
+    st.write(rows)
     watchlist_df = pd.DataFrame(rows)
 
     watchlist_df = watchlist_df.dropna(
