@@ -200,13 +200,23 @@ for col, (label, symbol) in zip(macro_cols, macro_tickers.items()):
 
     data = yf.Ticker(symbol).history(period="5d")
 
-    if data.empty or len(data) < 2:
+    if data.empty:
         continue
 
-    latest = data["Close"].iloc[-1]
-    previous = data["Close"].iloc[-2]
+    close_prices = data["Close"].dropna()
 
-    pct_change = ((latest - previous) / previous) * 100
+    if len(close_prices) < 2:
+        continue
+
+    latest = close_prices.iloc[-1]
+    previous = close_prices.iloc[-2]
+
+    pct_change = (
+        (latest - previous)
+        / previous
+    ) * 100
+    if pd.isna(pct_change):
+    continue
 
     macro_changes[label] = pct_change
 
