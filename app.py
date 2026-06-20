@@ -215,8 +215,9 @@ for col, (label, symbol) in zip(macro_cols, macro_tickers.items()):
         (latest - previous)
         / previous
     ) * 100
+
     if pd.isna(pct_change):
-    continue
+        continue
 
     macro_changes[label] = pct_change
 
