@@ -4,3 +4,4 @@ pandas
 yfinance
 anthropic
 streamlit-autorefresh
+pytz

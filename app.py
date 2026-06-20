@@ -122,19 +122,31 @@ from datetime import time
 
 
 from datetime import datetime
+import pytz
 
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-now_hour = datetime.now().hour
+eastern = pytz.timezone("US/Eastern")
 
-if 22 <= now_hour or now_hour < 5:
+now = datetime.now(eastern)
+
+current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+weekday = now.weekday()
+
+now_hour = now.hour
+
+if weekday >= 5:
+    market_status = "🔴 MARKET CLOSED"
+    status_color = "#f87171"
+
+elif 9 <= now_hour < 16:
     market_status = "🟢 MARKET OPEN"
     status_color = "#22c55e"
 
-elif 18 <= now_hour < 22:
+elif 4 <= now_hour < 9:
     market_status = "🟡 PRE-MARKET"
     status_color = "#facc15"
 
-elif 5 <= now_hour < 9:
+elif 16 <= now_hour < 20:
     market_status = "🟠 AFTER HOURS"
     status_color = "#fb923c"
 
