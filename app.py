@@ -25,7 +25,7 @@ def format_billions(value):
 
     return f"${value/1_000_000_000:.1f}B"
 
-is_mobile = False
+is_mobile = True
 
 WATCHLIST = [
     "NVDA",
@@ -44,7 +44,7 @@ DEV_MODE = True
 
 st.set_page_config(
     page_title="Yuichi AI Terminal",
-    layout="wide",
+    layout="centered" if is_mobile else "wide",
 )
 if "active_ticker" not in st.session_state:
     st.session_state["active_ticker"] = "AAPL"
@@ -68,7 +68,7 @@ st.markdown(
         color: #e2e8f0;
     }
 
-    html, body, {
+    html, body {
         font-family: 'Courier New', monospace;
     }
 
@@ -387,10 +387,12 @@ else:
 
 st.subheader("🌎 Market Command Center")
 
-m1, m2, m3 = st.columns(
-    3,
-    gap="medium"
-)
+if is_mobile:
+    m1 = st.container()
+    m2 = st.container()
+    m3 = st.container()
+else:
+    m1, m2, m3 = st.columns(3)
 
 with m1:
     st.metric(
@@ -553,10 +555,11 @@ with dashboard_tab:
     """,
             unsafe_allow_html=True
         )
-        with summary1:
-    # =====================================================
-    # MARKET REGIME PANEL
-    # =====================================================
+    with summary1:
+
+        # =====================================================
+        # MARKET REGIME PANEL
+        # =====================================================
 
         st.markdown(
             f"""
@@ -2016,16 +2019,16 @@ with watchlist_tab:
     else:
         watch_cols = st.columns(3)
 
-for i, row in watchlist_df.iterrows():
+    for i, row in watchlist_df.iterrows():
 
-    ticker = row["Ticker"]
-    price = row["Price"]
-    pct = row["1 Day %"]
+        ticker = row["Ticker"]
+        price = row["Price"]
+        pct = row["1 Day %"]
 
-    color = "#22c55e" if pct >= 0 else "#f87171"
-    arrow = "▲" if pct >= 0 else "▼"
+        color = "#22c55e" if pct >= 0 else "#f87171"
+        arrow = "▲" if pct >= 0 else "▼"
 
-    with watch_cols[i % len(watch_cols)]:
+        with watch_cols[i % len(watch_cols)]:
 
         st.markdown(
             f"""
