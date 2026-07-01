@@ -25,6 +25,8 @@ def format_billions(value):
 
     return f"${value/1_000_000_000:.1f}B"
 
+is_mobile = False
+
 WATCHLIST = [
     "NVDA",
     "AMD",
@@ -194,7 +196,10 @@ macro_tickers = {
 
 macro_changes = {}
 
-macro_cols = st.columns(4)
+if is_mobile:
+    macro_cols = [st.container() for _ in range(4)]
+else:
+    macro_cols = st.columns(4)
 
 for col, (label, symbol) in zip(macro_cols, macro_tickers.items()):
 
@@ -376,180 +381,55 @@ elif macro_changes.get("VIX", 0) > 0:
     risk_signal = "🔴 Risk Appetite Falling"
 else:
     risk_signal = "🟡 Risk Appetite Neutral"
-
 # =====================================================
 # MARKET COMMAND CENTER
 # =====================================================
 
-st.markdown(
-    f"""
-<div style="
-background:rgba(15,23,42,0.88);
-border:1px solid {regime['color']};
-border-radius:28px;
-padding:30px;
-margin-bottom:25px;
-box-shadow:0 0 30px {regime['color']}22;
-">
+st.subheader("🌎 Market Command Center")
 
-<div style="
-color:#38bdf8;
-font-size:14px;
-font-weight:800;
-letter-spacing:2px;
-margin-bottom:25px;
-">
-🌎 MARKET COMMAND CENTER
-</div>
+m1, m2, m3 = st.columns(
+    3,
+    gap="medium"
+)
 
-<div style="
-display:flex;
-justify-content:space-between;
-gap:50px;
-">
+with m1:
+    st.metric(
+        "Current Regime",
+        regime["name"]
+    )
 
-<!-- LEFT -->
+    st.metric(
+        "Market Stress",
+        market_stress
+    )
 
-<div style="flex:1;">
+    st.metric(
+        "AI Momentum",
+        ai_momentum
+    )
 
-<div style="color:#94a3b8;font-size:12px;">
-MARKET REGIME
-</div>
+with m2:
+    st.markdown("### 📈 Market Pulse")
 
-<div style="
-font-size:40px;
-font-weight:900;
-color:{regime['color']};
-margin-bottom:20px;
-">
-{regime['name']}
-</div>
+    st.success(risk_signal)
+    st.info(btc_signal)
+    st.success(ai_signal)
+    st.info(oil_signal)
 
-<div style="color:#94a3b8;font-size:12px;">
-MARKET STRESS
-</div>
+with m3:
+    st.markdown("### 🤖 AI Take")
 
-<div style="
-font-size:26px;
-font-weight:800;
-color:#f8fafc;
-margin-bottom:20px;
-">
-{market_stress}
-</div>
-
-<div style="color:#94a3b8;font-size:12px;">
-AI MOMENTUM
-</div>
-
-<div style="
-font-size:26px;
-font-weight:800;
-color:#38bdf8;
-">
-{ai_momentum}
-</div>
-
-</div>
-
-<!-- CENTER -->
-
-<div style="flex:1;">
-
-<div style="
-color:#94a3b8;
-font-size:12px;
-margin-bottom:15px;
-">
-MARKET PULSE
-</div>
-
-<div style="
-color:#e2e8f0;
-font-size:18px;
-font-weight:700;
-margin-bottom:18px;
-">
-{risk_signal}
-</div>
-
-<div style="
-color:#e2e8f0;
-font-size:18px;
-font-weight:700;
-margin-bottom:18px;
-">
-{btc_signal}
-</div>
-
-<div style="
-color:#e2e8f0;
-font-size:18px;
-font-weight:700;
-margin-bottom:18px;
-">
-{ai_signal}
-</div>
-
-<div style="
-color:#e2e8f0;
-font-size:18px;
-font-weight:700;
-">
-{oil_signal}
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div style="flex:1;">
-
-<div style="
-color:#94a3b8;
-font-size:12px;
-margin-bottom:15px;
-">
-AI TAKE
-</div>
-
-<div style="
-color:#e2e8f0;
-font-size:16px;
-line-height:2;
-">
-
+    st.markdown("""
 • Volatility easing
-
-<br>
 
 • Bitcoin remains resilient
 
-<br>
-
 • AI infrastructure remains strong
 
-<br><br>
-
-<span style="
-color:#38bdf8;
-font-weight:800;
-">
-OUTLOOK:
-</span>
+### Outlook
 
 Neutral → Bullish
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-""",
-    unsafe_allow_html=True
-)
+""")
 # =====================================================
 # MARKET CONTEXT OBJECT
 # =====================================================
@@ -573,101 +453,107 @@ dashboard_tab, portfolio_tab, intelligence_tab, research_tab, watchlist_tab = st
     ]
 )
 with dashboard_tab:
-# =====================================================
-# EXECUTIVE SUMMARY ROW
-# =====================================================
 
-    summary1, summary2, summary3 = st.columns(3)
-# =====================================================
-# PORTFOLIO SNAPSHOT
-# =====================================================
+    # =====================================================
+    # EXECUTIVE SUMMARY ROW
+    # =====================================================
 
-portfolio_stats = calculate_portfolio()
+    if is_mobile:
+        summary1 = st.container()
+        summary2 = st.container()
+        summary3 = st.container()
+    else:
+        summary1, summary2, summary3 = st.columns(3)
+    # =====================================================
+    # PORTFOLIO SNAPSHOT
+    # =====================================================
 
-positions = portfolio_stats["positions"]
+    portfolio_stats = calculate_portfolio()
 
-largest_position = max(
-    positions,
-    key=lambda x: x["market_value"]
-)
+    positions = portfolio_stats["positions"]
 
-with summary3:
-
-    st.markdown(
-        f"""
-<div style="
-background:rgba(15,23,42,0.82);
-border:1px solid rgba(34,197,94,0.25);
-border-radius:22px;
-padding:24px;
-margin-top:20px;
-box-shadow:0 0 24px rgba(34,197,94,0.12);
-">
-
-<div style="
-color:#22c55e;
-font-size:13px;
-font-weight:700;
-letter-spacing:1px;
-margin-bottom:12px;
-">
-📊 PORTFOLIO SNAPSHOT
-</div>
-
-<div style="
-color:#f8fafc;
-font-size:34px;
-font-weight:900;
-margin-bottom:8px;
-">
-${portfolio_stats['market_value']:,.0f}
-</div>
-
-<div style="
-color:#94a3b8;
-font-size:14px;
-margin-bottom:18px;
-">
-Portfolio Value
-</div>
-
-<div style="
-color:#38bdf8;
-font-size:24px;
-font-weight:800;
-margin-bottom:6px;
-">
-{largest_position['ticker']}
-</div>
-
-<div style="
-color:#94a3b8;
-font-size:14px;
-margin-bottom:18px;
-">
-Largest Position
-</div>
-
-<div style="
-color:#22c55e;
-font-size:20px;
-font-weight:800;
-">
-${portfolio_stats['pnl']:,.0f}
-</div>
-
-<div style="
-color:#94a3b8;
-font-size:14px;
-">
-Total Gain / Loss
-</div>
-
-</div>
-""",
-        unsafe_allow_html=True
+    largest_position = max(
+        positions,
+        key=lambda x: x["market_value"]
     )
-    with summary1:
+
+    with summary3:
+
+        st.markdown(
+            f"""
+    <div style="
+    background:rgba(15,23,42,0.82);
+    border:1px solid rgba(34,197,94,0.25);
+    border-radius:22px;
+    padding:24px;
+    margin-top:20px;
+    box-shadow:0 0 24px rgba(34,197,94,0.12);
+    ">
+
+    <div style="
+    color:#22c55e;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:12px;
+    ">
+    📊 PORTFOLIO SNAPSHOT
+    </div>
+
+    <div style="
+    color:#f8fafc;
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:8px;
+    ">
+    ${portfolio_stats['market_value']:,.0f}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:14px;
+    margin-bottom:18px;
+    ">
+    Portfolio Value
+    </div>
+
+    <div style="
+    color:#38bdf8;
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:6px;
+    ">
+    {largest_position['ticker']}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:14px;
+    margin-bottom:18px;
+    ">
+    Largest Position
+    </div>
+
+    <div style="
+    color:#22c55e;
+    font-size:20px;
+    font-weight:800;
+    ">
+    ${portfolio_stats['pnl']:,.0f}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:14px;
+    ">
+    Total Gain / Loss
+    </div>
+
+    </div>
+    """,
+            unsafe_allow_html=True
+        )
+        with summary1:
     # =====================================================
     # MARKET REGIME PANEL
     # =====================================================
@@ -763,86 +649,87 @@ Total Gain / Loss
         )
 
 
+    # =====================================================
+    # AI MARKET NARRATOR LOGIC
+    # =====================================================
 
-# =====================================================
-# AI MARKET NARRATOR LOGIC
-# =====================================================
+    if DEV_MODE:
 
-if DEV_MODE:
+        oil_move = macro_changes.get("OIL", 0)
+        btc_move = macro_changes.get("BTC", 0)
+        nasdaq_move = macro_changes.get("NASDAQ", 0)
+        vix_move = macro_changes.get("VIX", 0)
 
-    oil_move = macro_changes.get("OIL", 0)
-    btc_move = macro_changes.get("BTC", 0)
-    nasdaq_move = macro_changes.get("NASDAQ", 0)
-    vix_move = macro_changes.get("VIX", 0)
+        if regime["name"] == "RISK_OFF":
 
-    if regime["name"] == "RISK_OFF":
+            market_narrative = (
+                f"Volatility remains elevated with VIX moving "
+                f"{vix_move:.1f}% while growth assets face defensive positioning."
+            )
 
-        market_narrative = (
-            f"Volatility remains elevated with VIX moving "
-            f"{vix_move:.1f}% while growth assets face defensive positioning."
-        )
+        elif regime["name"] == "RISK_ON":
 
-    elif regime["name"] == "RISK_ON":
+            market_narrative = (
+                f"Risk appetite remains constructive as NASDAQ advances "
+                f"{nasdaq_move:.1f}% and speculative activity improves."
+            )
 
-        market_narrative = (
-            f"Risk appetite remains constructive as NASDAQ advances "
-            f"{nasdaq_move:.1f}% and speculative activity improves."
-        )
+        else:
+
+            market_narrative = (
+                f"Cross-asset signals remain mixed with NASDAQ at "
+                f"{nasdaq_move:.1f}% and Bitcoin at {btc_move:.1f}%."
+            )
 
     else:
 
-        market_narrative = (
-            f"Cross-asset signals remain mixed with NASDAQ at "
-            f"{nasdaq_move:.1f}% and Bitcoin at {btc_move:.1f}%."
+        market_narrative = generate_market_brief(
+            regime,
+            market_context,
+            signals,
+            radar_data=None
         )
 
-else:
+    with summary2:
 
-    market_narrative = generate_market_brief(
-        regime,
-        market_context,
-        signals,
-        radar_data=None
-    )
-with summary2:
-    # =====================================================
-    # AI MARKET NARRATIVE PANEL
-    # =====================================================
+        # =====================================================
+        # AI MARKET NARRATIVE PANEL
+        # =====================================================
 
         st.markdown(
             f"""
-    <div class="glow" style="
-    background:rgba(15,23,42,0.72);
-    border:1px solid rgba(56,189,248,0.22);
-    border-radius:22px;
-    padding:24px;
-    margin-top:20px;
-    margin-bottom:28px;
-    box-shadow:0 0 28px rgba(56,189,248,0.10);
-    ">
+<div class="glow" style="
+background:rgba(15,23,42,0.72);
+border:1px solid rgba(56,189,248,0.22);
+border-radius:22px;
+padding:24px;
+margin-top:20px;
+margin-bottom:28px;
+box-shadow:0 0 28px rgba(56,189,248,0.10);
+">
 
-    <div style="
-    color:#38bdf8;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:1px;
-    margin-bottom:14px;
-    ">
-    AI MARKET NARRATIVE
-    </div>
+<div style="
+color:#38bdf8;
+font-size:14px;
+font-weight:700;
+letter-spacing:1px;
+margin-bottom:14px;
+">
+AI MARKET NARRATIVE
+</div>
 
-    <div style="
-    color:#e2e8f0;
-    font-size:20px;
-    line-height:1.8;
-    ">
-    {market_narrative}
-    </div>
+<div style="
+color:#e2e8f0;
+font-size:20px;
+line-height:1.8;
+">
+{market_narrative}
+</div>
 
-    </div>
-    """,
-        unsafe_allow_html=True
-    )
+</div>
+""",
+            unsafe_allow_html=True
+        )
 
         # =====================================================
         # AI SCORE ENGINE
@@ -850,7 +737,12 @@ with summary2:
 
         with st.expander("🧠 AI Score Engine"):
 
-            score1, score2, score3 = st.columns(3)
+            if is_mobile:
+                score1 = st.container()
+                score2 = st.container()
+                score3 = st.container()
+            else:
+                score1, score2, score3 = st.columns(3)
 
             with score1:
                 st.metric(
@@ -881,9 +773,7 @@ with summary2:
             st.dataframe(
                 history.tail(30),
                 use_container_width=True
-            )
-
-   
+            )  
 with portfolio_tab:
     # =====================================================
     # PORTFOLIO DATA
@@ -899,7 +789,13 @@ with portfolio_tab:
 
     st.subheader("💰 Portfolio Summary")
 
-    c1, c2, c3, c4 = st.columns(4)
+    if is_mobile:
+        c1 = st.container()
+        c2 = st.container()
+        c3 = st.container()
+        c4 = st.container()
+    else:
+        c1, c2, c3, c4 = st.columns(4)
 
     with c1:
         st.metric(
@@ -940,8 +836,11 @@ with portfolio_tab:
             positions,
             key=lambda x: x["pnl"]
         )
-
-        winner_col, loser_col = st.columns(2)
+        if is_mobile:
+            winner_col = st.container()
+            loser_col = st.container()
+        else:
+            winner_col, loser_col = st.columns(2)
 
         with winner_col:
 
@@ -1305,7 +1204,10 @@ ${market_cap/1_000_000_000_000:.2f}T Market Cap
 """,
         unsafe_allow_html=True
     )
-    popular = st.columns(6)
+    if is_mobile:
+        popular = [st.container() for _ in range(6)]
+    else:
+        popular = st.columns(6)
 
     tickers = [
         "AAPL",
@@ -1381,7 +1283,13 @@ ${market_cap/1_000_000_000_000:.2f}T Market Cap
     else:
         conclusion = "Neutral"
         conclusion_color = "#facc15"
-    a1, a2, a3, a4 = st.columns(4)
+    if is_mobile:
+        a1 = st.container()
+        a2 = st.container()
+        a3 = st.container()
+        a4 = st.container()
+    else:
+        a1, a2, a3, a4 = st.columns(4)
 
     with a1:
         st.markdown(
@@ -1523,7 +1431,13 @@ ${market_cap/1_000_000_000_000:.2f}T Market Cap
     for col, symbol in zip(popular, tickers):
         if col.button(symbol):
             st.session_state["active_ticker"] = symbol
-    c1, c2, c3, c4 = st.columns(4)
+    if is_mobile:
+        c1 = st.container()
+        c2 = st.container()
+        c3 = st.container()
+        c4 = st.container()
+    else:
+        c1, c2, c3, c4 = st.columns(4)
 
     cards = [
         (
@@ -1888,7 +1802,11 @@ GRADE {grade}
 
         net_income = quarterly.loc["Net Income"].iloc[0]
 
-        f1, f2 = st.columns(2)
+        if is_mobile:
+            f1 = st.container()
+            f2 = st.container()
+        else:
+            f1, f2 = st.columns(2)
 
         with f1:
             st.metric(
@@ -1933,7 +1851,11 @@ GRADE {grade}
             "Total Debt"
         ].iloc[0]
 
-        b1, b2 = st.columns(2)
+        if is_mobile:
+            b1 = st.container()
+            b2 = st.container()
+        else:
+            b1, b2 = st.columns(2)
 
         with b1:
             st.metric(
@@ -1980,7 +1902,11 @@ GRADE {grade}
             "Free Cash Flow"
         ].iloc[0]
 
-        cf1, cf2 = st.columns(2)
+        if is_mobile:
+            cf1 = st.container()
+            cf2 = st.container()
+        else:
+            cf1, cf2 = st.columns(2)
 
         with cf1:
             st.metric(
@@ -2066,7 +1992,11 @@ with watchlist_tab:
         watchlist_df["1 Day %"].idxmin()
     ]
 
-    w1, w2 = st.columns(2)
+    if is_mobile:
+        w1 = st.container()
+        w2 = st.container()
+    else:
+        w1, w2 = st.columns(2)
 
     with w1:
         st.metric(
@@ -2081,7 +2011,10 @@ with watchlist_tab:
             weakest["Ticker"],
             f"{weakest['1 Day %']}%"
         )
-    watch_cols = st.columns(3)
+    if is_mobile:
+        watch_cols = [st.container()]
+    else:
+        watch_cols = st.columns(3)
 
 for i, row in watchlist_df.iterrows():
 
@@ -2092,7 +2025,7 @@ for i, row in watchlist_df.iterrows():
     color = "#22c55e" if pct >= 0 else "#f87171"
     arrow = "▲" if pct >= 0 else "▼"
 
-    with watch_cols[i % 3]:
+    with watch_cols[i % len(watch_cols)]:
 
         st.markdown(
             f"""
