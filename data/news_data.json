@@ -1,82 +1,82 @@
 [
     {
-        "headline": "Fed Chair Warsh Signals Possible Rate Hike, Triggers Worst New-Chair \"Fed Day\" Since 1994",
-        "source": "CNBC",
-        "category": "Fed & Macro",
-        "summary": "In Kevin Warsh's first meeting as chairman, the Fed's statement was revamped to be dramatically shorter and removed key language indicating a bias toward future cuts. Stocks fell and Treasury yields surged as investors grew uncertain over monetary policy, with the Dow dropping 507 points, the S&P 500 losing 1.21%, and the Nasdaq shedding 1.34%.",
-        "impact": "High",
-        "why": "A hawkish pivot from the new Fed chair directly raises borrowing costs and pressures equity valuations across all sectors.",
-        "portfolio": "Higher rates compress growth-stock multiples, posing near-term headwinds for Tesla, Nvidia, Meta, and Palantir, all of which trade at elevated P/E ratios.",
-        "vocab": "hawkish — favoring tighter monetary policy and higher interest rates; dot plot — Fed chart showing officials' anonymous interest rate forecasts; benchmark rate — the key reference interest rate set by a central bank"
-    },
-    {
-        "headline": "Strait of Hormuz Peace Deal Struck, But Oil Flow Recovery Could Take Weeks",
-        "source": "PBS NewsHour / Al Jazeera",
-        "category": "Geopolitics",
-        "summary": "President Trump announced he had authorized the toll-free reopening of the Strait of Hormuz and the immediate removal of the U.S. naval blockade of Iranian ports. Even as oil prices dropped, many questions remained about when flow would resume, as the strait previously carried a fifth of the world's crude oil, and hundreds of trapped ships plus throttled-back Gulf producers will need time to restart.",
-        "impact": "High",
-        "why": "Reopening the world's most critical oil chokepoint directly determines global energy prices, inflation, and the Fed's rate path.",
-        "portfolio": "Falling oil prices ease energy-cost pressures for Tesla's manufacturing and logistics, while copper-related miners may benefit from recovering global trade flows through the strait.",
-        "vocab": "chokepoint — a narrow strategic waterway critical to global shipping; memorandum of understanding — a non-binding agreement outlining terms between parties; shut-in — the halting of oil well production, often due to lack of storage"
-    },
-    {
-        "headline": "SpaceX Surges 19% in History's Largest-Ever IPO Debut",
-        "source": "NPR / CNN Business",
+        "headline": "Tesla Stock Plunges 7.5% Despite Record Q2 Deliveries of 480,126 Vehicles",
+        "source": "CNBC / Forbes",
         "category": "Tesla & Elon",
-        "summary": "SpaceX stock, listed on the Nasdaq under SPCX, rose 19% on its first day of trading to close at $160.95, becoming one of the world's biggest listed companies with a valuation above $2 trillion. SpaceX had priced its IPO at $135 per share, giving it an initial market capitalization of $1.77 trillion — making it the largest IPO on record.",
+        "summary": "Tesla reported 480,126 deliveries and vehicle production of 451,758 for Q2, far exceeding the Wall Street consensus estimate of 406,024. Shares sank 7.49% despite the strong report — the stock's worst day in almost a year — and have fallen on each of the past three quarterly delivery reports.",
         "impact": "High",
-        "why": "SpaceX's $2+ trillion public debut reshapes the Musk empire's capital structure and raises questions about focus and resources at Tesla.",
-        "portfolio": "SpaceX's IPO success as the sixth-largest publicly traded U.S. company amplifies Musk's influence, but investors are watching whether attention shifts away from Tesla's product roadmap.",
-        "vocab": "IPO — Initial Public Offering, the first sale of a company's stock to the public; market capitalization — total market value of a company's outstanding shares; greenshoe — an overallotment option allowing underwriters to issue additional shares post-IPO"
+        "why": "A classic \"buy the rumor, sell the news\" selloff on record deliveries raises questions about margin quality and the sustainability of Tesla's recovery.",
+        "portfolio": "TSLA closed at $393.45; with Q2 earnings due July 22, investors should watch for margin guidance and Robotaxi ramp commentary before adding to positions.",
+        "vocab": "deliveries — the number of vehicles handed over to customers, used as Tesla's closest approximation of sales; buy-the-rumor — investor behavior of selling a stock after an anticipated positive event occurs; margin — the percentage of revenue remaining after production costs, a key profitability metric"
     },
     {
-        "headline": "Musk Exercises $116 Billion Tesla Options in One of Largest Single Transactions in Corporate History",
-        "source": "Electrek / Teslarati",
+        "headline": "Tesla's Fatal Semi Crash and Michael Burry Short Add Pressure to Already Volatile TSLA",
+        "source": "Forbes / TipRanks",
         "category": "Tesla & Elon",
-        "summary": "A Form 4 filed with the SEC on June 17, 2026 disclosed that Musk exercised 303,960,630 Tesla stock options from his 2018 compensation package, with no shares sold on the open market. He exercised the options at a split-adjusted strike price of $23.34, with Tesla at $404.66, generating roughly $115.9 billion in paper gains; Tesla withheld shares through a net share settlement, meaning Musk paid nothing out of pocket.",
+        "summary": "Tesla's positive sales numbers came only days after the company's electric Semi truck was involved in its first recorded fatal crash, with two people killed after the truck collided with a Volkswagen Beetle near Tesla's Nevada gigafactory. At least one prominent investor has taken a bearish stance — Michael Burry, the investor who famously predicted the subprime mortgage crisis, revealed he took a short position in Tesla.",
         "impact": "High",
-        "why": "Musk's dramatically increased ownership stake in Tesla raises corporate governance questions and fuels speculation about a potential Tesla-SpaceX merger.",
-        "portfolio": "Tesla investors should note Musk's ownership rising to ~20% with a 5-year lockup, reducing near-term sell-off risk but intensifying scrutiny of dual-company leadership.",
-        "vocab": "net share settlement — paying for stock option exercises using withheld shares rather than cash; Form 4 — an SEC filing disclosing insider transactions in a company's securities; restricted stock — shares subject to vesting conditions and lockup periods before they can be sold"
+        "why": "A fatality involving the Tesla Semi and a high-profile short position from Michael Burry compound negative sentiment just ahead of Q2 earnings.",
+        "portfolio": "TSLA holders face dual headwinds — regulatory scrutiny of the Semi program and short-seller pressure — both likely weighing on valuation into the July 22 earnings report.",
+        "vocab": "short position — a bet that a stock's price will fall, executed by borrowing and selling shares; regulatory scrutiny — government investigation into a company's compliance with safety rules; gigafactory — Tesla's term for its large-scale battery and vehicle manufacturing plants"
     },
     {
-        "headline": "Tesla Converts Fremont Factory from Model S/X to Optimus Robot Production",
-        "source": "Robozaps",
+        "headline": "Tesla Optimus V3 Production Set to Begin at Fremont This Month as Musk Walks the Line",
+        "source": "Teslarati / Electrek",
         "category": "Tesla & Elon",
-        "summary": "Tesla announced on its Q4 2025 earnings call that both the Model S sedan and Model X SUV will cease production in Q2 2026 to free up manufacturing capacity at its Fremont, California factory — not for a new electric vehicle, but for Optimus humanoid robots. On-site staff at a Shanghai electronics show reportedly stated that mass production of the robot could begin by end of 2026, with Tesla's initial Fremont production line targeting up to 1 million units annually.",
+        "summary": "Musk shared a photo of himself walking the Optimus production line at Fremont, where Tesla is converting former Model S/X manufacturing space, with limited production slated to begin in late July or August 2026. The new Optimus V3 is powered by Tesla's AI5 chip — offering roughly 5× the memory bandwidth of its predecessor — with a long-term public price target of $20,000–$30,000, though current build costs remain far higher.",
         "impact": "High",
-        "why": "Tesla's strategic pivot from legacy EVs to humanoid robotics signals where future revenue growth — and investor risk — is concentrated.",
-        "portfolio": "Tesla bulls should monitor Optimus production ramp milestones closely, as Wall Street projects negative free cash flow of ~$5.19 billion for Tesla in 2026 specifically in anticipation of Optimus revenue returns.",
-        "vocab": "capex — capital expenditure, funds spent on acquiring or upgrading physical assets; production ramp — the process of scaling up manufacturing volume over time; free cash flow — operating cash remaining after capital expenditures"
+        "why": "The imminent start of Optimus humanoid robot production at Fremont marks Tesla's most significant strategic pivot since its founding, with trillion-dollar market implications if it scales.",
+        "portfolio": "TSLA investors should treat summer 2026 Optimus production milestones as the single biggest catalyst for a re-rating of the stock toward Wedbush's $2 trillion market cap target.",
+        "vocab": "humanoid robot — a bipedal machine designed to perform tasks in human-built environments; production ramp — the gradual scale-up of manufacturing output from initial units to mass volume; re-rating — a market reassessment of a stock's valuation multiple, typically driven by a new business catalyst"
     },
     {
-        "headline": "Anthropic and Google DeepMind Call for U.S.-Led AI Coalition at G7 Summit",
-        "source": "CNBC / The Next Web",
+        "headline": "SpaceX Congressional Stock Trades Surface After Record $75B IPO",
+        "source": "CNBC / Briefs",
         "category": "Big Tech",
-        "summary": "Anthropic CEO Dario Amodei and Google DeepMind's Demis Hassabis used a closed-door G7 lunch to call for a U.S.-led coalition to shape international AI rules and standards, with Canadian Prime Minister Mark Carney agreeing to U.S. leadership. Meanwhile, Chinese Foreign Minister Wang Yi separately called for a global AI cooperation organization open to all countries, presenting a competing framework to the U.S.-led model.",
+        "summary": "Two members of Congress — Rep. Dan Meuser, R-Pa., and Rep. Gil Cisneros, D-Calif. — have disclosed that they or their family members bought SpaceX stock in the days after the company's historic initial public offering. SpaceX raised roughly $75 billion in the largest IPO on record, with shares opening at $150 and quickly pushing the company's market value past $2 trillion.",
         "impact": "High",
-        "why": "A coordinated U.S.-led AI governance framework would directly shape chip export rules, model access, and the competitive landscape for all major AI companies.",
-        "portfolio": "A U.S.-led AI coalition with coordinated chip export controls to China is directly relevant to Nvidia's international revenue and Palantir's government AI contracts.",
-        "vocab": "export controls — government restrictions on the sale of specific technologies to foreign nations; AI governance — frameworks of rules and oversight for the development and deployment of artificial intelligence; coalition — an alliance of parties united around a common goal"
+        "why": "Lawmakers buying SpaceX stock while sitting on oversight committees fuels the congressional trading debate and could trigger SEC scrutiny of the world's largest-ever IPO.",
+        "portfolio": "SpaceX (SPCX) currently trades at $162, up 8% from its $150 open but 20% below its June peak — investors weighing entry should monitor the upcoming wave of additional STOCK Act disclosures.",
+        "vocab": "STOCK Act — a 2012 law requiring members of Congress to publicly disclose securities transactions within 45 days; IPO — Initial Public Offering, when a private company first sells shares to the public; market cap — the total market value of a company's outstanding shares"
     },
     {
-        "headline": "Stock Futures Rise as Markets Partially Recover from Fed Shock; Chip Stocks Lead",
-        "source": "Trading Economics / Charles Schwab",
-        "category": "US Markets",
-        "summary": "U.S. equity futures rebounded on Thursday to erase Wednesday's losses as chip producers extended their rally and markets reconsidered rate-hike risks, with S&P 500 contracts up 1% and Nasdaq 100 contracts gaining 2%. Intel shares surged more than 10% after the U.S. President said the chipmaker struck a deal with Apple, while Micron rose 8% and Nvidia was 2% higher.",
-        "impact": "Medium",
-        "why": "The rebound in chip stocks and easing Treasury yields suggest markets are recalibrating — not panicking — over the hawkish Fed shift, a key signal for risk appetite.",
-        "portfolio": "Nvidia rose 2% to trim Wednesday's losses, while Intel surged 10%+ on an Apple chip deal, making both directly relevant to Nvidia and Apple portfolio positions.",
-        "vocab": "futures contracts — agreements to buy or sell an asset at a predetermined price on a future date; basis points — units of measure for interest rates, where 100 basis points equals 1%; yield curve — a graph showing interest rates across different bond maturities"
+        "headline": "Iran Holds Six-Day State Funeral for Khamenei as Hormuz Shipping Threats Rattle Markets",
+        "source": "Time / CryptoBriefing",
+        "category": "Geopolitics",
+        "summary": "Massive funeral processions for Ayatollah Ali Khamenei commenced on July 3–4, with burial scheduled for July 9, drawing officials from 100 countries. The funeral processions are unfolding against the backdrop of U.S.-Iran talks, while Iran warned vessels to use only designated shipping lanes through the Strait of Hormuz or face a \"forceful response.\"",
+        "impact": "High",
+        "why": "Iranian warnings about the Strait of Hormuz — through which roughly 20% of the world's oil flows — keep energy and commodity markets on edge as ceasefire negotiations with the U.S. continue.",
+        "portfolio": "Copper and energy-exposed portfolios remain vulnerable to Hormuz disruption risk; oil's retreat to ~$67/barrel from $90+ in June suggests some relief, but any ceasefire breakdown could rapidly reverse those gains.",
+        "vocab": "Strait of Hormuz — a critical maritime chokepoint between the Persian Gulf and the Gulf of Oman through which a large share of global oil transits; ceasefire — a temporary halt to military hostilities; geopolitical risk premium — the extra cost priced into assets such as oil to reflect the possibility of conflict"
     },
     {
-        "headline": "Tesla Integrates Grok AI Into Full Self-Driving as Optimus Gen 3 Enters 24/7 Industrial Shift Tests",
-        "source": "Teslarati / Optimusk.blog",
-        "category": "Tesla & Elon",
-        "summary": "Tesla plans to allow drivers to control Full Self-Driving navigation more explicitly using Grok in approximately three months, targeting around September, CEO Elon Musk confirmed on X. As of June 2026, Optimus Gen 3 hands are in their first 24/7 industrial shift tests , with the first concrete performance data expected at Tesla's upcoming Q2 earnings call.",
+        "headline": "Weak June Jobs Report Crushes Fed Rate-Hike Odds, Stocks Cheer",
+        "source": "CNBC / Benzinga",
+        "category": "Fed & Macro",
+        "summary": "Nonfarm payrolls for June increased by just 57,000 — slower than the downwardly revised 129,000 in May and worse than the 115,000 consensus forecast — while the unemployment rate dropped to 4.2%, largely due to a slump in labor force participation to 61.5%, the lowest since March 2021. According to the CME FedWatch Tool, the probability of a rate hike at the Fed's July 29 meeting collapsed to about 22%, with a hold now the overwhelming favorite at 78%.",
+        "impact": "High",
+        "why": "A sharp miss in job creation reduces the probability of a July Fed hike, providing relief to rate-sensitive equities — but stagflation risks persist as inflation still runs above wages.",
+        "portfolio": "A rate-hold environment benefits growth stocks including Nvidia, Meta, and Palantir; Apple's 4.84% gain on the day suggests large-cap tech is the immediate beneficiary of easing hike expectations.",
+        "vocab": "nonfarm payrolls — the monthly count of U.S. jobs added outside the agricultural sector; stagflation — an economic condition combining slow growth, high inflation, and elevated unemployment; FedWatch Tool — a CME Group tracker showing market-implied probabilities of Federal Reserve rate decisions"
+    },
+    {
+        "headline": "U.S. Proposes Fresh Tariffs of Up to 12.5% on 60 Countries Over Forced Labor; Hearings Begin July 7",
+        "source": "CNBC / Forbes / USTR",
+        "category": "Geopolitics",
+        "summary": "The Office of the U.S. Trade Representative has proposed additional tariffs of up to 12.5% on imports from 60 economies over their failure to ban goods made with forced labor, finding that all 60 countries had failed to enforce a prohibition, creating what it called an \"unlevel playing field\" for American workers. The public comment deadline is July 6, 2026, with USTR hearings scheduled to begin July 7.",
+        "impact": "High",
+        "why": "This sweeping Section 301 tariff action targeting nearly all of America's major trading partners — including the EU, China, and India — could reshape global supply chains and reignite trade tensions heading into Q3.",
+        "portfolio": "Apple's complex global supply chain running through China and India makes it highly exposed to any final tariff action; copper-related investments also face headwinds if tariffs slow industrial demand.",
+        "vocab": "Section 301 — a provision of U.S. trade law authorizing tariffs in response to foreign trade practices deemed unfair or discriminatory; tariff — a tax imposed on imported goods; supply chain — the full network of producers, suppliers, and logistics involved in delivering a product to market"
+    },
+    {
+        "headline": "Macron and Modi Court AI Giants With Billions in Data Center Deals as Global Race Intensifies",
+        "source": "CNBC / AIC / Artiverse",
+        "category": "Big Tech",
+        "summary": "Countries are scrambling not to fall behind in AI, with French President Emmanuel Macron and Indian Prime Minister Narendra Modi leading personal charm offensives to court leaders of the world's biggest tech companies. Macron personally convinced SoftBank's Masayoshi Son to invest tens of billions into French AI data centers, while Modi welcomed Amazon's \"record $48 billion investment\" in India, of which $21 billion will go toward AI and cloud infrastructure.",
         "impact": "Medium",
-        "why": "Grok-powered FSD and round-the-clock Optimus factory tests represent the dual pillars of Tesla's AI monetization strategy, critical to long-term valuation.",
-        "portfolio": "Tesla investors should watch September as the target date for Grok-FSD integration, while Optimus Gen 3 industrial test data expected at the Q2 2026 earnings call in July will be a key catalyst.",
-        "vocab": "FSD — Full Self-Driving, Tesla's advanced driver-assistance and autonomous navigation software; industrial shift test — continuous around-the-clock operational testing of machinery in a factory environment; AI training — the process of feeding real-world data to machine learning models to improve their performance"
+        "why": "France and India are locking in hundreds of billions in AI infrastructure commitments from U.S. tech giants, accelerating a global competition for data center dominance that directly drives demand for chips, power, and copper.",
+        "portfolio": "Meta, Nvidia, and copper-related investments all benefit from the accelerating AI data center buildout; Amazon's $48B India commitment is a direct capex signal supporting Nvidia's data center revenue outlook.",
+        "vocab": "data center — a facility housing computer servers and networking equipment used to store, process, and transmit data; capex — capital expenditure, funds spent by a company on major physical assets; AI infrastructure — the hardware, power, and connectivity systems required to train and run artificial intelligence models"
     }
 ]

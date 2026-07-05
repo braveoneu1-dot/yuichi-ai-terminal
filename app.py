@@ -25,7 +25,7 @@ def format_billions(value):
 
     return f"${value/1_000_000_000:.1f}B"
 
-is_mobile = True
+is_mobile = False
 
 WATCHLIST = [
     "NVDA",
@@ -2030,45 +2030,45 @@ with watchlist_tab:
 
         with watch_cols[i % len(watch_cols)]:
 
-        st.markdown(
-            f"""
-<div style="
-background:rgba(15,23,42,0.88);
-border:1px solid {color};
-border-radius:22px;
-padding:24px;
-margin-bottom:20px;
-text-align:center;
-box-shadow:0 0 24px {color}55;
-">
+            st.markdown(
+                f"""
+    <div style="
+    background:rgba(15,23,42,0.88);
+    border:1px solid {color};
+    border-radius:22px;
+    padding:24px;
+    margin-bottom:20px;
+    text-align:center;
+    box-shadow:0 0 24px {color}55;
+    ">
 
-<div style="
-color:#94a3b8;
-font-size:15px;
-letter-spacing:2px;
-margin-bottom:12px;
-">
-{ticker}
-</div>
+    <div style="
+    color:#94a3b8;
+    font-size:15px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+    ">
+    {ticker}
+    </div>
 
-<div style="
-color:#f8fafc;
-font-size:34px;
-font-weight:900;
-margin-bottom:10px;
-">
-${price:.2f}
-</div>
+    <div style="
+    color:#f8fafc;
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:10px;
+    ">
+    ${price:.2f}
+    </div>
 
-<div style="
-color:{color};
-font-size:24px;
-font-weight:800;
-">
-{arrow} {pct:.2f}%
-</div>
+    <div style="
+    color:{color};
+    font-size:24px;
+    font-weight:800;
+    ">
+    {arrow} {pct:.2f}%
+    </div>
 
-</div>
-""",
-            unsafe_allow_html=True
-        )
+    </div>
+    """,
+                unsafe_allow_html=True,
+            )
