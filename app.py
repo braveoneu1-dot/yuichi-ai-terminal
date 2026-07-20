@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import yfinance as yf
 import json
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from streamlit_autorefresh import st_autorefresh
 
 from core.regime_engine import (
@@ -398,21 +398,25 @@ with calendar_col:
 
     st.markdown("### 📅 Market Calendar")
 
+    from datetime import date, timedelta
+
+    today = date.today()
+
     events = [
         {
-            "date": "Jul 16",
+            "date": (today + timedelta(days=1)).strftime("%b %d"),
             "event": "US CPI",
             "level": "🔴 Critical",
             "days": "Tomorrow"
         },
         {
-            "date": "Jul 23",
+            "date": (today + timedelta(days=8)).strftime("%b %d"),
             "event": "Tesla Earnings",
             "level": "🟠 High",
             "days": "8 Days"
         },
         {
-            "date": "Jul 30",
+            "date": (today + timedelta(days=15)).strftime("%b %d"),
             "event": "FOMC Decision",
             "level": "🔴 Critical",
             "days": "15 Days"
