@@ -497,6 +497,42 @@ event on the calendar, with interest rate guidance
 expected to drive market direction.
 """
     )
+    st.markdown("### 💼 Portfolio Impact")
+
+    st.markdown(
+        """
+<div style="
+background:rgba(15,23,42,0.75);
+border:1px solid rgba(56,189,248,0.25);
+border-radius:16px;
+padding:16px;
+margin-top:18px;
+">
+
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+<span style="color:#f8fafc;font-weight:700;">TSLA</span>
+<span style="color:#ef4444;font-weight:700;">HIGH</span>
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+<span style="color:#f8fafc;font-weight:700;">NVDA</span>
+<span style="color:#ef4444;font-weight:700;">HIGH</span>
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+<span style="color:#f8fafc;font-weight:700;">META</span>
+<span style="color:#facc15;font-weight:700;">MEDIUM</span>
+</div>
+
+<div style="display:flex;justify-content:space-between;">
+<span style="color:#f8fafc;font-weight:700;">AAPL</span>
+<span style="color:#facc15;font-weight:700;">MEDIUM</span>
+</div>
+
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 # =====================================================
 # MARKET CONTEXT OBJECT
 # =====================================================
