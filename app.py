@@ -392,25 +392,87 @@ if is_mobile:
     m2 = st.container()
     m3 = st.container()
 else:
-    m1, m2, m3 = st.columns(3)
+    calendar_col, pulse_col, ai_col = st.columns([1.2, 1, 1.3])
+    
+with calendar_col:
 
-with m1:
-    st.metric(
-        "Current Regime",
-        regime["name"]
-    )
+    st.markdown("### 📅 Market Calendar")
 
-    st.metric(
-        "Market Stress",
-        market_stress
-    )
+    events = [
+        {
+            "date": "Jul 16",
+            "event": "US CPI",
+            "level": "🔴 Critical",
+            "days": "Tomorrow"
+        },
+        {
+            "date": "Jul 23",
+            "event": "Tesla Earnings",
+            "level": "🟠 High",
+            "days": "8 Days"
+        },
+        {
+            "date": "Jul 30",
+            "event": "FOMC Decision",
+            "level": "🔴 Critical",
+            "days": "15 Days"
+        },
+    ]
 
-    st.metric(
-        "AI Momentum",
-        ai_momentum
-    )
+    for event in events:
 
-with m2:
+        st.markdown(
+    f"""
+<div style="
+background:rgba(15,23,42,0.75);
+border:1px solid rgba(56,189,248,0.25);
+border-radius:16px;
+padding:14px;
+margin-bottom:12px;
+">
+
+<div style="
+color:#38bdf8;
+font-size:13px;
+font-weight:700;
+">
+{event['date']}
+</div>
+
+<div style="
+color:#f8fafc;
+font-size:18px;
+font-weight:700;
+margin-top:4px;
+">
+{event['event']}
+</div>
+
+<div style="
+color:#94a3b8;
+font-size:13px;
+margin-top:8px;
+">
+⏳ {event['days']}
+</div>
+
+<div style="
+color:#facc15;
+font-size:14px;
+font-weight:700;
+margin-top:6px;
+">
+{event['level']}
+</div>
+
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+
+
+with pulse_col:
     st.markdown("### 📈 Market Pulse")
 
     st.success(risk_signal)
@@ -418,20 +480,23 @@ with m2:
     st.success(ai_signal)
     st.info(oil_signal)
 
-with m3:
-    st.markdown("### 🤖 AI Take")
+with ai_col:
 
-    st.markdown("""
-• Volatility easing
+    st.markdown("### 🤖 AI Calendar Insight")
 
-• Bitcoin remains resilient
+    st.markdown(
+        """
+Markets enter a critical week with inflation data
+taking center stage.
 
-• AI infrastructure remains strong
+A softer CPI reading would likely support
+growth stocks such as Tesla, Nvidia and Meta.
 
-### Outlook
-
-Neutral → Bullish
-""")
+The FOMC meeting remains the largest volatility
+event on the calendar, with interest rate guidance
+expected to drive market direction.
+"""
+    )
 # =====================================================
 # MARKET CONTEXT OBJECT
 # =====================================================
