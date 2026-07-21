@@ -36,6 +36,79 @@ WATCHLIST = [
     "TSLA"
 ]
 
+
+def load_market_calendar():
+    calendar_file = "data/market_calendar.json"
+
+    fallback_events = [
+        {
+            "date": (date.today() + timedelta(days=1)).isoformat(),
+            "event": "US CPI",
+            "type": "Inflation",
+            "level": "Critical",
+            "assets": "Stocks - Bonds - USD"
+        },
+        {
+            "date": (date.today() + timedelta(days=8)).isoformat(),
+            "event": "Tesla Earnings",
+            "type": "Earnings",
+            "level": "High",
+            "assets": "TSLA - EVs - Nasdaq"
+        },
+        {
+            "date": (date.today() + timedelta(days=15)).isoformat(),
+            "event": "FOMC Decision",
+            "type": "Federal Reserve",
+            "level": "Critical",
+            "assets": "Rates - Growth - Dollar"
+        },
+    ]
+
+    try:
+        with open(calendar_file, "r") as f:
+            events = json.load(f)
+    except Exception:
+        events = fallback_events
+
+    normalized_events = []
+
+    for event in events:
+        event_date = datetime.strptime(event["date"], "%Y-%m-%d").date()
+        days_away = (event_date - date.today()).days
+
+        if days_away < 0:
+            continue
+        elif days_away == 0:
+            days_label = "Today"
+        elif days_away == 1:
+            days_label = "Tomorrow"
+        else:
+            days_label = f"{days_away} Days"
+
+        normalized_events.append({
+            "date": event_date.strftime("%b %d"),
+            "event": event.get("event", "Market Event"),
+            "type": event.get("type", "Macro"),
+            "level": event.get("level", "Medium"),
+            "days": days_label,
+            "assets": event.get("assets", "Stocks - Bonds - USD"),
+        })
+
+    return normalized_events[:4]
+
+
+def impact_badge(level):
+    level_lower = level.lower()
+
+    if "critical" in level_lower:
+        return "🔴 Critical", "#ef4444"
+    if "high" in level_lower:
+        return "🟠 High", "#f59e0b"
+    if "medium" in level_lower:
+        return "🟡 Medium", "#facc15"
+
+    return "🟢 Low", "#22c55e"
+
 # =====================================================
 # DEV MODE
 # =====================================================
@@ -398,35 +471,14 @@ with calendar_col:
 
     st.markdown("### 📅 Market Calendar")
 
-    from datetime import date, timedelta
-
-    today = date.today()
-
-    events = [
-        {
-            "date": (today + timedelta(days=1)).strftime("%b %d"),
-            "event": "US CPI",
-            "level": "🔴 Critical",
-            "days": "Tomorrow"
-        },
-        {
-            "date": (today + timedelta(days=8)).strftime("%b %d"),
-            "event": "Tesla Earnings",
-            "level": "🟠 High",
-            "days": "8 Days"
-        },
-        {
-            "date": (today + timedelta(days=15)).strftime("%b %d"),
-            "event": "FOMC Decision",
-            "level": "🔴 Critical",
-            "days": "15 Days"
-        },
-    ]
+    events = load_market_calendar()
 
     for event in events:
 
+        impact_label, impact_color = impact_badge(event["level"])
+
         st.markdown(
-    f"""
+            f"""
 <div style="
 background:rgba(15,23,42,0.75);
 border:1px solid rgba(56,189,248,0.25);
@@ -453,6 +505,23 @@ margin-top:4px;
 </div>
 
 <div style="
+color:#38bdf8;
+font-size:13px;
+font-weight:700;
+margin-top:6px;
+">
+{event['type']}
+</div>
+
+<div style="
+color:#94a3b8;
+font-size:13px;
+margin-top:6px;
+">
+{event['assets']}
+</div>
+
+<div style="
 color:#94a3b8;
 font-size:13px;
 margin-top:8px;
@@ -461,18 +530,18 @@ margin-top:8px;
 </div>
 
 <div style="
-color:#facc15;
+color:{impact_color};
 font-size:14px;
 font-weight:700;
 margin-top:6px;
 ">
-{event['level']}
+{impact_label}
 </div>
 
 </div>
 """,
-    unsafe_allow_html=True,
-)
+            unsafe_allow_html=True,
+        )
 
 
 

@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-07-22",
+    "event": "US CPI",
+    "type": "Inflation",
+    "level": "Critical",
+    "assets": "Stocks - Bonds - USD"
+  },
+  {
+    "date": "2026-07-29",
+    "event": "Tesla Earnings",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "TSLA - EVs - Nasdaq"
+  },
+  {
+    "date": "2026-08-05",
+    "event": "FOMC Decision",
+    "type": "Federal Reserve",
+    "level": "Critical",
+    "assets": "Rates - Growth - Dollar"
+  },
+  {
+    "date": "2026-08-07",
+    "event": "US Jobs Report",
+    "type": "Labor Market",
+    "level": "High",
+    "assets": "Stocks - Bonds - USD"
+  }
+]
