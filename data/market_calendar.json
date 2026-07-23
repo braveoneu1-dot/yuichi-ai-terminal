@@ -1,30 +1,51 @@
 [
   {
-    "date": "2026-07-22",
-    "event": "US CPI",
-    "type": "Inflation",
-    "level": "Critical",
+    "date": "2026-07-23",
+    "event": "Weekly Jobless Claims",
+    "type": "Labor Market",
+    "level": "High",
     "assets": "Stocks - Bonds - USD"
   },
   {
-    "date": "2026-07-29",
-    "event": "Tesla Earnings",
+    "date": "2026-07-23",
+    "event": "Major Earnings: INTC, CMCSA, HON, LMT, TMUS",
     "type": "Earnings",
     "level": "High",
-    "assets": "TSLA - EVs - Nasdaq"
+    "assets": "Semiconductors - Industrials - Telecom"
   },
   {
-    "date": "2026-08-05",
+    "date": "2026-07-24",
+    "event": "S&P Global Flash Manufacturing PMI",
+    "type": "Business Activity",
+    "level": "Medium",
+    "assets": "Stocks - Industrials - USD"
+  },
+  {
+    "date": "2026-07-24",
+    "event": "S&P Global Flash Services PMI",
+    "type": "Business Activity",
+    "level": "Medium",
+    "assets": "Stocks - Growth - USD"
+  },
+  {
+    "date": "2026-07-24",
+    "event": "New Home Sales",
+    "type": "Housing",
+    "level": "Medium",
+    "assets": "Homebuilders - Bonds - Banks"
+  },
+  {
+    "date": "2026-07-24",
+    "event": "Major Earnings: AXP, VZ, HCA, NEE, SLB",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "Financials - Telecom - Healthcare - Energy"
+  },
+  {
+    "date": "2026-07-29",
     "event": "FOMC Decision",
     "type": "Federal Reserve",
     "level": "Critical",
     "assets": "Rates - Growth - Dollar"
-  },
-  {
-    "date": "2026-08-07",
-    "event": "US Jobs Report",
-    "type": "Labor Market",
-    "level": "High",
-    "assets": "Stocks - Bonds - USD"
   }
 ]

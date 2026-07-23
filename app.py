@@ -94,7 +94,7 @@ def load_market_calendar():
             "assets": event.get("assets", "Stocks - Bonds - USD"),
         })
 
-    return normalized_events[:4]
+    return normalized_events[:8]
 
 
 def impact_badge(level):
