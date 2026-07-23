@@ -263,10 +263,10 @@ st.markdown(
 macro_tickers = {
     "NASDAQ": "^IXIC",
     "S&P 500": "^GSPC",
-    "BTC": "BTC-USD",
+    "GOLD": "GC=F",
     "OIL": "CL=F",
     "VIX": "^VIX",
-    "GOLD": "GC=F",
+    "BTC": "BTC-USD",
     "NVDA": "NVDA",
     "TSLA": "TSLA",
     "AAPL": "AAPL",
