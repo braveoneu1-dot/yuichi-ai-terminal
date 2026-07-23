@@ -262,72 +262,89 @@ st.markdown(
 
 macro_tickers = {
     "NASDAQ": "^IXIC",
+    "S&P 500": "^GSPC",
     "BTC": "BTC-USD",
     "OIL": "CL=F",
-    "VIX": "^VIX"
+    "VIX": "^VIX",
+    "GOLD": "GC=F",
+    "NVDA": "NVDA",
+    "TSLA": "TSLA",
+    "AAPL": "AAPL",
+    "MU": "MU"
 }
 
 macro_changes = {}
 
-if is_mobile:
-    macro_cols = [st.container() for _ in range(4)]
-else:
-    macro_cols = st.columns(4)
+ticker_items = list(macro_tickers.items())
+ticker_rows = [ticker_items[i:i + 5] for i in range(0, len(ticker_items), 5)]
 
-for col, (label, symbol) in zip(macro_cols, macro_tickers.items()):
+for ticker_row in ticker_rows:
 
-    data = yf.Ticker(symbol).history(period="5d")
+    if is_mobile:
+        macro_cols = [st.container() for _ in ticker_row]
+    else:
+        macro_cols = st.columns(len(ticker_row))
 
-    if data.empty:
-        continue
+    for col, (label, symbol) in zip(macro_cols, ticker_row):
 
-    close_prices = data["Close"].dropna()
+        data = yf.Ticker(symbol).history(period="5d")
 
-    if len(close_prices) < 2:
-        continue
+        if data.empty:
+            continue
 
-    latest = close_prices.iloc[-1]
-    previous = close_prices.iloc[-2]
+        close_prices = data["Close"].dropna()
 
-    pct_change = (
-        (latest - previous)
-        / previous
-    ) * 100
+        if len(close_prices) < 2:
+            continue
 
-    if pd.isna(pct_change):
-        continue
+        latest = close_prices.iloc[-1]
+        previous = close_prices.iloc[-2]
 
-    macro_changes[label] = pct_change
+        pct_change = (
+            (latest - previous)
+            / previous
+        ) * 100
 
-    color = "#22c55e" if pct_change >= 0 else "#f87171"
+        if pd.isna(pct_change):
+            continue
 
-    arrow = "▲" if pct_change >= 0 else "▼"
+        macro_changes[label] = pct_change
 
-    with col:
+        color = "#22c55e" if pct_change >= 0 else "#f87171"
 
-        st.markdown(
-            f"""
+        arrow = "▲" if pct_change >= 0 else "▼"
+
+        with col:
+
+            st.markdown(
+                f"""
 <div style="
 background:rgba(15,23,42,0.78);
 border:1px solid {color};
 border-radius:16px;
-padding:14px;
+padding:12px 10px;
 text-align:center;
 box-shadow:0 0 18px {color}33;
+margin-bottom:12px;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
 ">
 
 <div style="
 color:{color};
-font-size:22px;
+font-size:20px;
 font-weight:800;
+line-height:1.2;
 ">
-{label} {arrow} {pct_change:.2f}%
+{label}<br>{arrow} {pct_change:.2f}%
 </div>
 
 </div>
 """,
-            unsafe_allow_html=True
-        )
+                unsafe_allow_html=True
+            )
 
 if DEV_MODE:
 
@@ -461,23 +478,25 @@ else:
 st.subheader("🌎 Market Command Center")
 
 if is_mobile:
-    m1 = st.container()
-    m2 = st.container()
-    m3 = st.container()
+    calendar_col = st.container()
+    ai_col = st.container()
 else:
-    calendar_col, pulse_col, ai_col = st.columns([1.2, 1, 1.3])
+    calendar_col, ai_col = st.columns([2.2, 1])
     
 with calendar_col:
 
     st.markdown("### 📅 Market Calendar")
 
     events = load_market_calendar()
+    calendar_grid = st.columns(2) if not is_mobile else [st.container()]
 
-    for event in events:
+    for index, event in enumerate(events):
 
         impact_label, impact_color = impact_badge(event["level"])
+        event_col = calendar_grid[index % len(calendar_grid)]
 
-        st.markdown(
+        with event_col:
+            st.markdown(
             f"""
 <div style="
 background:rgba(15,23,42,0.75);
@@ -540,18 +559,10 @@ margin-top:6px;
 
 </div>
 """,
-            unsafe_allow_html=True,
-        )
+                unsafe_allow_html=True,
+            )
 
 
-
-with pulse_col:
-    st.markdown("### 📈 Market Pulse")
-
-    st.success(risk_signal)
-    st.info(btc_signal)
-    st.success(ai_signal)
-    st.info(oil_signal)
 
 with ai_col:
 
@@ -612,9 +623,15 @@ margin-top:18px;
 
 market_context = {
     "NASDAQ": round(macro_changes.get("NASDAQ", 0), 2),
+    "S&P 500": round(macro_changes.get("S&P 500", 0), 2),
     "BTC": round(macro_changes.get("BTC", 0), 2),
     "OIL": round(macro_changes.get("OIL", 0), 2),
     "VIX": round(macro_changes.get("VIX", 0), 2),
+    "GOLD": round(macro_changes.get("GOLD", 0), 2),
+    "NVDA": round(macro_changes.get("NVDA", 0), 2),
+    "TSLA": round(macro_changes.get("TSLA", 0), 2),
+    "AAPL": round(macro_changes.get("AAPL", 0), 2),
+    "MU": round(macro_changes.get("MU", 0), 2),
     "market_stress": market_stress,
     "ai_momentum": ai_momentum,
     "tesla_sentiment": tesla_sentiment,
