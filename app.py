@@ -12,7 +12,6 @@ from core.regime_engine import (
     load_regime_history
 )
 
-from core.ai_brain import generate_market_brief
 from core.portfolio_engine import (
     load_portfolio,
     calculate_portfolio
@@ -110,10 +109,11 @@ def impact_badge(level):
     return "🟢 Low", "#22c55e"
 
 # =====================================================
-# DEV MODE
+# DEV MODE / AI COST CONTROL
 # =====================================================
 
 DEV_MODE = True
+USE_AI_MARKET_BRIEF = False
 
 st.set_page_config(
     page_title="Yuichi AI Terminal",
@@ -847,7 +847,7 @@ with dashboard_tab:
     # AI MARKET NARRATOR LOGIC
     # =====================================================
 
-    if DEV_MODE:
+    if DEV_MODE or not USE_AI_MARKET_BRIEF:
 
         oil_move = macro_changes.get("OIL", 0)
         btc_move = macro_changes.get("BTC", 0)
@@ -876,6 +876,8 @@ with dashboard_tab:
             )
 
     else:
+
+        from core.ai_brain import generate_market_brief
 
         market_narrative = generate_market_brief(
             regime,
