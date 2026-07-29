@@ -636,11 +636,10 @@ market_context = {
     "ai_momentum": ai_momentum,
     "tesla_sentiment": tesla_sentiment,
 }
-dashboard_tab, portfolio_tab, intelligence_tab, research_tab, watchlist_tab = st.tabs(
+dashboard_tab, portfolio_tab, research_tab, watchlist_tab = st.tabs(
     [
         "🌎 Dashboard",
         "💼 Portfolio",
-        "📰 Intelligence",
         "📑 Research",
         "⭐ Watchlist"
     ]
@@ -1242,89 +1241,6 @@ with portfolio_tab:
                 positions_df,
                 use_container_width=True
             )
-
-with intelligence_tab:
-    # =====================================================
-    # AI NEWS FEED
-    # =====================================================
-
-    st.subheader("📰 AI Intelligence Feed")
-
-    try:
-        with open("data/news_data.json", "r", encoding="utf-8") as f:
-            stories = json.load(f)
-
-        for story in stories:
-
-            with st.container():
-
-                st.markdown(
-                    f"""
-                    <div style="
-                        background: rgba(15, 23, 42, 0.82);
-                        border: 1px solid rgba(56, 189, 248, 0.22);
-                        border-radius: 20px;
-                        padding: 24px;
-                        margin-bottom: 24px;
-                        box-shadow: 0 0 20px rgba(56, 189, 248, 0.08);
-                    ">
-
-                    <div style="
-                        color:#38bdf8;
-                        font-size:14px;
-                        font-weight:700;
-                        letter-spacing:1px;
-                        margin-bottom:10px;
-                        text-transform:uppercase;
-                    ">
-                    {story['category']} • {story['impact']} IMPACT
-                    </div>
-
-                    <div style="
-                        color:#f8fafc;
-                        font-size:28px;
-                        font-weight:800;
-                        line-height:1.4;
-                        margin-bottom:18px;
-                    ">
-                    {story['headline']}
-                    </div>
-
-                    <div style="
-                        color:#cbd5e1;
-                        font-size:16px;
-                        line-height:1.8;
-                        margin-bottom:14px;
-                    ">
-                    <strong style="color:#38bdf8;">Why It Matters:</strong>
-                    {story['why']}
-                    </div>
-
-                    <div style="
-                        color:#facc15;
-                        font-size:16px;
-                        line-height:1.8;
-                        margin-bottom:18px;
-                    ">
-                    <strong>Portfolio Note:</strong>
-                    {story['portfolio']}
-                    </div>
-
-                    <div style="
-                        color:#e2e8f0;
-                        font-size:17px;
-                        line-height:1.9;
-                    ">
-                    {story['summary']}
-                    </div>
-
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-    except Exception as e:
-        st.error(f"Could not load AI news feed: {e}")
 
 with research_tab:
     ticker = st.session_state["active_ticker"]
