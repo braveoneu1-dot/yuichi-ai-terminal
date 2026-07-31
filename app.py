@@ -108,6 +108,68 @@ def impact_badge(level):
 
     return "🟢 Low", "#22c55e"
 
+
+def build_calendar_insight(events):
+    if not events:
+        return "No major market events are scheduled in the current calendar file."
+
+    critical_events = [
+        event for event in events
+        if event["level"].lower() == "critical"
+    ]
+    focus_events = critical_events if critical_events else events[:3]
+    top_events = ", ".join(event["event"] for event in focus_events[:3])
+
+    event_types = []
+    for event in events:
+        if event["type"] not in event_types:
+            event_types.append(event["type"])
+
+    main_types = ", ".join(event_types[:3])
+
+    return (
+        f"This week's calendar is led by {top_events}. "
+        f"The main pressure points are {main_types}, which can affect rates, "
+        f"mega-cap technology, and overall risk appetite."
+    )
+
+
+def portfolio_impact_rows(events, tickers):
+    rows = []
+
+    for ticker in tickers:
+        score = 0
+        ticker_lower = ticker.lower()
+
+        for event in events:
+            event_text = (
+                f"{event['event']} {event['type']} {event['assets']}"
+            ).lower()
+
+            if ticker_lower in event_text:
+                score += 3
+
+            if any(
+                keyword in event_text
+                for keyword in ["nasdaq", "mega-cap tech", "ai", "semiconductors"]
+            ) and ticker in ["AAPL", "MSFT", "META", "NVDA", "MU", "AMZN", "GOOG"]:
+                score += 2
+
+            if any(
+                keyword in event_text
+                for keyword in ["rates", "inflation", "federal reserve", "pce"]
+            ) and ticker in ["TSLA", "NVDA", "META", "AAPL", "AMZN", "GOOG"]:
+                score += 1
+
+        if score >= 4:
+            rows.append((ticker, "HIGH", "#ef4444"))
+        elif score >= 2:
+            rows.append((ticker, "MEDIUM", "#facc15"))
+        else:
+            rows.append((ticker, "LOW", "#22c55e"))
+
+    return rows
+
 # =====================================================
 # DEV MODE / AI COST CONTROL
 # =====================================================
@@ -568,23 +630,24 @@ with ai_col:
 
     st.markdown("### 🤖 AI Calendar Insight")
 
-    st.markdown(
-        """
-Markets enter a critical week with inflation data
-taking center stage.
-
-A softer CPI reading would likely support
-growth stocks such as Tesla, Nvidia and Meta.
-
-The FOMC meeting remains the largest volatility
-event on the calendar, with interest rate guidance
-expected to drive market direction.
-"""
-    )
+    st.markdown(build_calendar_insight(events))
     st.markdown("### 💼 Portfolio Impact")
 
+    impact_html = ""
+
+    for ticker, level, color in portfolio_impact_rows(
+        events,
+        ["TSLA", "NVDA", "META", "AAPL", "MU"]
+    ):
+        impact_html += f"""
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+<span style="color:#f8fafc;font-weight:700;">{ticker}</span>
+<span style="color:{color};font-weight:700;">{level}</span>
+</div>
+"""
+
     st.markdown(
-        """
+        f"""
 <div style="
 background:rgba(15,23,42,0.75);
 border:1px solid rgba(56,189,248,0.25);
@@ -593,25 +656,7 @@ padding:16px;
 margin-top:18px;
 ">
 
-<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-<span style="color:#f8fafc;font-weight:700;">TSLA</span>
-<span style="color:#ef4444;font-weight:700;">HIGH</span>
-</div>
-
-<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-<span style="color:#f8fafc;font-weight:700;">NVDA</span>
-<span style="color:#ef4444;font-weight:700;">HIGH</span>
-</div>
-
-<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-<span style="color:#f8fafc;font-weight:700;">META</span>
-<span style="color:#facc15;font-weight:700;">MEDIUM</span>
-</div>
-
-<div style="display:flex;justify-content:space-between;">
-<span style="color:#f8fafc;font-weight:700;">AAPL</span>
-<span style="color:#facc15;font-weight:700;">MEDIUM</span>
-</div>
+{impact_html}
 
 </div>
 """,
