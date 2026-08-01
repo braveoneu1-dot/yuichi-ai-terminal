@@ -260,7 +260,7 @@ def portfolio_impact_rows(events, tickers):
 # DEV MODE / AI COST CONTROL
 # =====================================================
 
-DEV_MODE = True
+DEV_MODE = False
 USE_AI_MARKET_BRIEF = False
 
 st.set_page_config(
@@ -986,7 +986,7 @@ with dashboard_tab:
 
 
     # =====================================================
-    # AI MARKET NARRATOR LOGIC
+    # MARKET NARRATOR LOGIC
     # =====================================================
 
     if DEV_MODE or not USE_AI_MARKET_BRIEF:
@@ -1031,7 +1031,7 @@ with dashboard_tab:
     with summary2:
 
         # =====================================================
-        # AI MARKET NARRATIVE PANEL
+        # MARKET NARRATIVE PANEL
         # =====================================================
 
         st.markdown(
@@ -1053,7 +1053,7 @@ font-weight:700;
 letter-spacing:1px;
 margin-bottom:14px;
 ">
-AI MARKET NARRATIVE
+MARKET NARRATIVE
 </div>
 
 <div style="
@@ -1068,37 +1068,6 @@ line-height:1.8;
 """,
             unsafe_allow_html=True
         )
-
-        # =====================================================
-        # AI SCORE ENGINE
-        # =====================================================
-
-        with st.expander("🧠 AI Score Engine"):
-
-            if is_mobile:
-                score1 = st.container()
-                score2 = st.container()
-                score3 = st.container()
-            else:
-                score1, score2, score3 = st.columns(3)
-
-            with score1:
-                st.metric(
-                    "Market Stress",
-                    f"{market_stress}/100"
-                )
-
-            with score2:
-                st.metric(
-                    "AI Momentum",
-                    f"{ai_momentum}/100"
-                )
-
-            with score3:
-                st.metric(
-                    "Tesla Sentiment",
-                    tesla_sentiment
-                )
 
         # =====================================================
         # REGIME HISTORY
