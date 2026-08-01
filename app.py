@@ -36,6 +36,58 @@ WATCHLIST = [
 ]
 
 
+FINANCIAL_RESULTS_LINKS = {
+    "TSLA": {
+        "name": "Tesla",
+        "category": "Company",
+        "ir": "https://ir.tesla.com/",
+        "results": "https://ir.tesla.com/",
+        "sec": "https://www.sec.gov/edgar/browse/?CIK=1318605&owner=exclude",
+        "note": "Quarterly disclosure, shareholder decks, webcast replays, and SEC filings."
+    },
+    "META": {
+        "name": "Meta Platforms",
+        "category": "Company",
+        "ir": "https://investor.atmeta.com/",
+        "results": "https://investor.atmeta.com/financials/default.aspx",
+        "sec": "https://www.sec.gov/edgar/browse/?CIK=1326801&owner=exclude",
+        "note": "Quarterly earnings, press releases, and SEC filings."
+    },
+    "PLTR": {
+        "name": "Palantir",
+        "category": "Company",
+        "ir": "https://investors.palantir.com/",
+        "results": "https://investors.palantir.com/financials/quarterly-results/default.aspx/",
+        "sec": "https://www.sec.gov/edgar/browse/?CIK=1321655&owner=exclude",
+        "note": "Quarterly results, shareholder letters, presentations, and SEC filings."
+    },
+    "AAPL": {
+        "name": "Apple",
+        "category": "Company",
+        "ir": "https://investor.apple.com/investor-relations/default.aspx",
+        "results": "https://investor.apple.com/investor-relations/default.aspx",
+        "sec": "https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude",
+        "note": "Quarterly earnings reports, financial statements, and 10-Q/10-K filings."
+    },
+    "MU": {
+        "name": "Micron Technology",
+        "category": "Company",
+        "ir": "https://investors.micron.com/",
+        "results": "https://investors.micron.com/quarterly-results",
+        "sec": "https://www.sec.gov/edgar/browse/?CIK=723125&owner=exclude",
+        "note": "Quarterly results, presentations, prepared remarks, and SEC filings."
+    },
+    "SPCX": {
+        "name": "SpaceX",
+        "category": "Private Company",
+        "ir": "https://ir.spacex.com/investors/default.aspx",
+        "results": "https://ir.spacex.com/investors/default.aspx",
+        "sec": "https://ir.spacex.com/investors/default.aspx",
+        "note": "Official SpaceX investor portal for investor updates, reports, SEC filings, and events."
+    },
+}
+
+
 def load_market_calendar():
     calendar_file = "data/market_calendar.json"
 
@@ -726,10 +778,11 @@ market_context = {
     "ai_momentum": ai_momentum,
     "tesla_sentiment": tesla_sentiment,
 }
-dashboard_tab, portfolio_tab, research_tab, watchlist_tab = st.tabs(
+dashboard_tab, portfolio_tab, financials_tab, research_tab, watchlist_tab = st.tabs(
     [
         "🌎 Dashboard",
         "💼 Portfolio",
+        "📄 Financial Results",
         "📑 Research",
         "⭐ Watchlist"
     ]
@@ -1330,6 +1383,132 @@ with portfolio_tab:
             st.dataframe(
                 positions_df,
                 use_container_width=True
+            )
+
+with financials_tab:
+
+    st.subheader("📄 Financial Results")
+
+    st.markdown(
+        """
+Official investor relations pages for your current holdings.
+Use these links for quarterly results, B/S, P&L, cash flow statements,
+earnings decks, webcasts, and SEC filings.
+"""
+    )
+
+    holdings = load_portfolio()
+    holdings_tickers = list(holdings.keys())
+
+    if is_mobile:
+        financial_cols = [st.container()]
+    else:
+        financial_cols = st.columns(2)
+
+    for i, ticker in enumerate(holdings_tickers):
+        links = FINANCIAL_RESULTS_LINKS.get(ticker)
+
+        if links is None:
+            links = {
+                "name": ticker,
+                "category": "Holding",
+                "ir": f"https://www.google.com/search?q={ticker}+investor+relations",
+                "results": f"https://www.google.com/search?q={ticker}+quarterly+results",
+                "sec": f"https://www.sec.gov/edgar/search/#/q={ticker}",
+                "note": "No official link saved yet. Search links are shown as fallback."
+            }
+
+        with financial_cols[i % len(financial_cols)]:
+
+            st.markdown(
+                f"""
+<div style="
+background:rgba(15,23,42,0.82);
+border:1px solid rgba(56,189,248,0.25);
+border-radius:18px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 0 22px rgba(56,189,248,0.08);
+">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:16px;
+margin-bottom:12px;
+">
+<div>
+<div style="color:#f8fafc;font-size:26px;font-weight:900;">{ticker}</div>
+<div style="color:#94a3b8;font-size:14px;margin-top:4px;">{links['name']}</div>
+</div>
+<div style="
+color:#38bdf8;
+font-size:12px;
+font-weight:800;
+border:1px solid rgba(56,189,248,0.28);
+border-radius:999px;
+padding:4px 10px;
+white-space:nowrap;
+">
+{links['category']}
+</div>
+</div>
+
+<div style="
+color:#cbd5e1;
+font-size:14px;
+line-height:1.7;
+margin-bottom:16px;
+">
+{links['note']}
+</div>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(3, minmax(0, 1fr));
+gap:10px;
+">
+<a href="{links['ir']}" target="_blank" style="
+text-decoration:none;
+text-align:center;
+color:#f8fafc;
+font-weight:800;
+font-size:13px;
+border:1px solid rgba(56,189,248,0.35);
+border-radius:12px;
+padding:10px 8px;
+background:rgba(2,6,23,0.45);
+">IR</a>
+
+<a href="{links['results']}" target="_blank" style="
+text-decoration:none;
+text-align:center;
+color:#f8fafc;
+font-weight:800;
+font-size:13px;
+border:1px solid rgba(34,197,94,0.35);
+border-radius:12px;
+padding:10px 8px;
+background:rgba(2,6,23,0.45);
+">Results</a>
+
+<a href="{links['sec']}" target="_blank" style="
+text-decoration:none;
+text-align:center;
+color:#f8fafc;
+font-weight:800;
+font-size:13px;
+border:1px solid rgba(250,204,21,0.35);
+border-radius:12px;
+padding:10px 8px;
+background:rgba(2,6,23,0.45);
+">SEC</a>
+</div>
+
+</div>
+""",
+                unsafe_allow_html=True,
             )
 
 with research_tab:
