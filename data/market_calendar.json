@@ -1,86 +1,86 @@
 [
   {
-    "date": "2026-07-29",
-    "event": "FOMC Policy Statement",
-    "type": "Federal Reserve",
-    "level": "Critical",
-    "assets": "Rates - Growth - Dollar"
+    "date": "2026-08-03",
+    "event": "ISM Manufacturing PMI",
+    "type": "Business Activity",
+    "level": "High",
+    "assets": "Stocks - Industrials - USD"
   },
   {
-    "date": "2026-07-29",
-    "event": "Fed Chair Warsh Press Conference",
-    "type": "Federal Reserve",
-    "level": "Critical",
-    "assets": "Rates - Bonds - Nasdaq"
-  },
-  {
-    "date": "2026-07-29",
-    "event": "Major Earnings: MSFT, META, QCOM, LRCX",
+    "date": "2026-08-03",
+    "event": "Major Earnings: PLTR, MAR, TSN, ON",
     "type": "Earnings",
-    "level": "Critical",
-    "assets": "AI - Semiconductors - Nasdaq"
+    "level": "High",
+    "assets": "AI - Travel - Consumer - Semiconductors"
   },
   {
-    "date": "2026-07-30",
-    "event": "PCE Inflation",
-    "type": "Inflation",
+    "date": "2026-08-04",
+    "event": "JOLTS Job Openings",
+    "type": "Labor Market",
     "level": "Critical",
     "assets": "Stocks - Bonds - USD"
   },
   {
-    "date": "2026-07-30",
-    "event": "Core PCE",
-    "type": "Inflation",
+    "date": "2026-08-04",
+    "event": "Major Earnings: CAT, AMD, MCD, SHOP, SPOT",
+    "type": "Earnings",
     "level": "Critical",
-    "assets": "Rates - Growth - Dollar"
+    "assets": "AI - Semiconductors - Industrials - Consumer"
   },
   {
-    "date": "2026-07-30",
-    "event": "GDP",
-    "type": "Growth",
+    "date": "2026-08-05",
+    "event": "ADP Employment Report",
+    "type": "Labor Market",
     "level": "High",
     "assets": "Stocks - Bonds - USD"
   },
   {
-    "date": "2026-07-30",
+    "date": "2026-08-05",
+    "event": "ISM Services PMI",
+    "type": "Business Activity",
+    "level": "High",
+    "assets": "Stocks - Growth - USD"
+  },
+  {
+    "date": "2026-08-05",
+    "event": "Major Earnings: UBER, DIS, LLY, GFS",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "Consumer - Healthcare - Semiconductors - Nasdaq"
+  },
+  {
+    "date": "2026-08-06",
     "event": "Weekly Jobless Claims",
     "type": "Labor Market",
     "level": "High",
     "assets": "Stocks - Bonds - USD"
   },
   {
-    "date": "2026-07-30",
-    "event": "Major Earnings: AAPL, AMZN, COIN, RDDT",
-    "type": "Earnings",
-    "level": "Critical",
-    "assets": "Mega-Cap Tech - Crypto - Nasdaq"
-  },
-  {
-    "date": "2026-07-31",
-    "event": "Employment Cost Index",
+    "date": "2026-08-06",
+    "event": "Productivity and Labor Costs",
     "type": "Labor Costs",
-    "level": "High",
+    "level": "Medium",
     "assets": "Rates - Bonds - USD"
   },
   {
-    "date": "2026-07-31",
-    "event": "Chicago Business Barometer",
-    "type": "Business Activity",
-    "level": "Medium",
-    "assets": "Stocks - Industrials - USD"
-  },
-  {
-    "date": "2026-07-31",
-    "event": "Michigan Consumer Sentiment",
-    "type": "Consumer",
-    "level": "Medium",
-    "assets": "Stocks - Retail - USD"
-  },
-  {
-    "date": "2026-07-31",
-    "event": "Major Earnings: CVX, XOM, ABBV, ETN",
+    "date": "2026-08-06",
+    "event": "Major Earnings: DDOG, ABNB, NET, TEAM, DKNG",
     "type": "Earnings",
     "level": "High",
-    "assets": "Energy - Healthcare - Industrials"
+    "assets": "Software - Cloud - Travel - Nasdaq"
+  },
+  {
+    "date": "2026-08-07",
+    "event": "Nonfarm Payrolls Report",
+    "type": "Labor Market",
+    "level": "Critical",
+    "assets": "Stocks - Bonds - USD"
+  },
+  {
+    "date": "2026-08-07",
+    "event": "Major Earnings: OKLO, TTWO, ENB, UAA",
+    "type": "Earnings",
+    "level": "Medium",
+    "assets": "Nuclear - Gaming - Energy - Consumer"
   }
 ]
