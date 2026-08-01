@@ -135,11 +135,22 @@ def build_calendar_insight(events):
 
 
 def portfolio_impact_rows(events, tickers):
+    ticker_themes = {
+        "TSLA": ["rates", "growth", "consumer", "nasdaq", "inflation"],
+        "NVDA": ["ai", "semiconductors", "nasdaq", "software", "cloud"],
+        "META": ["ai", "nasdaq", "mega-cap tech", "software", "consumer"],
+        "AAPL": ["mega-cap tech", "nasdaq", "consumer", "rates", "growth"],
+        "MU": ["semiconductors", "ai", "nasdaq", "memory"],
+        "PLTR": ["ai", "software", "data", "defense", "nasdaq"],
+        "SPCX": ["space", "defense", "growth", "rates", "nasdaq"],
+    }
+
     rows = []
 
     for ticker in tickers:
         score = 0
         ticker_lower = ticker.lower()
+        reasons = []
 
         for event in events:
             event_text = (
@@ -148,25 +159,48 @@ def portfolio_impact_rows(events, tickers):
 
             if ticker_lower in event_text:
                 score += 3
+                reasons.append(event["event"])
 
             if any(
                 keyword in event_text
                 for keyword in ["nasdaq", "mega-cap tech", "ai", "semiconductors"]
             ) and ticker in ["AAPL", "MSFT", "META", "NVDA", "MU", "AMZN", "GOOG"]:
                 score += 2
+                reasons.append(event["type"])
 
             if any(
                 keyword in event_text
                 for keyword in ["rates", "inflation", "federal reserve", "pce"]
             ) and ticker in ["TSLA", "NVDA", "META", "AAPL", "AMZN", "GOOG"]:
                 score += 1
+                reasons.append(event["type"])
+
+            for theme in ticker_themes.get(ticker, []):
+                if theme in event_text:
+                    score += 1
+                    reasons.append(event["type"])
+                    break
 
         if score >= 4:
-            rows.append((ticker, "HIGH", "#ef4444"))
+            level = "HIGH"
+            color = "#ef4444"
         elif score >= 2:
-            rows.append((ticker, "MEDIUM", "#facc15"))
+            level = "MEDIUM"
+            color = "#facc15"
         else:
-            rows.append((ticker, "LOW", "#22c55e"))
+            level = "LOW"
+            color = "#22c55e"
+
+        unique_reasons = []
+        for reason in reasons:
+            if reason not in unique_reasons:
+                unique_reasons.append(reason)
+
+        reason_text = "No direct calendar catalyst"
+        if unique_reasons:
+            reason_text = " + ".join(unique_reasons[:2])
+
+        rows.append((ticker, level, color, reason_text))
 
     return rows
 
@@ -634,15 +668,26 @@ with ai_col:
     st.markdown("### 💼 Portfolio Impact")
 
     impact_html = ""
+    portfolio_tickers = list(load_portfolio().keys())
 
-    for ticker, level, color in portfolio_impact_rows(
+    for ticker, level, color, reason in portfolio_impact_rows(
         events,
-        ["TSLA", "NVDA", "META", "AAPL", "MU"]
+        portfolio_tickers
     ):
         impact_html += f"""
-<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-<span style="color:#f8fafc;font-weight:700;">{ticker}</span>
-<span style="color:{color};font-weight:700;">{level}</span>
+<div style="
+display:flex;
+justify-content:space-between;
+gap:14px;
+border-bottom:1px solid rgba(148,163,184,0.12);
+padding-bottom:10px;
+margin-bottom:10px;
+">
+<div>
+<div style="color:#f8fafc;font-weight:800;">{ticker}</div>
+<div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
+</div>
+<div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
 </div>
 """
 
