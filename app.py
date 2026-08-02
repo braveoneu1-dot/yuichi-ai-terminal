@@ -315,6 +315,11 @@ st.set_page_config(
 if "active_ticker" not in st.session_state:
     st.session_state["active_ticker"] = "AAPL"
 
+st.markdown(
+    '<div class="mobile-top-spacer"></div>',
+    unsafe_allow_html=True
+)
+
 language = st.selectbox(
     "Language",
     ["English", "日本語"],
@@ -388,7 +393,12 @@ st.markdown(
 
     @media (max-width: 768px) {
         .block-container {
-            padding: 0.75rem 0.85rem 2rem !important;
+            padding: 1.35rem 0.85rem 2rem !important;
+        }
+
+        .mobile-top-spacer {
+            display: block !important;
+            height: 18px !important;
         }
 
         div[data-testid="stHorizontalBlock"] {
