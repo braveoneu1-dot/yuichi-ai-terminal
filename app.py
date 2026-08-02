@@ -333,11 +333,6 @@ language = st.selectbox(
 )
 
 t = TEXT[language]
-
-st.session_state["active_ticker"] = st.text_input(
-    t["search"],
-    value=st.session_state["active_ticker"]
-).upper()
 st_autorefresh(interval=60000, key="refresh")
 
 st.markdown(
@@ -1615,6 +1610,11 @@ background:rgba(2,6,23,0.45);
             )
 
 with research_tab:
+    st.session_state["active_ticker"] = st.text_input(
+        t["search"],
+        value=st.session_state["active_ticker"]
+    ).upper()
+
     ticker = st.session_state["active_ticker"]
     stock = yf.Ticker(ticker)
 
