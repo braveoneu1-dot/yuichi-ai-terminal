@@ -521,34 +521,31 @@ elif 16 <= now_hour < 20:
 else:
     market_status = "🔴 MARKET CLOSED"
     status_color = "#f87171"
-st.markdown(
-    f"""
-    <div class="status-bar" style="
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 14px;
-        padding: 12px 18px;
-        margin-top: 10px;
-        margin-bottom: 28px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        font-size:14px;
-        color:#94a3b8;
-    ">
+status_html = f"""
+<div class="status-bar" style="
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin-top: 10px;
+    margin-bottom: 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    color:#94a3b8;
+">
 
-    <div style="color:{status_color};font-weight:700;">
-    {market_status}
-    </div>
+<div style="color:{status_color};font-weight:700;">
+{market_status}
+</div>
 
-    <div>
-    LAST UPDATED: {current_time}
-    </div>
+<div>
+LAST UPDATED: {current_time}
+</div>
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+</div>
+"""
 # =====================================================
 # LIVE MACRO DATA
 # =====================================================
@@ -568,76 +565,42 @@ macro_tickers = {
 
 macro_changes = {}
 
-ticker_items = list(macro_tickers.items())
-ticker_rows = [ticker_items[i:i + 5] for i in range(0, len(ticker_items), 5)]
+ticker_cards = []
 
-for ticker_row in ticker_rows:
+for label, symbol in macro_tickers.items():
 
-    if is_mobile:
-        macro_cols = [st.container() for _ in ticker_row]
-    else:
-        macro_cols = st.columns(len(ticker_row))
+    data = yf.Ticker(symbol).history(period="5d")
 
-    for col, (label, symbol) in zip(macro_cols, ticker_row):
+    if data.empty:
+        continue
 
-        data = yf.Ticker(symbol).history(period="5d")
+    close_prices = data["Close"].dropna()
 
-        if data.empty:
-            continue
+    if len(close_prices) < 2:
+        continue
 
-        close_prices = data["Close"].dropna()
+    latest = close_prices.iloc[-1]
+    previous = close_prices.iloc[-2]
 
-        if len(close_prices) < 2:
-            continue
+    pct_change = (
+        (latest - previous)
+        / previous
+    ) * 100
 
-        latest = close_prices.iloc[-1]
-        previous = close_prices.iloc[-2]
+    if pd.isna(pct_change):
+        continue
 
-        pct_change = (
-            (latest - previous)
-            / previous
-        ) * 100
+    macro_changes[label] = pct_change
 
-        if pd.isna(pct_change):
-            continue
+    color = "#22c55e" if pct_change >= 0 else "#f87171"
+    arrow = "▲" if pct_change >= 0 else "▼"
 
-        macro_changes[label] = pct_change
-
-        color = "#22c55e" if pct_change >= 0 else "#f87171"
-
-        arrow = "▲" if pct_change >= 0 else "▼"
-
-        with col:
-
-            st.markdown(
-                f"""
-<div class="ticker-card" style="
-background:rgba(15,23,42,0.78);
-border:1px solid {color};
-border-radius:16px;
-padding:12px 10px;
-text-align:center;
-box-shadow:0 0 18px {color}33;
-margin-bottom:12px;
-min-height:72px;
-display:flex;
-align-items:center;
-justify-content:center;
-">
-
-<div class="ticker-label" style="
-color:{color};
-font-size:20px;
-font-weight:800;
-line-height:1.2;
-">
-{label}<br>{arrow} {pct_change:.2f}%
-</div>
-
-</div>
-""",
-                unsafe_allow_html=True
-            )
+    ticker_cards.append({
+        "label": label,
+        "pct_change": pct_change,
+        "color": color,
+        "arrow": arrow,
+    })
 
 if DEV_MODE:
 
@@ -765,146 +728,6 @@ elif macro_changes.get("VIX", 0) > 0:
 else:
     risk_signal = "🟡 Risk Appetite Neutral"
 # =====================================================
-# MARKET COMMAND CENTER
-# =====================================================
-
-st.subheader(t["market_command_center"])
-
-if is_mobile:
-    calendar_col = st.container()
-    ai_col = st.container()
-else:
-    calendar_col, ai_col = st.columns([2.2, 1])
-    
-with calendar_col:
-
-    st.markdown(t["market_calendar"])
-
-    events = load_market_calendar()
-    calendar_grid = st.columns(2) if not is_mobile else [st.container()]
-
-    for index, event in enumerate(events):
-
-        impact_label, impact_color = impact_badge(event["level"])
-        event_col = calendar_grid[index % len(calendar_grid)]
-
-        with event_col:
-            st.markdown(
-            f"""
-<div style="
-background:rgba(15,23,42,0.75);
-border:1px solid rgba(56,189,248,0.25);
-border-radius:16px;
-padding:14px;
-margin-bottom:12px;
-">
-
-<div style="
-color:#38bdf8;
-font-size:13px;
-font-weight:700;
-">
-{event['date']}
-</div>
-
-<div style="
-color:#f8fafc;
-font-size:18px;
-font-weight:700;
-margin-top:4px;
-">
-{event['event']}
-</div>
-
-<div style="
-color:#38bdf8;
-font-size:13px;
-font-weight:700;
-margin-top:6px;
-">
-{event['type']}
-</div>
-
-<div style="
-color:#94a3b8;
-font-size:13px;
-margin-top:6px;
-">
-{event['assets']}
-</div>
-
-<div style="
-color:#94a3b8;
-font-size:13px;
-margin-top:8px;
-">
-⏳ {event['days']}
-</div>
-
-<div style="
-color:{impact_color};
-font-size:14px;
-font-weight:700;
-margin-top:6px;
-">
-{impact_label}
-</div>
-
-</div>
-""",
-                unsafe_allow_html=True,
-            )
-
-
-
-with ai_col:
-
-    st.markdown(t["calendar_insight"])
-
-    st.markdown(build_calendar_insight(events))
-    st.markdown(t["portfolio_impact"])
-
-    impact_html = ""
-    portfolio_tickers = list(load_portfolio().keys())
-
-    for ticker, level, color, reason in portfolio_impact_rows(
-        events,
-        portfolio_tickers
-    ):
-        impact_html += f"""
-<div style="
-display:flex;
-justify-content:space-between;
-gap:14px;
-border-bottom:1px solid rgba(148,163,184,0.12);
-padding-bottom:10px;
-margin-bottom:10px;
-">
-<div>
-<div style="color:#f8fafc;font-weight:800;">{ticker}</div>
-<div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
-</div>
-<div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
-</div>
-"""
-
-    st.markdown(
-        f"""
-<div style="
-background:rgba(15,23,42,0.75);
-border:1px solid rgba(56,189,248,0.25);
-border-radius:16px;
-padding:16px;
-margin-top:18px;
-">
-
-{impact_html}
-
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-# =====================================================
 # MARKET CONTEXT OBJECT
 # =====================================================
 
@@ -933,6 +756,193 @@ dashboard_tab, portfolio_tab, financials_tab, research_tab, watchlist_tab = st.t
     ]
 )
 with dashboard_tab:
+
+    st.markdown(status_html, unsafe_allow_html=True)
+
+    ticker_items = ticker_cards
+    ticker_rows = [ticker_items[i:i + 5] for i in range(0, len(ticker_items), 5)]
+
+    for ticker_row in ticker_rows:
+
+        if is_mobile:
+            macro_cols = [st.container() for _ in ticker_row]
+        else:
+            macro_cols = st.columns(len(ticker_row))
+
+        for col, ticker_card in zip(macro_cols, ticker_row):
+
+            with col:
+
+                st.markdown(
+                    f"""
+<div class="ticker-card" style="
+background:rgba(15,23,42,0.78);
+border:1px solid {ticker_card['color']};
+border-radius:16px;
+padding:12px 10px;
+text-align:center;
+box-shadow:0 0 18px {ticker_card['color']}33;
+margin-bottom:12px;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
+">
+
+<div class="ticker-label" style="
+color:{ticker_card['color']};
+font-size:20px;
+font-weight:800;
+line-height:1.2;
+">
+{ticker_card['label']}<br>{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
+</div>
+
+</div>
+""",
+                    unsafe_allow_html=True
+                )
+
+    # =====================================================
+    # MARKET COMMAND CENTER
+    # =====================================================
+
+    st.subheader(t["market_command_center"])
+
+    if is_mobile:
+        calendar_col = st.container()
+        ai_col = st.container()
+    else:
+        calendar_col, ai_col = st.columns([2.2, 1])
+        
+    with calendar_col:
+
+        st.markdown(t["market_calendar"])
+
+        events = load_market_calendar()
+        calendar_grid = st.columns(2) if not is_mobile else [st.container()]
+
+        for index, event in enumerate(events):
+
+            impact_label, impact_color = impact_badge(event["level"])
+            event_col = calendar_grid[index % len(calendar_grid)]
+
+            with event_col:
+                st.markdown(
+                f"""
+    <div style="
+    background:rgba(15,23,42,0.75);
+    border:1px solid rgba(56,189,248,0.25);
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:12px;
+    ">
+
+    <div style="
+    color:#38bdf8;
+    font-size:13px;
+    font-weight:700;
+    ">
+    {event['date']}
+    </div>
+
+    <div style="
+    color:#f8fafc;
+    font-size:18px;
+    font-weight:700;
+    margin-top:4px;
+    ">
+    {event['event']}
+    </div>
+
+    <div style="
+    color:#38bdf8;
+    font-size:13px;
+    font-weight:700;
+    margin-top:6px;
+    ">
+    {event['type']}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:6px;
+    ">
+    {event['assets']}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:8px;
+    ">
+    ⏳ {event['days']}
+    </div>
+
+    <div style="
+    color:{impact_color};
+    font-size:14px;
+    font-weight:700;
+    margin-top:6px;
+    ">
+    {impact_label}
+    </div>
+
+    </div>
+    """,
+                    unsafe_allow_html=True,
+                )
+
+
+
+    with ai_col:
+
+        st.markdown(t["calendar_insight"])
+
+        st.markdown(build_calendar_insight(events))
+        st.markdown(t["portfolio_impact"])
+
+        impact_html = ""
+        portfolio_tickers = list(load_portfolio().keys())
+
+        for ticker, level, color, reason in portfolio_impact_rows(
+            events,
+            portfolio_tickers
+        ):
+            impact_html += f"""
+    <div style="
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    border-bottom:1px solid rgba(148,163,184,0.12);
+    padding-bottom:10px;
+    margin-bottom:10px;
+    ">
+    <div>
+    <div style="color:#f8fafc;font-weight:800;">{ticker}</div>
+    <div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
+    </div>
+    <div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
+    </div>
+    """
+
+        st.markdown(
+            f"""
+    <div style="
+    background:rgba(15,23,42,0.75);
+    border:1px solid rgba(56,189,248,0.25);
+    border-radius:16px;
+    padding:16px;
+    margin-top:18px;
+    ">
+
+    {impact_html}
+
+    </div>
+    """,
+            unsafe_allow_html=True,
+        )
 
     # =====================================================
     # EXECUTIVE SUMMARY ROW
