@@ -321,7 +321,7 @@ st.markdown(
 )
 
 st.markdown(
-    '<div style="color:#94a3b8;font-size:13px;font-weight:700;margin-bottom:6px;">Language</div>',
+    '<div class="language-label">Language</div>',
     unsafe_allow_html=True
 )
 
@@ -392,14 +392,30 @@ st.markdown(
         border-radius: 16px !important;
     }
 
+    .language-label {
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
     @media (max-width: 768px) {
         .block-container {
-            padding: 1.35rem 0.85rem 2rem !important;
+            padding: 2.25rem 0.85rem 2rem !important;
         }
 
         .mobile-top-spacer {
             display: block !important;
-            height: 18px !important;
+            height: 42px !important;
+        }
+
+        .language-label {
+            color: #94a3b8 !important;
+            display: block !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            margin-bottom: 8px !important;
+            margin-top: 4px !important;
         }
 
         div[data-testid="stHorizontalBlock"] {
