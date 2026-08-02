@@ -263,6 +263,51 @@ def portfolio_impact_rows(events, tickers):
 DEV_MODE = False
 USE_AI_MARKET_BRIEF = False
 
+TEXT = {
+    "English": {
+        "search": "🔎 Search Any Company",
+        "dashboard": "🌎 Dashboard",
+        "portfolio": "💼 Portfolio",
+        "financial_results": "📄 Financial Results",
+        "research": "📑 Research",
+        "watchlist": "⭐ Watchlist",
+        "market_command_center": "🌎 Market Command Center",
+        "market_calendar": "### 📅 Market Calendar",
+        "calendar_insight": "### 🤖 Calendar Insight",
+        "portfolio_impact": "### 💼 Portfolio Impact",
+        "market_regime": "MARKET REGIME",
+        "emotion": "Emotion",
+        "drivers": "Drivers",
+        "no_drivers": "No major macro drivers detected",
+        "market_narrative": "MARKET NARRATIVE",
+        "portfolio_snapshot": "📊 PORTFOLIO SNAPSHOT",
+        "portfolio_value": "Portfolio Value",
+        "largest_position": "Largest Position",
+        "total_gain_loss": "Total Gain / Loss",
+    },
+    "日本語": {
+        "search": "🔎 企業を検索",
+        "dashboard": "🌎 ダッシュボード",
+        "portfolio": "💼 ポートフォリオ",
+        "financial_results": "📄 決算資料",
+        "research": "📑 企業分析",
+        "watchlist": "⭐ ウォッチリスト",
+        "market_command_center": "🌎 マーケット司令室",
+        "market_calendar": "### 📅 市場カレンダー",
+        "calendar_insight": "### 🤖 カレンダー分析",
+        "portfolio_impact": "### 💼 保有銘柄への影響",
+        "market_regime": "市場レジーム",
+        "emotion": "心理",
+        "drivers": "要因",
+        "no_drivers": "大きなマクロ要因は検出されていません",
+        "market_narrative": "マーケット解説",
+        "portfolio_snapshot": "📊 ポートフォリオ概要",
+        "portfolio_value": "ポートフォリオ評価額",
+        "largest_position": "最大保有銘柄",
+        "total_gain_loss": "合計損益",
+    },
+}
+
 st.set_page_config(
     page_title="Yuichi AI Terminal",
     layout="centered" if is_mobile else "wide",
@@ -270,8 +315,16 @@ st.set_page_config(
 if "active_ticker" not in st.session_state:
     st.session_state["active_ticker"] = "AAPL"
 
+language = st.selectbox(
+    "Language",
+    ["English", "日本語"],
+    index=0
+)
+
+t = TEXT[language]
+
 st.session_state["active_ticker"] = st.text_input(
-    "🔎 Search Any Company",
+    t["search"],
     value=st.session_state["active_ticker"]
 ).upper()
 st_autorefresh(interval=60000, key="refresh")
@@ -623,7 +676,7 @@ else:
 # MARKET COMMAND CENTER
 # =====================================================
 
-st.subheader("🌎 Market Command Center")
+st.subheader(t["market_command_center"])
 
 if is_mobile:
     calendar_col = st.container()
@@ -633,7 +686,7 @@ else:
     
 with calendar_col:
 
-    st.markdown("### 📅 Market Calendar")
+    st.markdown(t["market_calendar"])
 
     events = load_market_calendar()
     calendar_grid = st.columns(2) if not is_mobile else [st.container()]
@@ -714,10 +767,10 @@ margin-top:6px;
 
 with ai_col:
 
-    st.markdown("### 🤖 AI Calendar Insight")
+    st.markdown(t["calendar_insight"])
 
     st.markdown(build_calendar_insight(events))
-    st.markdown("### 💼 Portfolio Impact")
+    st.markdown(t["portfolio_impact"])
 
     impact_html = ""
     portfolio_tickers = list(load_portfolio().keys())
@@ -780,11 +833,11 @@ market_context = {
 }
 dashboard_tab, portfolio_tab, financials_tab, research_tab, watchlist_tab = st.tabs(
     [
-        "🌎 Dashboard",
-        "💼 Portfolio",
-        "📄 Financial Results",
-        "📑 Research",
-        "⭐ Watchlist"
+        t["dashboard"],
+        t["portfolio"],
+        t["financial_results"],
+        t["research"],
+        t["watchlist"]
     ]
 )
 with dashboard_tab:
@@ -832,7 +885,7 @@ with dashboard_tab:
     letter-spacing:1px;
     margin-bottom:12px;
     ">
-    📊 PORTFOLIO SNAPSHOT
+    {t['portfolio_snapshot']}
     </div>
 
     <div style="
@@ -849,7 +902,7 @@ with dashboard_tab:
     font-size:14px;
     margin-bottom:18px;
     ">
-    Portfolio Value
+    {t['portfolio_value']}
     </div>
 
     <div style="
@@ -866,7 +919,7 @@ with dashboard_tab:
     font-size:14px;
     margin-bottom:18px;
     ">
-    Largest Position
+    {t['largest_position']}
     </div>
 
     <div style="
@@ -881,7 +934,7 @@ with dashboard_tab:
     color:#94a3b8;
     font-size:14px;
     ">
-    Total Gain / Loss
+    {t['total_gain_loss']}
     </div>
 
     </div>
@@ -913,7 +966,7 @@ with dashboard_tab:
     letter-spacing:1px;
     margin-bottom:12px;
     ">
-    MARKET REGIME
+    {t['market_regime']}
     </div>
 
     <div style="
@@ -931,7 +984,7 @@ with dashboard_tab:
     font-size:18px;
     line-height:1.8;
     ">
-    Emotion: {regime['emotion']}
+    {t['emotion']}: {regime['emotion']}
     </div>
 
     <div style="
@@ -940,8 +993,8 @@ with dashboard_tab:
     margin-top:10px;
     line-height:1.7;
     ">
-    Drivers:
-    {", ".join(regime['drivers']) if regime['drivers'] else "No major macro drivers detected"}
+    {t['drivers']}:
+    {", ".join(regime['drivers']) if regime['drivers'] else t['no_drivers']}
     </div>
 
     </div>
@@ -1053,7 +1106,7 @@ font-weight:700;
 letter-spacing:1px;
 margin-bottom:14px;
 ">
-MARKET NARRATIVE
+{t['market_narrative']}
 </div>
 
 <div style="
