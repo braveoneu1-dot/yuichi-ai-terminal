@@ -386,6 +386,71 @@ st.markdown(
         border-radius: 16px !important;
     }
 
+    @media (max-width: 768px) {
+        .block-container {
+            padding: 0.75rem 0.85rem 2rem !important;
+        }
+
+        div[data-testid="stHorizontalBlock"] {
+            gap: 0.65rem !important;
+        }
+
+        div[data-testid="stTabs"] button {
+            font-size: 0.82rem !important;
+            padding: 0.45rem 0.55rem !important;
+            white-space: nowrap !important;
+        }
+
+        div[data-testid="stTabs"] [role="tablist"] {
+            overflow-x: auto !important;
+            flex-wrap: nowrap !important;
+        }
+
+        h1:not(.custom-market-title) {
+            font-size: 2rem !important;
+        }
+
+        h2 {
+            font-size: 1.55rem !important;
+        }
+
+        h3 {
+            font-size: 1.25rem !important;
+        }
+
+        .status-bar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 6px !important;
+            margin-bottom: 18px !important;
+        }
+
+        .ticker-card {
+            min-height: 58px !important;
+            padding: 10px 8px !important;
+            border-radius: 12px !important;
+        }
+
+        .ticker-label {
+            font-size: 15px !important;
+        }
+
+        .dashboard-card-title {
+            font-size: 12px !important;
+        }
+
+        .dashboard-card-value {
+            font-size: 30px !important;
+            line-height: 1.15 !important;
+            overflow-wrap: anywhere !important;
+        }
+
+        .dashboard-card-body {
+            font-size: 14px !important;
+            line-height: 1.6 !important;
+        }
+    }
+
     </style>
     """,
     unsafe_allow_html=True
@@ -431,7 +496,7 @@ else:
     status_color = "#f87171"
 st.markdown(
     f"""
-    <div style="
+    <div class="status-bar" style="
         background: rgba(15, 23, 42, 0.7);
         border: 1px solid rgba(56, 189, 248, 0.25);
         border-radius: 14px;
@@ -519,7 +584,7 @@ for ticker_row in ticker_rows:
 
             st.markdown(
                 f"""
-<div style="
+<div class="ticker-card" style="
 background:rgba(15,23,42,0.78);
 border:1px solid {color};
 border-radius:16px;
@@ -533,7 +598,7 @@ align-items:center;
 justify-content:center;
 ">
 
-<div style="
+<div class="ticker-label" style="
 color:{color};
 font-size:20px;
 font-weight:800;
@@ -878,7 +943,7 @@ with dashboard_tab:
     box-shadow:0 0 24px rgba(34,197,94,0.12);
     ">
 
-    <div style="
+    <div class="dashboard-card-title" style="
     color:#22c55e;
     font-size:13px;
     font-weight:700;
@@ -888,7 +953,7 @@ with dashboard_tab:
     {t['portfolio_snapshot']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-value" style="
     color:#f8fafc;
     font-size:34px;
     font-weight:900;
@@ -897,7 +962,7 @@ with dashboard_tab:
     ${portfolio_stats['market_value']:,.0f}
     </div>
 
-    <div style="
+    <div class="dashboard-card-body" style="
     color:#94a3b8;
     font-size:14px;
     margin-bottom:18px;
@@ -905,7 +970,7 @@ with dashboard_tab:
     {t['portfolio_value']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-value" style="
     color:#38bdf8;
     font-size:24px;
     font-weight:800;
@@ -914,7 +979,7 @@ with dashboard_tab:
     {largest_position['ticker']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-body" style="
     color:#94a3b8;
     font-size:14px;
     margin-bottom:18px;
@@ -922,7 +987,7 @@ with dashboard_tab:
     {t['largest_position']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-value" style="
     color:#22c55e;
     font-size:20px;
     font-weight:800;
@@ -930,7 +995,7 @@ with dashboard_tab:
     ${portfolio_stats['pnl']:,.0f}
     </div>
 
-    <div style="
+    <div class="dashboard-card-body" style="
     color:#94a3b8;
     font-size:14px;
     ">
@@ -959,7 +1024,7 @@ with dashboard_tab:
     box-shadow:0 0 24px {regime['color']}33;
     ">
 
-    <div style="
+    <div class="dashboard-card-title" style="
     color:{regime['color']};
     font-size:14px;
     font-weight:700;
@@ -969,7 +1034,7 @@ with dashboard_tab:
     {t['market_regime']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-value" style="
     color:{regime['color']};
     font-size:42px;
     font-weight:900;
@@ -979,7 +1044,7 @@ with dashboard_tab:
     {regime['name']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-body" style="
     color:#e2e8f0;
     font-size:18px;
     line-height:1.8;
@@ -987,7 +1052,7 @@ with dashboard_tab:
     {t['emotion']}: {regime['emotion']}
     </div>
 
-    <div style="
+    <div class="dashboard-card-body" style="
     color:#94a3b8;
     font-size:15px;
     margin-top:10px;
@@ -1099,7 +1164,7 @@ margin-bottom:28px;
 box-shadow:0 0 28px rgba(56,189,248,0.10);
 ">
 
-<div style="
+<div class="dashboard-card-title" style="
 color:#38bdf8;
 font-size:14px;
 font-weight:700;
@@ -1109,7 +1174,7 @@ margin-bottom:14px;
 {t['market_narrative']}
 </div>
 
-<div style="
+<div class="dashboard-card-body" style="
 color:#e2e8f0;
 font-size:20px;
 line-height:1.8;
