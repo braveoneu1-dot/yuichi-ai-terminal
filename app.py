@@ -320,10 +320,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    '<div style="color:#94a3b8;font-size:13px;font-weight:700;margin-bottom:6px;">Language</div>',
+    unsafe_allow_html=True
+)
+
 language = st.selectbox(
     "Language",
     ["English", "日本語"],
-    index=0
+    index=0,
+    label_visibility="collapsed"
 )
 
 t = TEXT[language]
