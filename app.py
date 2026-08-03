@@ -28,42 +28,60 @@ def get_latest_change(symbol):
 
     stock = yf.Ticker(symbol)
 
-    data = stock.history(
+    regular_history = stock.history(period="5d")
+
+    if regular_history.empty:
+        return None
+
+    regular_closes = regular_history["Close"].dropna()
+
+    if len(regular_closes) < 2:
+        return None
+
+    regular_close = regular_closes.iloc[-1]
+    previous_close = regular_closes.iloc[-2]
+
+    if previous_close == 0 or regular_close == 0:
+        return None
+
+    daily_pct_change = (
+        (regular_close - previous_close)
+        / previous_close
+    ) * 100
+
+    latest_price = regular_close
+    extended_pct_change = None
+    price_type = "REG"
+
+    extended_history = stock.history(
         period="5d",
         interval="1m",
         prepost=True
     )
 
-    price_type = "EXT"
+    if not extended_history.empty:
+        extended_closes = extended_history["Close"].dropna()
 
-    if data.empty:
+        if not extended_closes.empty:
+            latest_price = extended_closes.iloc[-1]
+            extended_pct_change = (
+                (latest_price - regular_close)
+                / regular_close
+            ) * 100
 
-        data = stock.history(period="5d")
-        price_type = "REG"
+            if abs(extended_pct_change) >= 0.01:
+                price_type = "EXT"
 
-    if data.empty:
-        return None
-
-    close_prices = data["Close"].dropna()
-
-    if len(close_prices) < 2:
-        return None
-
-    latest = close_prices.iloc[-1]
-    previous = close_prices.iloc[-2]
-
-    if previous == 0:
-        return None
-
-    pct_change = ((latest - previous) / previous) * 100
-
-    if pd.isna(pct_change):
+    if pd.isna(daily_pct_change):
         return None
 
     return {
-        "latest": latest,
-        "previous": previous,
-        "pct_change": pct_change,
+        "latest": latest_price,
+        "previous": previous_close,
+        "regular_close": regular_close,
+        "pct_change": daily_pct_change,
+        "daily_pct_change": daily_pct_change,
+        "extended_pct_change": extended_pct_change,
         "price_type": price_type
     }
 
@@ -624,6 +642,24 @@ for label, symbol in macro_tickers.items():
 
     color = "#22c55e" if pct_change >= 0 else "#f87171"
     arrow = "▲" if pct_change >= 0 else "▼"
+    extended_pct = price_data["extended_pct_change"]
+    extended_color = "#94a3b8"
+    extended_arrow = ""
+    extended_display = "EXT N/A"
+
+    if extended_pct is not None and not pd.isna(extended_pct):
+        extended_color = "#22c55e" if extended_pct >= 0 else "#f87171"
+        extended_arrow = "▲" if extended_pct >= 0 else "▼"
+
+        if "PRE-MARKET" in market_status:
+            extended_label = "PRE"
+        elif "AFTER HOURS" in market_status:
+            extended_label = "AH"
+        else:
+            extended_label = price_data["price_type"]
+
+        extended_display = f"{extended_label} {extended_arrow} {extended_pct:.2f}%"
+
     price_prefix = "" if label in ["NASDAQ", "S&P 500", "USD/JPY"] else "$"
     price_display = f"{price_prefix}{price_data['latest']:,.2f}"
 
@@ -633,6 +669,8 @@ for label, symbol in macro_tickers.items():
         "pct_change": pct_change,
         "color": color,
         "arrow": arrow,
+        "extended_color": extended_color,
+        "extended_display": extended_display,
         "price_type": price_data["price_type"],
     })
 
@@ -1125,8 +1163,8 @@ line-height:1.2;
 ">
 {ticker_card['label']}<br>
 <span style="color:#f8fafc;font-size:15px;font-weight:800;">{ticker_card['price_display']}</span><br>
-{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
-<span style="font-size:11px;color:#94a3b8;margin-left:4px;">{ticker_card['price_type']}</span>
+<span style="font-size:13px;">DAY {ticker_card['arrow']} {ticker_card['pct_change']:.2f}%</span><br>
+<span style="font-size:12px;color:{ticker_card['extended_color']};">{ticker_card['extended_display']}</span>
 </div>
 
 </div>

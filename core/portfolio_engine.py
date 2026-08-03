@@ -34,25 +34,31 @@ def get_latest_price(ticker):
 
     stock = yf.Ticker(ticker)
 
-    history = stock.history(
+    regular_history = stock.history(period="5d")
+
+    if regular_history.empty:
+        return None
+
+    regular_closes = regular_history["Close"].dropna()
+
+    if regular_closes.empty:
+        return None
+
+    latest_price = regular_closes.iloc[-1]
+
+    extended_history = stock.history(
         period="5d",
         interval="1m",
         prepost=True
     )
 
-    if history.empty:
+    if not extended_history.empty:
+        extended_closes = extended_history["Close"].dropna()
 
-        history = stock.history(period="5d")
+        if not extended_closes.empty:
+            latest_price = extended_closes.iloc[-1]
 
-    if history.empty:
-        return None
-
-    close_prices = history["Close"].dropna()
-
-    if close_prices.empty:
-        return None
-
-    return close_prices.iloc[-1]
+    return latest_price
 
 
 def calculate_portfolio():
