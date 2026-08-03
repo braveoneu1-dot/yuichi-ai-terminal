@@ -599,7 +599,7 @@ macro_tickers = {
     "S&P 500": "^GSPC",
     "GOLD": "GC=F",
     "OIL": "CL=F",
-    "VIX": "^VIX",
+    "USD/JPY": "JPY=X",
     "BTC": "BTC-USD",
     "NVDA": "NVDA",
     "TSLA": "TSLA",
@@ -623,7 +623,7 @@ for label, symbol in macro_tickers.items():
 
     color = "#22c55e" if pct_change >= 0 else "#f87171"
     arrow = "▲" if pct_change >= 0 else "▼"
-    price_prefix = "" if label in ["NASDAQ", "S&P 500", "VIX"] else "$"
+    price_prefix = "" if label in ["NASDAQ", "S&P 500", "USD/JPY"] else "$"
     price_display = f"{price_prefix}{price_data['latest']:,.2f}"
 
     ticker_cards.append({
@@ -770,6 +770,7 @@ market_context = {
     "BTC": round(macro_changes.get("BTC", 0), 2),
     "OIL": round(macro_changes.get("OIL", 0), 2),
     "VIX": round(macro_changes.get("VIX", 0), 2),
+    "USD/JPY": round(macro_changes.get("USD/JPY", 0), 2),
     "GOLD": round(macro_changes.get("GOLD", 0), 2),
     "NVDA": round(macro_changes.get("NVDA", 0), 2),
     "TSLA": round(macro_changes.get("TSLA", 0), 2),
