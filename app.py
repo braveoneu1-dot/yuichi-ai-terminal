@@ -4,7 +4,6 @@ import plotly.express as px
 import yfinance as yf
 import json
 from datetime import datetime, date, timedelta
-from streamlit_autorefresh import st_autorefresh
 
 from core.regime_engine import (
     detect_market_regime,
@@ -70,13 +69,12 @@ def get_latest_change(symbol):
 
 is_mobile = False
 
-WATCHLIST = [
-    "NVDA",
-    "AMD",
-    "AMZN",
-    "GOOG",
-    "MSFT",
-    "TSLA"
+HEATMAP_TICKERS = [
+    "AAPL", "MSFT", "NVDA", "AMZN", "META", "GOOGL", "TSLA", "AVGO",
+    "JPM", "V", "LLY", "MA", "NFLX", "XOM", "COST", "WMT",
+    "UNH", "ORCL", "HD", "PG", "JNJ", "BAC", "ABBV", "KO",
+    "PLTR", "AMD", "CRM", "CSCO", "CVX", "MRK", "MCD", "DIS",
+    "ADBE", "PEP", "TMO", "ABT", "ACN", "WFC", "QCOM", "INTC"
 ]
 
 
@@ -314,7 +312,7 @@ TEXT = {
         "portfolio": "💼 Portfolio",
         "financial_results": "📄 Financial Results",
         "research": "📑 Research",
-        "watchlist": "⭐ Watchlist",
+        "heatmap": "🔥 Heatmap",
         "market_command_center": "🌎 Market Command Center",
         "market_calendar": "### 📅 Market Calendar",
         "calendar_insight": "### 🤖 Calendar Insight",
@@ -335,7 +333,7 @@ TEXT = {
         "portfolio": "💼 ポートフォリオ",
         "financial_results": "📄 決算資料",
         "research": "📑 企業分析",
-        "watchlist": "⭐ ウォッチリスト",
+        "heatmap": "🔥 ヒートマップ",
         "market_command_center": "🌎 マーケット司令室",
         "market_calendar": "### 📅 市場カレンダー",
         "calendar_insight": "### 🤖 カレンダー分析",
@@ -377,7 +375,10 @@ language = st.selectbox(
 )
 
 t = TEXT[language]
-st_autorefresh(interval=60000, key="refresh")
+
+if st.button("↻ Refresh data"):
+    st.cache_data.clear()
+    st.rerun()
 
 st.markdown(
     """
@@ -780,13 +781,13 @@ market_context = {
     "ai_momentum": ai_momentum,
     "tesla_sentiment": tesla_sentiment,
 }
-dashboard_tab, portfolio_tab, financials_tab, research_tab, watchlist_tab = st.tabs(
+dashboard_tab, portfolio_tab, financials_tab, research_tab, heatmap_tab = st.tabs(
     [
         t["dashboard"],
         t["portfolio"],
         t["financial_results"],
         t["research"],
-        t["watchlist"]
+        t["heatmap"]
     ]
 )
 with dashboard_tab:
@@ -2561,122 +2562,116 @@ GRADE {grade}
         st.warning(
             "Cash flow data unavailable."
         )
-with watchlist_tab:
+with heatmap_tab:
 
-    st.subheader("⭐ Watchlist")
+    st.subheader("🔥 S&P 500 Heatmap")
 
     rows = []
 
-    for ticker in WATCHLIST:
+    for ticker in HEATMAP_TICKERS:
 
         price_data = get_latest_change(ticker)
 
         if price_data is None:
             continue
 
-        rows.append(
-            {
-                "Ticker": ticker,
-                "Price": round(price_data["latest"], 2),
-                "1 Day %": round(price_data["pct_change"], 2),
-                "Session": price_data["price_type"]
-            }
-        )
-    
-    watchlist_df = pd.DataFrame(rows)
+        rows.append({
+            "Ticker": ticker,
+            "Price": round(price_data["latest"], 2),
+            "Change": round(price_data["pct_change"], 2),
+            "Session": price_data["price_type"]
+        })
 
-    watchlist_df = watchlist_df.dropna(
-        subset=["1 Day %"]
-    )
+    heatmap_df = pd.DataFrame(rows)
 
-    if watchlist_df.empty:
-        st.warning("Watchlist data unavailable right now.")
+    if heatmap_df.empty:
+        st.warning("Heatmap data unavailable right now.")
         st.stop()
 
-    strongest = watchlist_df.loc[
-        watchlist_df["1 Day %"].idxmax()
-    ]
+    heatmap_df = heatmap_df.sort_values("Change", ascending=False)
 
-    weakest = watchlist_df.loc[
-        watchlist_df["1 Day %"].idxmin()
-    ]
+    strongest = heatmap_df.iloc[0]
+    weakest = heatmap_df.iloc[-1]
 
     if is_mobile:
-        w1 = st.container()
-        w2 = st.container()
+        h1 = st.container()
+        h2 = st.container()
     else:
-        w1, w2 = st.columns(2)
+        h1, h2 = st.columns(2)
 
-    with w1:
+    with h1:
         st.metric(
             "🔥 Strongest",
             strongest["Ticker"],
-            f"{strongest['1 Day %']}%"
+            f"{strongest['Change']}% {strongest['Session']}"
         )
 
-    with w2:
+    with h2:
         st.metric(
-            "💀 Weakest",
+            "🧊 Weakest",
             weakest["Ticker"],
-            f"{weakest['1 Day %']}%"
+            f"{weakest['Change']}% {weakest['Session']}"
         )
-    if is_mobile:
-        watch_cols = [st.container()]
-    else:
-        watch_cols = st.columns(3)
 
-    for i, row in watchlist_df.iterrows():
+    if is_mobile:
+        heat_cols = st.columns(2)
+    else:
+        heat_cols = st.columns(5)
+
+    for i, row in heatmap_df.iterrows():
 
         ticker = row["Ticker"]
         price = row["Price"]
-        pct = row["1 Day %"]
+        change = row["Change"]
         session = row["Session"]
 
-        color = "#22c55e" if pct >= 0 else "#f87171"
-        arrow = "▲" if pct >= 0 else "▼"
+        intensity = min(abs(change) / 3, 1)
 
-        with watch_cols[i % len(watch_cols)]:
+        if change >= 0:
+            color = f"rgba(34,197,94,{0.22 + intensity * 0.58:.2f})"
+            border = "#22c55e"
+            text_color = "#dcfce7"
+            arrow = "▲"
+        else:
+            color = f"rgba(239,68,68,{0.22 + intensity * 0.58:.2f})"
+            border = "#ef4444"
+            text_color = "#fee2e2"
+            arrow = "▼"
+
+        with heat_cols[i % len(heat_cols)]:
 
             st.markdown(
                 f"""
-    <div style="
-    background:rgba(15,23,42,0.88);
-    border:1px solid {color};
-    border-radius:22px;
-    padding:24px;
-    margin-bottom:20px;
-    text-align:center;
-    box-shadow:0 0 24px {color}55;
-    ">
+<div style="
+background:{color};
+border:1px solid {border};
+border-radius:14px;
+padding:14px 10px;
+margin-bottom:12px;
+min-height:112px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+box-shadow:0 0 18px {border}44;
+">
 
-    <div style="
-    color:#94a3b8;
-    font-size:15px;
-    letter-spacing:2px;
-    margin-bottom:12px;
-    ">
-    {ticker}
-    </div>
+<div style="
+color:{text_color};
+font-size:20px;
+font-weight:900;
+line-height:1.1;
+">
+{ticker}
+</div>
 
-    <div style="
-    color:#f8fafc;
-    font-size:34px;
-    font-weight:900;
-    margin-bottom:10px;
-    ">
-    ${price:.2f}
-    </div>
+<div>
+<div style="color:#f8fafc;font-size:13px;font-weight:700;">${price:,.2f}</div>
+<div style="color:{text_color};font-size:18px;font-weight:900;margin-top:4px;">
+{arrow} {change:.2f}% <span style="color:#cbd5e1;font-size:10px;">{session}</span>
+</div>
+</div>
 
-    <div style="
-    color:{color};
-    font-size:24px;
-    font-weight:800;
-    ">
-    {arrow} {pct:.2f}%
-    <span style="font-size:12px;color:#94a3b8;margin-left:5px;">{session}</span>
-    </div>
-
-    </div>
-    """,
-                unsafe_allow_html=True,
+</div>
+""",
+                unsafe_allow_html=True
             )
