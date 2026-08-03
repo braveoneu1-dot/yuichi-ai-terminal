@@ -30,6 +30,31 @@ def load_portfolio():
 # CALCULATE PORTFOLIO METRICS
 # =====================================================
 
+def get_latest_price(ticker):
+
+    stock = yf.Ticker(ticker)
+
+    history = stock.history(
+        period="5d",
+        interval="1m",
+        prepost=True
+    )
+
+    if history.empty:
+
+        history = stock.history(period="5d")
+
+    if history.empty:
+        return None
+
+    close_prices = history["Close"].dropna()
+
+    if close_prices.empty:
+        return None
+
+    return close_prices.iloc[-1]
+
+
 def calculate_portfolio():
 
     portfolio = load_portfolio()
@@ -44,19 +69,11 @@ def calculate_portfolio():
         shares = data["shares"]
         cost_basis = data["cost_basis"]
 
-        stock = yf.Ticker(ticker)
+        current_price = get_latest_price(ticker)
 
-        history = stock.history(period="5d")
-
-        if history.empty:
+        if current_price is None:
             continue
 
-        close_prices = history["Close"].dropna()
-
-        if close_prices.empty:
-            continue
-
-        current_price = close_prices.iloc[-1]
         market_value = current_price * shares
         cost_value = cost_basis * shares
 

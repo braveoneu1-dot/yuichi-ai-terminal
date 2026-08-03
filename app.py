@@ -24,6 +24,50 @@ def format_billions(value):
 
     return f"${value/1_000_000_000:.1f}B"
 
+
+def get_latest_change(symbol):
+
+    stock = yf.Ticker(symbol)
+
+    data = stock.history(
+        period="5d",
+        interval="1m",
+        prepost=True
+    )
+
+    price_type = "EXT"
+
+    if data.empty:
+
+        data = stock.history(period="5d")
+        price_type = "REG"
+
+    if data.empty:
+        return None
+
+    close_prices = data["Close"].dropna()
+
+    if len(close_prices) < 2:
+        return None
+
+    latest = close_prices.iloc[-1]
+    previous = close_prices.iloc[-2]
+
+    if previous == 0:
+        return None
+
+    pct_change = ((latest - previous) / previous) * 100
+
+    if pd.isna(pct_change):
+        return None
+
+    return {
+        "latest": latest,
+        "previous": previous,
+        "pct_change": pct_change,
+        "price_type": price_type
+    }
+
 is_mobile = False
 
 WATCHLIST = [
@@ -569,27 +613,12 @@ ticker_cards = []
 
 for label, symbol in macro_tickers.items():
 
-    data = yf.Ticker(symbol).history(period="5d")
+    price_data = get_latest_change(symbol)
 
-    if data.empty:
+    if price_data is None:
         continue
 
-    close_prices = data["Close"].dropna()
-
-    if len(close_prices) < 2:
-        continue
-
-    latest = close_prices.iloc[-1]
-    previous = close_prices.iloc[-2]
-
-    pct_change = (
-        (latest - previous)
-        / previous
-    ) * 100
-
-    if pd.isna(pct_change):
-        continue
-
+    pct_change = price_data["pct_change"]
     macro_changes[label] = pct_change
 
     color = "#22c55e" if pct_change >= 0 else "#f87171"
@@ -600,6 +629,7 @@ for label, symbol in macro_tickers.items():
         "pct_change": pct_change,
         "color": color,
         "arrow": arrow,
+        "price_type": price_data["price_type"],
     })
 
 if DEV_MODE:
@@ -1089,6 +1119,7 @@ font-weight:800;
 line-height:1.2;
 ">
 {ticker_card['label']}<br>{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
+<span style="font-size:11px;color:#94a3b8;margin-left:4px;">{ticker_card['price_type']}</span>
 </div>
 
 </div>
@@ -2532,31 +2563,17 @@ with watchlist_tab:
 
     for ticker in WATCHLIST:
 
-        stock = yf.Ticker(ticker)
+        price_data = get_latest_change(ticker)
 
-        hist = stock.history(period="5d")
-
-        if hist.empty:
+        if price_data is None:
             continue
-
-        close_prices = hist["Close"].dropna()
-
-        if len(close_prices) < 2:
-            continue
-
-        latest = close_prices.iloc[-1]
-        previous = close_prices.iloc[-2]
-
-        pct = (
-            (latest - previous)
-            / previous
-        ) * 100
 
         rows.append(
             {
                 "Ticker": ticker,
-                "Price": round(latest, 2),
-                "1 Day %": round(pct, 2)
+                "Price": round(price_data["latest"], 2),
+                "1 Day %": round(price_data["pct_change"], 2),
+                "Session": price_data["price_type"]
             }
         )
     
@@ -2607,6 +2624,7 @@ with watchlist_tab:
         ticker = row["Ticker"]
         price = row["Price"]
         pct = row["1 Day %"]
+        session = row["Session"]
 
         color = "#22c55e" if pct >= 0 else "#f87171"
         arrow = "▲" if pct >= 0 else "▼"
@@ -2649,6 +2667,7 @@ with watchlist_tab:
     font-weight:800;
     ">
     {arrow} {pct:.2f}%
+    <span style="font-size:12px;color:#94a3b8;margin-left:5px;">{session}</span>
     </div>
 
     </div>
