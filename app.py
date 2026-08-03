@@ -1394,30 +1394,105 @@ with portfolio_tab:
 
     st.subheader("📊 Portfolio Allocation")
 
-    allocation_df = pd.DataFrame([
-        {
-            "Ticker": p["ticker"],
-            "Allocation": p["market_value"]
-        }
-        for p in positions
-    ])
+    logo_colors = {
+        "TSLA": "#ef4444",
+        "META": "#3b82f6",
+        "PLTR": "#e5e7eb",
+        "AAPL": "#94a3b8",
+        "MU": "#8b5cf6",
+        "SPCX": "#22c55e",
+    }
 
-    fig = px.pie(
-        allocation_df,
-        values="Allocation",
-        names="Ticker",
-        hole=0.45
+    total_value = sum(p["market_value"] for p in positions)
+    sorted_positions = sorted(
+        positions,
+        key=lambda x: x["market_value"],
+        reverse=True
     )
 
-    fig.update_layout(
-        paper_bgcolor="#050816",
-        plot_bgcolor="#050816",
-        font=dict(color="#e2e8f0")
-    )
+    allocation_html = ""
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True
+    for position in sorted_positions:
+        ticker = position["ticker"]
+        value = position["market_value"]
+        allocation = (value / total_value) * 100 if total_value else 0
+        color = logo_colors.get(ticker, "#38bdf8")
+
+        allocation_html += f"""
+<div style="
+display:grid;
+grid-template-columns:72px 1fr auto;
+gap:16px;
+align-items:center;
+background:rgba(15,23,42,0.78);
+border:1px solid rgba(56,189,248,0.22);
+border-radius:18px;
+padding:16px;
+margin-bottom:12px;
+box-shadow:0 0 20px rgba(56,189,248,0.06);
+">
+
+<div style="
+width:56px;
+height:56px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(145deg, rgba(248,250,252,0.08), rgba(15,23,42,0.88));
+border:1px solid {color};
+box-shadow:0 0 18px {color}44;
+color:{color};
+font-size:16px;
+font-weight:900;
+letter-spacing:0;
+">
+{ticker[:4]}
+</div>
+
+<div>
+<div style="
+display:flex;
+justify-content:space-between;
+gap:12px;
+margin-bottom:8px;
+">
+<div style="color:#f8fafc;font-size:18px;font-weight:900;">{ticker}</div>
+<div style="color:#e2e8f0;font-size:15px;font-weight:800;">${value:,.0f}</div>
+</div>
+
+<div style="
+height:10px;
+background:rgba(148,163,184,0.16);
+border-radius:999px;
+overflow:hidden;
+">
+<div style="
+height:100%;
+width:{allocation:.1f}%;
+background:{color};
+border-radius:999px;
+box-shadow:0 0 16px {color}88;
+"></div>
+</div>
+</div>
+
+<div style="
+color:{color};
+font-size:22px;
+font-weight:900;
+min-width:76px;
+text-align:right;
+">
+{allocation:.1f}%
+</div>
+
+</div>
+"""
+
+    st.markdown(
+        allocation_html,
+        unsafe_allow_html=True
     )
 
     # =====================================================
