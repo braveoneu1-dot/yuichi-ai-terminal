@@ -759,191 +759,6 @@ with dashboard_tab:
 
     st.markdown(status_html, unsafe_allow_html=True)
 
-    ticker_items = ticker_cards
-    ticker_rows = [ticker_items[i:i + 5] for i in range(0, len(ticker_items), 5)]
-
-    for ticker_row in ticker_rows:
-
-        if is_mobile:
-            macro_cols = [st.container() for _ in ticker_row]
-        else:
-            macro_cols = st.columns(len(ticker_row))
-
-        for col, ticker_card in zip(macro_cols, ticker_row):
-
-            with col:
-
-                st.markdown(
-                    f"""
-<div class="ticker-card" style="
-background:rgba(15,23,42,0.78);
-border:1px solid {ticker_card['color']};
-border-radius:16px;
-padding:12px 10px;
-text-align:center;
-box-shadow:0 0 18px {ticker_card['color']}33;
-margin-bottom:12px;
-min-height:72px;
-display:flex;
-align-items:center;
-justify-content:center;
-">
-
-<div class="ticker-label" style="
-color:{ticker_card['color']};
-font-size:20px;
-font-weight:800;
-line-height:1.2;
-">
-{ticker_card['label']}<br>{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
-</div>
-
-</div>
-""",
-                    unsafe_allow_html=True
-                )
-
-    # =====================================================
-    # MARKET COMMAND CENTER
-    # =====================================================
-
-    st.subheader(t["market_command_center"])
-
-    if is_mobile:
-        calendar_col = st.container()
-        ai_col = st.container()
-    else:
-        calendar_col, ai_col = st.columns([2.2, 1])
-        
-    with calendar_col:
-
-        st.markdown(t["market_calendar"])
-
-        events = load_market_calendar()
-        calendar_grid = st.columns(2) if not is_mobile else [st.container()]
-
-        for index, event in enumerate(events):
-
-            impact_label, impact_color = impact_badge(event["level"])
-            event_col = calendar_grid[index % len(calendar_grid)]
-
-            with event_col:
-                st.markdown(
-                f"""
-    <div style="
-    background:rgba(15,23,42,0.75);
-    border:1px solid rgba(56,189,248,0.25);
-    border-radius:16px;
-    padding:14px;
-    margin-bottom:12px;
-    ">
-
-    <div style="
-    color:#38bdf8;
-    font-size:13px;
-    font-weight:700;
-    ">
-    {event['date']}
-    </div>
-
-    <div style="
-    color:#f8fafc;
-    font-size:18px;
-    font-weight:700;
-    margin-top:4px;
-    ">
-    {event['event']}
-    </div>
-
-    <div style="
-    color:#38bdf8;
-    font-size:13px;
-    font-weight:700;
-    margin-top:6px;
-    ">
-    {event['type']}
-    </div>
-
-    <div style="
-    color:#94a3b8;
-    font-size:13px;
-    margin-top:6px;
-    ">
-    {event['assets']}
-    </div>
-
-    <div style="
-    color:#94a3b8;
-    font-size:13px;
-    margin-top:8px;
-    ">
-    ⏳ {event['days']}
-    </div>
-
-    <div style="
-    color:{impact_color};
-    font-size:14px;
-    font-weight:700;
-    margin-top:6px;
-    ">
-    {impact_label}
-    </div>
-
-    </div>
-    """,
-                    unsafe_allow_html=True,
-                )
-
-
-
-    with ai_col:
-
-        st.markdown(t["calendar_insight"])
-
-        st.markdown(build_calendar_insight(events))
-        st.markdown(t["portfolio_impact"])
-
-        impact_html = ""
-        portfolio_tickers = list(load_portfolio().keys())
-
-        for ticker, level, color, reason in portfolio_impact_rows(
-            events,
-            portfolio_tickers
-        ):
-            impact_html += f"""
-    <div style="
-    display:flex;
-    justify-content:space-between;
-    gap:14px;
-    border-bottom:1px solid rgba(148,163,184,0.12);
-    padding-bottom:10px;
-    margin-bottom:10px;
-    ">
-    <div>
-    <div style="color:#f8fafc;font-weight:800;">{ticker}</div>
-    <div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
-    </div>
-    <div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
-    </div>
-    """
-
-        st.markdown(
-            f"""
-    <div style="
-    background:rgba(15,23,42,0.75);
-    border:1px solid rgba(56,189,248,0.25);
-    border-radius:16px;
-    padding:16px;
-    margin-top:18px;
-    ">
-
-    {impact_html}
-
-    </div>
-    """,
-            unsafe_allow_html=True,
-        )
-
     # =====================================================
     # EXECUTIVE SUMMARY ROW
     # =====================================================
@@ -967,7 +782,7 @@ line-height:1.2;
         key=lambda x: x["market_value"]
     )
 
-    with summary3:
+    with summary2:
 
         st.markdown(
             f"""
@@ -1183,7 +998,7 @@ line-height:1.2;
             radar_data=None
         )
 
-    with summary2:
+    with summary3:
 
         # =====================================================
         # MARKET NARRATIVE PANEL
@@ -1236,6 +1051,192 @@ line-height:1.8;
                 history.tail(30),
                 use_container_width=True
             )  
+
+    ticker_items = ticker_cards
+    ticker_rows = [ticker_items[i:i + 5] for i in range(0, len(ticker_items), 5)]
+
+    for ticker_row in ticker_rows:
+
+        if is_mobile:
+            macro_cols = [st.container() for _ in ticker_row]
+        else:
+            macro_cols = st.columns(len(ticker_row))
+
+        for col, ticker_card in zip(macro_cols, ticker_row):
+
+            with col:
+
+                st.markdown(
+                    f"""
+<div class="ticker-card" style="
+background:rgba(15,23,42,0.78);
+border:1px solid {ticker_card['color']};
+border-radius:16px;
+padding:12px 10px;
+text-align:center;
+box-shadow:0 0 18px {ticker_card['color']}33;
+margin-bottom:12px;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
+">
+
+<div class="ticker-label" style="
+color:{ticker_card['color']};
+font-size:20px;
+font-weight:800;
+line-height:1.2;
+">
+{ticker_card['label']}<br>{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
+</div>
+
+</div>
+""",
+                    unsafe_allow_html=True
+                )
+
+    # =====================================================
+    # MARKET COMMAND CENTER
+    # =====================================================
+
+    st.subheader(t["market_command_center"])
+
+    if is_mobile:
+        calendar_col = st.container()
+        ai_col = st.container()
+    else:
+        calendar_col, ai_col = st.columns([2.2, 1])
+        
+    with calendar_col:
+
+        st.markdown(t["market_calendar"])
+
+        events = load_market_calendar()
+        calendar_grid = st.columns(2) if not is_mobile else [st.container()]
+
+        for index, event in enumerate(events):
+
+            impact_label, impact_color = impact_badge(event["level"])
+            event_col = calendar_grid[index % len(calendar_grid)]
+
+            with event_col:
+                st.markdown(
+                f"""
+    <div style="
+    background:rgba(15,23,42,0.75);
+    border:1px solid rgba(56,189,248,0.25);
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:12px;
+    ">
+
+    <div style="
+    color:#38bdf8;
+    font-size:13px;
+    font-weight:700;
+    ">
+    {event['date']}
+    </div>
+
+    <div style="
+    color:#f8fafc;
+    font-size:18px;
+    font-weight:700;
+    margin-top:4px;
+    ">
+    {event['event']}
+    </div>
+
+    <div style="
+    color:#38bdf8;
+    font-size:13px;
+    font-weight:700;
+    margin-top:6px;
+    ">
+    {event['type']}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:6px;
+    ">
+    {event['assets']}
+    </div>
+
+    <div style="
+    color:#94a3b8;
+    font-size:13px;
+    margin-top:8px;
+    ">
+    ⏳ {event['days']}
+    </div>
+
+    <div style="
+    color:{impact_color};
+    font-size:14px;
+    font-weight:700;
+    margin-top:6px;
+    ">
+    {impact_label}
+    </div>
+
+    </div>
+    """,
+                    unsafe_allow_html=True,
+                )
+
+
+
+    with ai_col:
+
+        st.markdown(t["calendar_insight"])
+
+        st.markdown(build_calendar_insight(events))
+        st.markdown(t["portfolio_impact"])
+
+        impact_html = ""
+        portfolio_tickers = list(load_portfolio().keys())
+
+        for ticker, level, color, reason in portfolio_impact_rows(
+            events,
+            portfolio_tickers
+        ):
+            impact_html += f"""
+    <div style="
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    border-bottom:1px solid rgba(148,163,184,0.12);
+    padding-bottom:10px;
+    margin-bottom:10px;
+    ">
+    <div>
+    <div style="color:#f8fafc;font-weight:800;">{ticker}</div>
+    <div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
+    </div>
+    <div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
+    </div>
+    """
+
+        st.markdown(
+            f"""
+    <div style="
+    background:rgba(15,23,42,0.75);
+    border:1px solid rgba(56,189,248,0.25);
+    border-radius:16px;
+    padding:16px;
+    margin-top:18px;
+    ">
+
+    {impact_html}
+
+    </div>
+    """,
+            unsafe_allow_html=True,
+        )
+
 with portfolio_tab:
     # =====================================================
     # PORTFOLIO DATA
