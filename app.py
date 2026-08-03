@@ -623,9 +623,12 @@ for label, symbol in macro_tickers.items():
 
     color = "#22c55e" if pct_change >= 0 else "#f87171"
     arrow = "▲" if pct_change >= 0 else "▼"
+    price_prefix = "" if label in ["NASDAQ", "S&P 500", "VIX"] else "$"
+    price_display = f"{price_prefix}{price_data['latest']:,.2f}"
 
     ticker_cards.append({
         "label": label,
+        "price_display": price_display,
         "pct_change": pct_change,
         "color": color,
         "arrow": arrow,
@@ -1106,7 +1109,7 @@ padding:12px 10px;
 text-align:center;
 box-shadow:0 0 18px {ticker_card['color']}33;
 margin-bottom:12px;
-min-height:72px;
+min-height:86px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -1118,7 +1121,9 @@ font-size:20px;
 font-weight:800;
 line-height:1.2;
 ">
-{ticker_card['label']}<br>{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
+{ticker_card['label']}<br>
+<span style="color:#f8fafc;font-size:15px;font-weight:800;">{ticker_card['price_display']}</span><br>
+{ticker_card['arrow']} {ticker_card['pct_change']:.2f}%
 <span style="font-size:11px;color:#94a3b8;margin-left:4px;">{ticker_card['price_type']}</span>
 </div>
 
