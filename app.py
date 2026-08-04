@@ -404,6 +404,7 @@ if st.button("↻ Refresh data"):
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
     
 
     section[data-testid="stSidebar"] {
@@ -415,7 +416,23 @@ st.markdown(
     }
 
     html, body {
-        font-family: 'Courier New', monospace;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        letter-spacing: 0;
+    }
+
+    * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        letter-spacing: 0;
+    }
+
+    code, pre,
+    div[data-testid="stMetricValue"],
+    .financial-number,
+    .ticker-label,
+    .ticker-card,
+    .dashboard-card-value {
+        font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace !important;
+        letter-spacing: 0 !important;
     }
 
     h1:not(.custom-market-title) {
@@ -446,10 +463,20 @@ st.markdown(
     div[data-testid="metric-container"] label {
         color: #94a3b8 !important;
         font-size: 14px !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0 !important;
     }
 
     div[data-testid="metric-container"] div {
         color: #f8fafc !important;
+    }
+
+    div[data-testid="stMetricValue"] {
+        font-weight: 500 !important;
+        line-height: 1.05 !important;
+        color: #f8fafc !important;
+        text-shadow: 0 0 16px rgba(248,250,252,0.08);
     }
 
     .stAlert {
