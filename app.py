@@ -224,8 +224,11 @@ def impact_badge(level):
     return "🟢 Low", "#22c55e"
 
 
-def build_calendar_insight(events):
+def build_calendar_insight(events, language="English"):
     if not events:
+        if language == "日本語":
+            return "現在のカレンダーファイルには、重要なマーケットイベントは登録されていません。"
+
         return "No major market events are scheduled in the current calendar file."
 
     critical_events = [
@@ -233,13 +236,24 @@ def build_calendar_insight(events):
         if event["level"].lower() == "critical"
     ]
     focus_events = critical_events if critical_events else events[:3]
-    top_events = ", ".join(event["event"] for event in focus_events[:3])
-
     event_types = []
     for event in events:
         if event["type"] not in event_types:
             event_types.append(event["type"])
 
+    if language == "日本語":
+        top_events = "、".join(
+            jp_event_name(event["event"]) for event in focus_events[:3]
+        )
+        main_types = "、".join(jp_event_type(event_type) for event_type in event_types[:3])
+
+        return (
+            f"今週の注目イベントは、{top_events}です。"
+            f"特に{main_types}がマーケットの焦点になりやすく、"
+            f"金利、ハイテク大型株、投資家のリスク許容度に影響する可能性があります。"
+        )
+
+    top_events = ", ".join(event["event"] for event in focus_events[:3])
     main_types = ", ".join(event_types[:3])
 
     return (
@@ -319,6 +333,110 @@ def portfolio_impact_rows(events, tickers):
 
     return rows
 
+
+def jp_market_term(text):
+    translations = {
+        "RISK_ON": "リスクオン",
+        "RISK_OFF": "リスクオフ",
+        "NEUTRAL": "中立",
+        "greed": "強気",
+        "fear": "警戒",
+        "uncertain": "様子見",
+        "Tech strength": "ハイテク株の強さ",
+        "Tech weakness": "ハイテク株の弱さ",
+        "Fear rising": "市場の警戒感上昇",
+        "Fear easing": "市場の警戒感後退",
+        "Oil spike": "原油価格の急騰",
+        "Oil collapse easing inflation fears": "原油安によるインフレ懸念の後退",
+        "Crypto strength": "暗号資産の強さ",
+        "Crypto weakness": "暗号資産の弱さ",
+        "No direct calendar catalyst": "直接関係する予定は少なめ",
+        "HIGH": "高",
+        "MEDIUM": "中",
+        "LOW": "低",
+    }
+
+    return translations.get(text, text)
+
+
+def jp_event_type(event_type):
+    translations = {
+        "Macro / Labor": "マクロ / 雇用",
+        "Labor Market": "雇用統計",
+        "Business Activity": "景況感",
+        "Earnings": "決算",
+        "Labor Costs": "労働コスト",
+        "Federal Reserve": "FRB",
+        "Inflation": "インフレ",
+        "Consumer / Sentiment": "消費 / 景況感",
+    }
+
+    return translations.get(event_type, event_type)
+
+
+def jp_event_name(event_name):
+    translations = {
+        "Trade Balance + JOLTS + Factory Orders": "貿易収支 + JOLTS求人件数 + 製造業受注",
+        "Major Earnings: CAT, AMD, MCD, SHOP, SPOT": "主要決算: CAT, AMD, MCD, SHOP, SPOT",
+        "ADP Employment Report": "ADP雇用レポート",
+        "S&P Global Services PMI + ISM Services PMI": "サービス業PMI + ISMサービス業景況指数",
+        "Major Earnings: LLY, UBER, DIS, GFS": "主要決算: LLY, UBER, DIS, GFS",
+        "Weekly Jobless Claims": "週間 新規失業保険申請件数",
+        "Productivity and Labor Costs": "生産性・労働コスト",
+        "Fed Speaker: Alberto Musalem": "FRB要人発言: Alberto Musalem",
+        "Major Earnings: DDOG, ABNB, COP, CEG": "主要決算: DDOG, ABNB, COP, CEG",
+        "Nonfarm Payrolls Report": "米雇用統計",
+        "Fed Speaker: Thomas Barkin": "FRB要人発言: Thomas Barkin",
+        "Major Earnings: OKLO, TTWO, ENB, UAA": "主要決算: OKLO, TTWO, ENB, UAA",
+        "Consumer Price Index": "消費者物価指数 CPI",
+        "Producer Price Index": "生産者物価指数 PPI",
+        "Retail Sales + Michigan Consumer Sentiment": "小売売上高 + ミシガン大学消費者信頼感",
+    }
+
+    return translations.get(event_name, event_name)
+
+
+def jp_assets(assets):
+    translations = {
+        "Stocks": "株式",
+        "Bonds": "債券",
+        "Gold": "金",
+        "Growth": "成長株",
+        "Growth Stocks": "成長株",
+        "Market Sentiment": "市場心理",
+        "Consumer Stocks": "消費関連株",
+        "Rates": "金利",
+        "Healthcare": "ヘルスケア",
+        "Consumer": "消費関連",
+        "Semiconductors": "半導体",
+        "Industrials": "工業株",
+        "Software": "ソフトウェア",
+        "Travel": "旅行関連",
+        "Energy": "エネルギー",
+        "Utilities": "公益株",
+        "Nuclear": "原子力",
+        "Gaming": "ゲーム",
+    }
+
+    translated = assets
+    for english, japanese in translations.items():
+        translated = translated.replace(english, japanese)
+
+    return translated
+
+
+def jp_reason_text(reason):
+    if reason == "No direct calendar catalyst":
+        return jp_market_term(reason)
+
+    parts = [part.strip() for part in reason.split("+")]
+    translated_parts = []
+
+    for part in parts:
+        translated_parts.append(jp_event_name(jp_event_type(part)))
+
+    return " + ".join(translated_parts)
+
 # =====================================================
 # DEV MODE / AI COST CONTROL
 # =====================================================
@@ -347,6 +465,8 @@ TEXT = {
         "portfolio_value": "Portfolio Value",
         "largest_position": "Largest Position",
         "total_gain_loss": "Total Gain / Loss",
+        "refresh_data": "↻ Refresh data",
+        "regime_history": "📈 Regime History",
     },
     "日本語": {
         "search": "🔎 企業を検索",
@@ -356,18 +476,20 @@ TEXT = {
         "research": "📑 企業分析",
         "heatmap": "🔥 ヒートマップ",
         "market_command_center": "🌎 マーケット司令室",
-        "market_calendar": "### 📅 市場カレンダー",
-        "calendar_insight": "### 🤖 カレンダー分析",
+        "market_calendar": "### 📅 今週の重要イベント",
+        "calendar_insight": "### 🤖 今週の見どころ",
         "portfolio_impact": "### 💼 保有銘柄への影響",
-        "market_regime": "市場レジーム",
-        "emotion": "心理",
-        "drivers": "要因",
+        "market_regime": "現在の市場環境",
+        "emotion": "投資家心理",
+        "drivers": "主な理由",
         "no_drivers": "大きなマクロ要因は検出されていません",
-        "market_narrative": "マーケット解説",
+        "market_narrative": "市場コメント",
         "portfolio_snapshot": "📊 ポートフォリオ概要",
-        "portfolio_value": "ポートフォリオ評価額",
+        "portfolio_value": "現在の評価額",
         "largest_position": "最大保有銘柄",
-        "total_gain_loss": "合計損益",
+        "total_gain_loss": "含み益 / 含み損",
+        "refresh_data": "↻ データを更新",
+        "regime_history": "📈 市場環境の履歴",
     },
 }
 
@@ -397,7 +519,7 @@ language = st.selectbox(
 
 t = TEXT[language]
 
-if st.button("↻ Refresh data"):
+if st.button(t["refresh_data"]):
     st.cache_data.clear()
     st.rerun()
 
@@ -885,6 +1007,19 @@ with dashboard_tab:
         key=lambda x: x["market_value"]
     )
 
+    regime_name_display = regime["name"]
+    emotion_display = regime["emotion"]
+    drivers_display = ", ".join(regime["drivers"]) if regime["drivers"] else t["no_drivers"]
+
+    if language == "日本語":
+        regime_name_display = jp_market_term(regime["name"])
+        emotion_display = jp_market_term(regime["emotion"])
+        drivers_display = (
+            "、".join(jp_market_term(driver) for driver in regime["drivers"])
+            if regime["drivers"]
+            else t["no_drivers"]
+        )
+
     with summary2:
 
         st.markdown(
@@ -996,7 +1131,7 @@ with dashboard_tab:
     margin-bottom:14px;
     text-shadow:0 0 18px {regime['color']}55;
     ">
-    {regime['name']}
+    {regime_name_display}
     </div>
 
     <div class="dashboard-card-body" style="
@@ -1004,7 +1139,7 @@ with dashboard_tab:
     font-size:18px;
     line-height:1.8;
     ">
-    {t['emotion']}: {regime['emotion']}
+    {t['emotion']}: {emotion_display}
     </div>
 
     <div class="dashboard-card-body" style="
@@ -1013,8 +1148,7 @@ with dashboard_tab:
     margin-top:10px;
     line-height:1.7;
     ">
-    {t['drivers']}:
-    {", ".join(regime['drivers']) if regime['drivers'] else t['no_drivers']}
+    {t['drivers']}: {drivers_display}
     </div>
 
     </div>
@@ -1071,24 +1205,44 @@ with dashboard_tab:
 
         if regime["name"] == "RISK_OFF":
 
-            market_narrative = (
-                f"Volatility remains elevated with VIX moving "
-                f"{vix_move:.1f}% while growth assets face defensive positioning."
-            )
+            if language == "日本語":
+                market_narrative = (
+                    f"VIXが{vix_move:.1f}%動いており、市場の警戒感はまだ高めです。"
+                    f"成長株はやや守りの姿勢になりやすい局面です。"
+                )
+            else:
+                market_narrative = (
+                    f"Volatility remains elevated with VIX moving "
+                    f"{vix_move:.1f}% while growth assets face defensive positioning."
+                )
 
         elif regime["name"] == "RISK_ON":
 
-            market_narrative = (
-                f"Risk appetite remains constructive as NASDAQ advances "
-                f"{nasdaq_move:.1f}% and speculative activity improves."
-            )
+            if language == "日本語":
+                market_narrative = (
+                    f"NASDAQが{nasdaq_move:.1f}%上昇しており、"
+                    f"投資家はリスクを取りにいくムードです。"
+                    f"成長株やハイテク株には追い風になりやすい流れです。"
+                )
+            else:
+                market_narrative = (
+                    f"Risk appetite remains constructive as NASDAQ advances "
+                    f"{nasdaq_move:.1f}% and speculative activity improves."
+                )
 
         else:
 
-            market_narrative = (
-                f"Cross-asset signals remain mixed with NASDAQ at "
-                f"{nasdaq_move:.1f}% and Bitcoin at {btc_move:.1f}%."
-            )
+            if language == "日本語":
+                market_narrative = (
+                    f"NASDAQは{nasdaq_move:.1f}%、Bitcoinは{btc_move:.1f}%で、"
+                    f"市場全体の方向感はまだややまちまちです。"
+                    f"大きく攻めるより、次の材料を確認したい局面です。"
+                )
+            else:
+                market_narrative = (
+                    f"Cross-asset signals remain mixed with NASDAQ at "
+                    f"{nasdaq_move:.1f}% and Bitcoin at {btc_move:.1f}%."
+                )
 
     else:
 
@@ -1224,6 +1378,22 @@ line-height:1.2;
         for index, event in enumerate(events):
 
             impact_label, impact_color = impact_badge(event["level"])
+            event_name_display = event["event"]
+            event_type_display = event["type"]
+            event_assets_display = event["assets"]
+
+            if language == "日本語":
+                event_name_display = jp_event_name(event["event"])
+                event_type_display = jp_event_type(event["type"])
+                event_assets_display = jp_assets(event["assets"])
+                impact_label = (
+                    impact_label
+                    .replace("Critical", "最重要")
+                    .replace("High", "重要")
+                    .replace("Medium", "中")
+                    .replace("Low", "低")
+                )
+
             event_col = calendar_grid[index % len(calendar_grid)]
 
             with event_col:
@@ -1251,7 +1421,7 @@ line-height:1.2;
     font-weight:700;
     margin-top:4px;
     ">
-    {event['event']}
+    {event_name_display}
     </div>
 
     <div style="
@@ -1260,7 +1430,7 @@ line-height:1.2;
     font-weight:700;
     margin-top:6px;
     ">
-    {event['type']}
+    {event_type_display}
     </div>
 
     <div style="
@@ -1268,7 +1438,7 @@ line-height:1.2;
     font-size:13px;
     margin-top:6px;
     ">
-    {event['assets']}
+    {event_assets_display}
     </div>
 
     <div style="
@@ -1299,7 +1469,7 @@ line-height:1.2;
 
         st.markdown(t["calendar_insight"])
 
-        st.markdown(build_calendar_insight(events))
+        st.markdown(build_calendar_insight(events, language))
         st.markdown(t["portfolio_impact"])
 
         impact_html = ""
@@ -1309,6 +1479,13 @@ line-height:1.2;
             events,
             portfolio_tickers
         ):
+            level_display = level
+            reason_display = reason
+
+            if language == "日本語":
+                level_display = jp_market_term(level)
+                reason_display = jp_reason_text(reason)
+
             impact_html += f"""
     <div style="
     display:flex;
@@ -1320,9 +1497,9 @@ line-height:1.2;
     ">
     <div>
     <div style="color:#f8fafc;font-weight:800;">{ticker}</div>
-    <div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason}</div>
+    <div style="color:#94a3b8;font-size:12px;margin-top:3px;">{reason_display}</div>
     </div>
-    <div style="color:{color};font-weight:800;white-space:nowrap;">{level}</div>
+    <div style="color:{color};font-weight:800;white-space:nowrap;">{level_display}</div>
     </div>
     """
 
