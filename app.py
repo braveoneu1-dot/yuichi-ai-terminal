@@ -92,7 +92,10 @@ HEATMAP_TICKERS = [
     "JPM", "V", "LLY", "MA", "NFLX", "XOM", "COST", "WMT",
     "UNH", "ORCL", "HD", "PG", "JNJ", "BAC", "ABBV", "KO",
     "PLTR", "AMD", "CRM", "CSCO", "CVX", "MRK", "MCD", "DIS",
-    "ADBE", "PEP", "TMO", "ABT", "ACN", "WFC", "QCOM", "INTC"
+    "ADBE", "PEP", "TMO", "ABT", "ACN", "WFC", "QCOM", "INTC",
+    "TXN", "IBM", "GE", "NOW", "ISRG", "AMGN", "PM", "UBER",
+    "GS", "RTX", "SPGI", "CAT", "BKNG", "AXP", "MS", "NEE",
+    "PFE", "LOW", "HON", "UNP"
 ]
 
 
@@ -2616,7 +2619,12 @@ with heatmap_tab:
         rows.append({
             "Ticker": ticker,
             "Price": round(price_data["latest"], 2),
-            "Change": round(price_data["pct_change"], 2),
+            "Day Change": round(price_data["daily_pct_change"], 2),
+            "Extended Change": (
+                round(price_data["extended_pct_change"], 2)
+                if price_data["extended_pct_change"] is not None
+                else None
+            ),
             "Session": price_data["price_type"]
         })
 
@@ -2626,7 +2634,7 @@ with heatmap_tab:
         st.warning("Heatmap data unavailable right now.")
         st.stop()
 
-    heatmap_df = heatmap_df.sort_values("Change", ascending=False)
+    heatmap_df = heatmap_df.sort_values("Day Change", ascending=False)
 
     strongest = heatmap_df.iloc[0]
     weakest = heatmap_df.iloc[-1]
@@ -2641,14 +2649,14 @@ with heatmap_tab:
         st.metric(
             "🔥 Strongest",
             strongest["Ticker"],
-            f"{strongest['Change']}% {strongest['Session']}"
+            f"{strongest['Day Change']}% DAY"
         )
 
     with h2:
         st.metric(
             "🧊 Weakest",
             weakest["Ticker"],
-            f"{weakest['Change']}% {weakest['Session']}"
+            f"{weakest['Day Change']}% DAY"
         )
 
     if is_mobile:
@@ -2660,7 +2668,8 @@ with heatmap_tab:
 
         ticker = row["Ticker"]
         price = row["Price"]
-        change = row["Change"]
+        change = row["Day Change"]
+        extended_change = row["Extended Change"]
         session = row["Session"]
 
         intensity = min(abs(change) / 3, 1)
@@ -2675,6 +2684,55 @@ with heatmap_tab:
             border = "#ef4444"
             text_color = "#fee2e2"
             arrow = "▼"
+
+        extended_html = """
+<div style="
+display:inline-flex;
+align-items:center;
+margin-top:6px;
+padding:4px 7px;
+border-radius:999px;
+background:rgba(2,6,23,0.46);
+border:1px solid rgba(148,163,184,0.28);
+color:#cbd5e1;
+font-size:11px;
+font-weight:900;
+letter-spacing:0;
+">
+EXT N/A
+</div>
+"""
+
+        if extended_change is not None and not pd.isna(extended_change):
+            extended_color = "#22c55e" if extended_change >= 0 else "#ef4444"
+            extended_arrow = "▲" if extended_change >= 0 else "▼"
+
+            if "PRE-MARKET" in market_status:
+                extended_label = "PRE"
+            elif "AFTER HOURS" in market_status:
+                extended_label = "AH"
+            else:
+                extended_label = session
+
+            extended_html = f"""
+<div style="
+display:inline-flex;
+align-items:center;
+margin-top:6px;
+padding:4px 7px;
+border-radius:999px;
+background:rgba(2,6,23,0.58);
+border:1px solid {extended_color};
+box-shadow:0 0 10px {extended_color}66;
+color:{extended_color};
+font-size:11px;
+font-weight:900;
+letter-spacing:0;
+text-shadow:0 1px 2px rgba(0,0,0,0.65);
+">
+{extended_label} {extended_arrow} {extended_change:.2f}%
+</div>
+"""
 
         with heat_cols[i % len(heat_cols)]:
 
@@ -2705,8 +2763,9 @@ line-height:1.1;
 <div>
 <div style="color:#f8fafc;font-size:13px;font-weight:700;">${price:,.2f}</div>
 <div style="color:{text_color};font-size:18px;font-weight:900;margin-top:4px;">
-{arrow} {change:.2f}% <span style="color:#cbd5e1;font-size:10px;">{session}</span>
+DAY {arrow} {change:.2f}%
 </div>
+{extended_html}
 </div>
 
 </div>
