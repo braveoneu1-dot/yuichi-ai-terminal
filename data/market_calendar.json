@@ -1,22 +1,8 @@
 [
   {
-    "date": "2026-08-03",
-    "event": "ISM Manufacturing PMI",
-    "type": "Business Activity",
-    "level": "High",
-    "assets": "Stocks - Industrials - USD"
-  },
-  {
-    "date": "2026-08-03",
-    "event": "Major Earnings: PLTR, MAR, TSN, ON",
-    "type": "Earnings",
-    "level": "High",
-    "assets": "AI - Travel - Consumer - Semiconductors"
-  },
-  {
     "date": "2026-08-04",
-    "event": "JOLTS Job Openings",
-    "type": "Labor Market",
+    "event": "Trade Balance + JOLTS + Factory Orders",
+    "type": "Macro / Labor",
     "level": "Critical",
     "assets": "Stocks - Bonds - USD"
   },
@@ -25,7 +11,7 @@
     "event": "Major Earnings: CAT, AMD, MCD, SHOP, SPOT",
     "type": "Earnings",
     "level": "Critical",
-    "assets": "AI - Semiconductors - Industrials - Consumer"
+    "assets": "AI - Industrials - Consumer - Semiconductors"
   },
   {
     "date": "2026-08-05",
@@ -36,17 +22,17 @@
   },
   {
     "date": "2026-08-05",
-    "event": "ISM Services PMI",
+    "event": "S&P Global Services PMI + ISM Services PMI",
     "type": "Business Activity",
     "level": "High",
     "assets": "Stocks - Growth - USD"
   },
   {
     "date": "2026-08-05",
-    "event": "Major Earnings: UBER, DIS, LLY, GFS",
+    "event": "Major Earnings: LLY, UBER, DIS, GFS",
     "type": "Earnings",
     "level": "High",
-    "assets": "Consumer - Healthcare - Semiconductors - Nasdaq"
+    "assets": "Healthcare - Consumer - Semiconductors - Nasdaq"
   },
   {
     "date": "2026-08-06",
@@ -59,15 +45,22 @@
     "date": "2026-08-06",
     "event": "Productivity and Labor Costs",
     "type": "Labor Costs",
-    "level": "Medium",
+    "level": "High",
     "assets": "Rates - Bonds - USD"
   },
   {
     "date": "2026-08-06",
-    "event": "Major Earnings: DDOG, ABNB, NET, TEAM, DKNG",
+    "event": "Fed Speaker: Alberto Musalem",
+    "type": "Federal Reserve",
+    "level": "Medium",
+    "assets": "Rates - USD - Growth Stocks"
+  },
+  {
+    "date": "2026-08-06",
+    "event": "Major Earnings: DDOG, ABNB, COP, CEG",
     "type": "Earnings",
     "level": "High",
-    "assets": "Software - Cloud - Travel - Nasdaq"
+    "assets": "Software - Travel - Energy - Utilities"
   },
   {
     "date": "2026-08-07",
@@ -78,9 +71,37 @@
   },
   {
     "date": "2026-08-07",
+    "event": "Fed Speaker: Thomas Barkin",
+    "type": "Federal Reserve",
+    "level": "Medium",
+    "assets": "Rates - USD - Market Sentiment"
+  },
+  {
+    "date": "2026-08-07",
     "event": "Major Earnings: OKLO, TTWO, ENB, UAA",
     "type": "Earnings",
     "level": "Medium",
     "assets": "Nuclear - Gaming - Energy - Consumer"
+  },
+  {
+    "date": "2026-08-12",
+    "event": "Consumer Price Index",
+    "type": "Inflation",
+    "level": "Critical",
+    "assets": "Stocks - Bonds - USD - Gold"
+  },
+  {
+    "date": "2026-08-13",
+    "event": "Producer Price Index",
+    "type": "Inflation",
+    "level": "Critical",
+    "assets": "Stocks - Bonds - USD - Growth"
+  },
+  {
+    "date": "2026-08-14",
+    "event": "Retail Sales + Michigan Consumer Sentiment",
+    "type": "Consumer / Sentiment",
+    "level": "High",
+    "assets": "Consumer Stocks - USD - Rates"
   }
 ]
