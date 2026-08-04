@@ -437,6 +437,20 @@ def jp_reason_text(reason):
 
     return " + ".join(translated_parts)
 
+
+def format_money(value, language="English", usd_jpy_rate=1):
+    if language == "日本語":
+        return f"¥{value * usd_jpy_rate:,.0f}"
+
+    return f"${value:,.0f}"
+
+
+def format_price(value, language="English", usd_jpy_rate=1):
+    if language == "日本語":
+        return f"¥{value * usd_jpy_rate:,.0f}"
+
+    return f"${value:,.2f}"
+
 # =====================================================
 # DEV MODE / AI COST CONTROL
 # =====================================================
@@ -779,6 +793,7 @@ macro_tickers = {
 }
 
 macro_changes = {}
+macro_prices = {}
 
 ticker_cards = []
 
@@ -791,6 +806,7 @@ for label, symbol in macro_tickers.items():
 
     pct_change = price_data["pct_change"]
     macro_changes[label] = pct_change
+    macro_prices[label] = price_data["latest"]
 
     color = "#22c55e" if pct_change >= 0 else "#f87171"
     arrow = "▲" if pct_change >= 0 else "▼"
@@ -845,6 +861,11 @@ else:
     
 
     save_regime_history(regime)
+
+usd_jpy_rate = macro_prices.get("USD/JPY", 150)
+
+if pd.isna(usd_jpy_rate) or usd_jpy_rate <= 0:
+    usd_jpy_rate = 150
 # =====================================================
 # DYNAMIC THEME ENGINE
 # =====================================================
@@ -1020,6 +1041,23 @@ with dashboard_tab:
             else t["no_drivers"]
         )
 
+    portfolio_value_display = format_money(
+        portfolio_stats["market_value"],
+        language,
+        usd_jpy_rate
+    )
+    portfolio_pnl_display = format_money(
+        portfolio_stats["pnl"],
+        language,
+        usd_jpy_rate
+    )
+    portfolio_value_label = t["portfolio_value"]
+
+    if language == "日本語":
+        portfolio_value_label = (
+            f"{t['portfolio_value']}（USD/JPY {usd_jpy_rate:.2f}換算）"
+        )
+
     with summary2:
 
         st.markdown(
@@ -1049,7 +1087,7 @@ with dashboard_tab:
     font-weight:900;
     margin-bottom:8px;
     ">
-    ${portfolio_stats['market_value']:,.0f}
+    {portfolio_value_display}
     </div>
 
     <div class="dashboard-card-body" style="
@@ -1057,7 +1095,7 @@ with dashboard_tab:
     font-size:14px;
     margin-bottom:18px;
     ">
-    {t['portfolio_value']}
+    {portfolio_value_label}
     </div>
 
     <div class="dashboard-card-value" style="
@@ -1082,7 +1120,7 @@ with dashboard_tab:
     font-size:20px;
     font-weight:800;
     ">
-    ${portfolio_stats['pnl']:,.0f}
+    {portfolio_pnl_display}
     </div>
 
     <div class="dashboard-card-body" style="
@@ -1528,12 +1566,30 @@ with portfolio_tab:
     portfolio_stats = calculate_portfolio()
 
     positions = portfolio_stats["positions"]
+    portfolio_summary_title = "💰 Portfolio Summary"
+    portfolio_value_metric = "Portfolio Value"
+    cost_basis_metric = "Cost Basis"
+    gain_loss_metric = "Gain / Loss"
+    return_metric = "Return %"
+    winner_title = "🏆 LARGEST WINNER"
+    loser_title = "💀 LARGEST LOSER"
+    allocation_title = "📊 Portfolio Allocation"
+
+    if language == "日本語":
+        portfolio_summary_title = "💰 ポートフォリオ概要"
+        portfolio_value_metric = "評価額"
+        cost_basis_metric = "取得額"
+        gain_loss_metric = "含み益 / 含み損"
+        return_metric = "リターン %"
+        winner_title = "🏆 最大の含み益"
+        loser_title = "💀 最大の含み損"
+        allocation_title = "📊 保有比率"
 
     # =====================================================
     # PORTFOLIO SUMMARY
     # =====================================================
 
-    st.subheader("💰 Portfolio Summary")
+    st.subheader(portfolio_summary_title)
 
     if is_mobile:
         c1 = st.container()
@@ -1545,25 +1601,25 @@ with portfolio_tab:
 
     with c1:
         st.metric(
-            "Portfolio Value",
-            f"${portfolio_stats['market_value']:,.0f}"
+            portfolio_value_metric,
+            format_money(portfolio_stats["market_value"], language, usd_jpy_rate)
         )
 
     with c2:
         st.metric(
-            "Cost Basis",
-            f"${portfolio_stats['cost_basis']:,.0f}"
+            cost_basis_metric,
+            format_money(portfolio_stats["cost_basis"], language, usd_jpy_rate)
         )
 
     with c3:
         st.metric(
-            "Gain / Loss",
-            f"${portfolio_stats['pnl']:,.0f}"
+            gain_loss_metric,
+            format_money(portfolio_stats["pnl"], language, usd_jpy_rate)
         )
 
     with c4:
         st.metric(
-            "Return %",
+            return_metric,
             f"{portfolio_stats['return_pct']:.1f}%"
         )
 
@@ -1606,7 +1662,7 @@ with portfolio_tab:
         font-weight:700;
         margin-bottom:12px;
         ">
-        🏆 LARGEST WINNER
+        {winner_title}
         </div>
 
         <div style="
@@ -1622,7 +1678,7 @@ with portfolio_tab:
         font-size:24px;
         font-weight:700;
         ">
-        ${winner["pnl"]:,.0f}
+        {format_money(winner["pnl"], language, usd_jpy_rate)}
         </div>
 
         </div>
@@ -1648,7 +1704,7 @@ with portfolio_tab:
         font-weight:700;
         margin-bottom:12px;
         ">
-        💀 LARGEST LOSER
+        {loser_title}
         </div>
 
         <div style="
@@ -1664,7 +1720,7 @@ with portfolio_tab:
         font-size:24px;
         font-weight:700;
         ">
-        ${loser["pnl"]:,.0f}
+        {format_money(loser["pnl"], language, usd_jpy_rate)}
         </div>
 
         </div>
@@ -1675,7 +1731,7 @@ with portfolio_tab:
     # PORTFOLIO ALLOCATION
     # =====================================================
 
-    st.subheader("📊 Portfolio Allocation")
+    st.subheader(allocation_title)
 
     logo_colors = {
         "TSLA": "#ef4444",
@@ -1698,6 +1754,7 @@ with portfolio_tab:
     for position in sorted_positions:
         ticker = position["ticker"]
         value = position["market_value"]
+        value_display = format_money(value, language, usd_jpy_rate)
         allocation = (value / total_value) * 100 if total_value else 0
         color = logo_colors.get(ticker, "#38bdf8")
 
@@ -1741,7 +1798,7 @@ gap:12px;
 margin-bottom:8px;
 ">
 <div style="color:#f8fafc;font-size:18px;font-weight:900;">{ticker}</div>
-<div style="color:#e2e8f0;font-size:15px;font-weight:800;">${value:,.0f}</div>
+<div style="color:#e2e8f0;font-size:15px;font-weight:800;">{value_display}</div>
 </div>
 
 <div style="
@@ -1862,6 +1919,20 @@ text-align:right;
                 "P&L",
                 "Return %"
             ]
+
+            if language == "日本語":
+                positions_df["Price"] = positions_df["Price"] * usd_jpy_rate
+                positions_df["Market Value"] = positions_df["Market Value"] * usd_jpy_rate
+                positions_df["P&L"] = positions_df["P&L"] * usd_jpy_rate
+
+                positions_df.columns = [
+                    "ティッカー",
+                    "株数",
+                    "現在値（円換算）",
+                    "評価額（円換算）",
+                    "含み益 / 含み損（円換算）",
+                    "リターン %"
+                ]
 
             st.dataframe(
                 positions_df,
