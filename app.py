@@ -206,6 +206,8 @@ def load_market_calendar():
             "level": event.get("level", "Medium"),
             "days": days_label,
             "assets": event.get("assets", "Stocks - Bonds - USD"),
+            "time_jst": event.get("time_jst", ""),
+            "time_et": event.get("time_et", ""),
         })
 
     return normalized_events[:12]
@@ -1419,11 +1421,13 @@ line-height:1.2;
             event_name_display = event["event"]
             event_type_display = event["type"]
             event_assets_display = event["assets"]
+            time_label = "Japan Time"
 
             if language == "日本語":
                 event_name_display = jp_event_name(event["event"])
                 event_type_display = jp_event_type(event["type"])
                 event_assets_display = jp_assets(event["assets"])
+                time_label = "日本時間"
                 impact_label = (
                     impact_label
                     .replace("Critical", "最重要")
@@ -1431,6 +1435,21 @@ line-height:1.2;
                     .replace("Medium", "中")
                     .replace("Low", "低")
                 )
+
+            time_html = ""
+
+            if event.get("time_jst"):
+                et_note = f" / {event['time_et']} ET" if event.get("time_et") else ""
+                time_html = f"""
+    <div style="
+    color:#e2e8f0;
+    font-size:13px;
+    font-weight:800;
+    margin-top:8px;
+    ">
+    🕘 {time_label}: {event['time_jst']}{et_note}
+    </div>
+    """
 
             event_col = calendar_grid[index % len(calendar_grid)]
 
@@ -1478,6 +1497,8 @@ line-height:1.2;
     ">
     {event_assets_display}
     </div>
+
+    {time_html}
 
     <div style="
     color:#94a3b8;

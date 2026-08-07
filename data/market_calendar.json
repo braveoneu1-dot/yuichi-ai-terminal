@@ -4,104 +4,134 @@
     "event": "Trade Balance + JOLTS + Factory Orders",
     "type": "Macro / Labor",
     "level": "Critical",
-    "assets": "Stocks - Bonds - USD"
+    "assets": "Stocks - Bonds - USD",
+    "time_et": "8:30 AM / 10:00 AM",
+    "time_jst": "21:30 / 23:00"
   },
   {
     "date": "2026-08-04",
     "event": "Major Earnings: CAT, AMD, MCD, SHOP, SPOT",
     "type": "Earnings",
     "level": "Critical",
-    "assets": "AI - Industrials - Consumer - Semiconductors"
+    "assets": "AI - Industrials - Consumer - Semiconductors",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
   },
   {
     "date": "2026-08-05",
     "event": "ADP Employment Report",
     "type": "Labor Market",
     "level": "High",
-    "assets": "Stocks - Bonds - USD"
+    "assets": "Stocks - Bonds - USD",
+    "time_et": "8:15 AM",
+    "time_jst": "21:15"
   },
   {
     "date": "2026-08-05",
     "event": "S&P Global Services PMI + ISM Services PMI",
     "type": "Business Activity",
     "level": "High",
-    "assets": "Stocks - Growth - USD"
+    "assets": "Stocks - Growth - USD",
+    "time_et": "9:45 AM / 10:00 AM",
+    "time_jst": "22:45 / 23:00"
   },
   {
     "date": "2026-08-05",
     "event": "Major Earnings: LLY, UBER, DIS, GFS",
     "type": "Earnings",
     "level": "High",
-    "assets": "Healthcare - Consumer - Semiconductors - Nasdaq"
+    "assets": "Healthcare - Consumer - Semiconductors - Nasdaq",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
   },
   {
     "date": "2026-08-06",
     "event": "Weekly Jobless Claims",
     "type": "Labor Market",
     "level": "High",
-    "assets": "Stocks - Bonds - USD"
+    "assets": "Stocks - Bonds - USD",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
     "date": "2026-08-06",
     "event": "Productivity and Labor Costs",
     "type": "Labor Costs",
     "level": "High",
-    "assets": "Rates - Bonds - USD"
+    "assets": "Rates - Bonds - USD",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
     "date": "2026-08-06",
     "event": "Fed Speaker: Alberto Musalem",
     "type": "Federal Reserve",
     "level": "Medium",
-    "assets": "Rates - USD - Growth Stocks"
+    "assets": "Rates - USD - Growth Stocks",
+    "time_et": "TBD",
+    "time_jst": "未定"
   },
   {
     "date": "2026-08-06",
     "event": "Major Earnings: DDOG, ABNB, COP, CEG",
     "type": "Earnings",
     "level": "High",
-    "assets": "Software - Travel - Energy - Utilities"
+    "assets": "Software - Travel - Energy - Utilities",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
   },
   {
     "date": "2026-08-07",
     "event": "Nonfarm Payrolls Report",
     "type": "Labor Market",
     "level": "Critical",
-    "assets": "Stocks - Bonds - USD"
+    "assets": "Stocks - Bonds - USD",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
     "date": "2026-08-07",
     "event": "Fed Speaker: Thomas Barkin",
     "type": "Federal Reserve",
     "level": "Medium",
-    "assets": "Rates - USD - Market Sentiment"
+    "assets": "Rates - USD - Market Sentiment",
+    "time_et": "TBD",
+    "time_jst": "未定"
   },
   {
     "date": "2026-08-07",
     "event": "Major Earnings: OKLO, TTWO, ENB, UAA",
     "type": "Earnings",
     "level": "Medium",
-    "assets": "Nuclear - Gaming - Energy - Consumer"
+    "assets": "Nuclear - Gaming - Energy - Consumer",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
   },
   {
     "date": "2026-08-12",
     "event": "Consumer Price Index",
     "type": "Inflation",
     "level": "Critical",
-    "assets": "Stocks - Bonds - USD - Gold"
+    "assets": "Stocks - Bonds - USD - Gold",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
     "date": "2026-08-13",
     "event": "Producer Price Index",
     "type": "Inflation",
     "level": "Critical",
-    "assets": "Stocks - Bonds - USD - Growth"
+    "assets": "Stocks - Bonds - USD - Growth",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
     "date": "2026-08-14",
     "event": "Retail Sales + Michigan Consumer Sentiment",
     "type": "Consumer / Sentiment",
     "level": "High",
-    "assets": "Consumer Stocks - USD - Rates"
+    "assets": "Consumer Stocks - USD - Rates",
+    "time_et": "8:30 AM / 10:00 AM",
+    "time_jst": "21:30 / 23:00"
   }
 ]
