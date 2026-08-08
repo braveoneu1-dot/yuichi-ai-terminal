@@ -1,109 +1,19 @@
 [
   {
-    "date": "2026-08-04",
-    "event": "Trade Balance + JOLTS + Factory Orders",
-    "type": "Macro / Labor",
-    "level": "Critical",
-    "assets": "Stocks - Bonds - USD",
-    "time_et": "8:30 AM / 10:00 AM",
-    "time_jst": "21:30 / 23:00"
-  },
-  {
-    "date": "2026-08-04",
-    "event": "Major Earnings: CAT, AMD, MCD, SHOP, SPOT",
-    "type": "Earnings",
-    "level": "Critical",
-    "assets": "AI - Industrials - Consumer - Semiconductors",
-    "time_et": "Before open / After close",
-    "time_jst": "米国市場前 / 翌朝"
-  },
-  {
-    "date": "2026-08-05",
-    "event": "ADP Employment Report",
-    "type": "Labor Market",
-    "level": "High",
-    "assets": "Stocks - Bonds - USD",
-    "time_et": "8:15 AM",
-    "time_jst": "21:15"
-  },
-  {
-    "date": "2026-08-05",
-    "event": "S&P Global Services PMI + ISM Services PMI",
-    "type": "Business Activity",
-    "level": "High",
-    "assets": "Stocks - Growth - USD",
-    "time_et": "9:45 AM / 10:00 AM",
-    "time_jst": "22:45 / 23:00"
-  },
-  {
-    "date": "2026-08-05",
-    "event": "Major Earnings: LLY, UBER, DIS, GFS",
-    "type": "Earnings",
-    "level": "High",
-    "assets": "Healthcare - Consumer - Semiconductors - Nasdaq",
-    "time_et": "Before open / After close",
-    "time_jst": "米国市場前 / 翌朝"
-  },
-  {
-    "date": "2026-08-06",
-    "event": "Weekly Jobless Claims",
-    "type": "Labor Market",
-    "level": "High",
-    "assets": "Stocks - Bonds - USD",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
-  },
-  {
-    "date": "2026-08-06",
-    "event": "Productivity and Labor Costs",
-    "type": "Labor Costs",
-    "level": "High",
-    "assets": "Rates - Bonds - USD",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
-  },
-  {
-    "date": "2026-08-06",
-    "event": "Fed Speaker: Alberto Musalem",
-    "type": "Federal Reserve",
+    "date": "2026-08-11",
+    "event": "Existing Home Sales + Consumer Credit Panel",
+    "type": "Housing / Credit",
     "level": "Medium",
-    "assets": "Rates - USD - Growth Stocks",
-    "time_et": "TBD",
-    "time_jst": "未定"
+    "assets": "Housing - Rates - Consumer Stocks",
+    "time_et": "10:00 AM / 11:00 AM",
+    "time_jst": "23:00 / 00:00 next day"
   },
   {
-    "date": "2026-08-06",
-    "event": "Major Earnings: DDOG, ABNB, COP, CEG",
+    "date": "2026-08-11",
+    "event": "Major Earnings: LITE, CRWV, SMCI, SE",
     "type": "Earnings",
     "level": "High",
-    "assets": "Software - Travel - Energy - Utilities",
-    "time_et": "Before open / After close",
-    "time_jst": "米国市場前 / 翌朝"
-  },
-  {
-    "date": "2026-08-07",
-    "event": "Nonfarm Payrolls Report",
-    "type": "Labor Market",
-    "level": "Critical",
-    "assets": "Stocks - Bonds - USD",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
-  },
-  {
-    "date": "2026-08-07",
-    "event": "Fed Speaker: Thomas Barkin",
-    "type": "Federal Reserve",
-    "level": "Medium",
-    "assets": "Rates - USD - Market Sentiment",
-    "time_et": "TBD",
-    "time_jst": "未定"
-  },
-  {
-    "date": "2026-08-07",
-    "event": "Major Earnings: OKLO, TTWO, ENB, UAA",
-    "type": "Earnings",
-    "level": "Medium",
-    "assets": "Nuclear - Gaming - Energy - Consumer",
+    "assets": "AI - Servers - Optical - Internet",
     "time_et": "Before open / After close",
     "time_jst": "米国市場前 / 翌朝"
   },
@@ -117,6 +27,24 @@
     "time_jst": "21:30"
   },
   {
+    "date": "2026-08-12",
+    "event": "Major Earnings: NBIS, COHR, CBRS, GLBE",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "AI - Optics - Semiconductors - Software",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
+  },
+  {
+    "date": "2026-08-13",
+    "event": "Weekly Jobless Claims",
+    "type": "Labor Market",
+    "level": "High",
+    "assets": "Stocks - Bonds - USD",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
+  },
+  {
     "date": "2026-08-13",
     "event": "Producer Price Index",
     "type": "Inflation",
@@ -126,12 +54,75 @@
     "time_jst": "21:30"
   },
   {
+    "date": "2026-08-13",
+    "event": "Weekly Economic Index",
+    "type": "Growth / Activity",
+    "level": "Medium",
+    "assets": "Stocks - Rates - Market Sentiment",
+    "time_et": "11:30 AM",
+    "time_jst": "00:30 next day"
+  },
+  {
+    "date": "2026-08-13",
+    "event": "Major Earnings: AMAT, ROST, TPR, BIRK",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "Semiconductors - Retail - Consumer",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
+  },
+  {
     "date": "2026-08-14",
-    "event": "Retail Sales + Michigan Consumer Sentiment",
+    "event": "Retail Sales",
+    "type": "Consumer / Spending",
+    "level": "Critical",
+    "assets": "Consumer Stocks - USD - Rates",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
+  },
+  {
+    "date": "2026-08-14",
+    "event": "Business Inventories + Michigan Consumer Sentiment",
     "type": "Consumer / Sentiment",
     "level": "High",
-    "assets": "Consumer Stocks - USD - Rates",
-    "time_et": "8:30 AM / 10:00 AM",
-    "time_jst": "21:30 / 23:00"
+    "assets": "Consumer Stocks - Rates - Market Sentiment",
+    "time_et": "10:00 AM",
+    "time_jst": "23:00"
+  },
+  {
+    "date": "2026-08-14",
+    "event": "Survey of Professional Forecasters + NY Fed Nowcast",
+    "type": "Forecasts / Growth",
+    "level": "Medium",
+    "assets": "Rates - Bonds - Market Sentiment",
+    "time_et": "10:00 AM / 12:45 PM",
+    "time_jst": "23:00 / 01:45 next day"
+  },
+  {
+    "date": "2026-08-17",
+    "event": "Empire State Manufacturing Survey",
+    "type": "Manufacturing",
+    "level": "High",
+    "assets": "Industrials - USD - Rates",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
+  },
+  {
+    "date": "2026-08-18",
+    "event": "Import / Export Prices + Housing Starts",
+    "type": "Inflation / Housing",
+    "level": "High",
+    "assets": "Rates - Bonds - Housing",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
+  },
+  {
+    "date": "2026-08-18",
+    "event": "Industrial Production + Pending Home Sales",
+    "type": "Production / Housing",
+    "level": "High",
+    "assets": "Industrials - Housing - Stocks",
+    "time_et": "9:15 AM / 10:00 AM",
+    "time_jst": "22:15 / 23:00"
   }
 ]
