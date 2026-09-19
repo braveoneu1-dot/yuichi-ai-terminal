@@ -1,43 +1,52 @@
 [
   {
-    "date": "2026-09-07",
-    "event": "U.S. Markets Closed: Labor Day",
-    "type": "Market Holiday",
-    "level": "High",
-    "assets": "Stocks - Bonds - Liquidity",
-    "time_et": "All day",
-    "time_jst": "終日"
-  },
-  {
-    "date": "2026-09-08",
-    "event": "Survey of Consumer Expectations",
-    "type": "Consumer / Inflation Expectations",
-    "level": "High",
-    "assets": "Rates - Bonds - USD - Consumer Stocks",
+    "date": "2026-09-21",
+    "event": "NY Fed Household Spending Survey",
+    "type": "Consumer / Spending",
+    "level": "Medium",
+    "assets": "Consumer Stocks - Rates - Market Sentiment",
     "time_et": "11:00 AM",
     "time_jst": "00:00 next day"
   },
   {
-    "date": "2026-09-08",
-    "event": "Major Earnings: CASY, TTAN, UNFI, VFS",
-    "type": "Earnings",
+    "date": "2026-09-22",
+    "event": "Philadelphia Fed Services Survey",
+    "type": "Services / Business Activity",
     "level": "Medium",
-    "assets": "Consumer - Software - Food Distribution - EVs",
-    "time_et": "Before open / After close",
-    "time_jst": "米国市場前 / 翌朝"
+    "assets": "Stocks - USD - Rates",
+    "time_et": "8:30 AM",
+    "time_jst": "21:30"
   },
   {
-    "date": "2026-09-09",
-    "event": "Major Earnings: CHWY, SAIL, AVAV, SIG",
+    "date": "2026-09-22",
+    "event": "Richmond Fed Manufacturing Survey",
+    "type": "Manufacturing",
+    "level": "High",
+    "assets": "Industrials - USD - Rates",
+    "time_et": "10:00 AM",
+    "time_jst": "23:00"
+  },
+  {
+    "date": "2026-09-22",
+    "event": "Major Earnings: AZO, THO, KBH",
     "type": "Earnings",
     "level": "High",
-    "assets": "Consumer - Cybersecurity - Defense - Retail",
+    "assets": "Retail - Autos - Housing",
     "time_et": "Before open / After close",
     "time_jst": "米国市場前 / 翌朝"
   },
   {
-    "date": "2026-09-10",
-    "event": "Initial Claims",
+    "date": "2026-09-23",
+    "event": "Major Earnings: GIS, CTAS, PAYX",
+    "type": "Earnings",
+    "level": "High",
+    "assets": "Consumer Staples - Business Services - Payroll",
+    "time_et": "Before open",
+    "time_jst": "米国市場前"
+  },
+  {
+    "date": "2026-09-24",
+    "event": "Initial Jobless Claims",
     "type": "Labor Market",
     "level": "High",
     "assets": "Stocks - Bonds - USD",
@@ -45,102 +54,57 @@
     "time_jst": "21:30"
   },
   {
-    "date": "2026-09-10",
-    "event": "Producer Price Index",
-    "type": "Inflation",
-    "level": "Critical",
-    "assets": "Stocks - Bonds - USD - Growth",
+    "date": "2026-09-24",
+    "event": "U.S. International Transactions",
+    "type": "Trade / Capital Flows",
+    "level": "Medium",
+    "assets": "USD - Bonds - Global Markets",
     "time_et": "8:30 AM",
     "time_jst": "21:30"
   },
   {
-    "date": "2026-09-10",
-    "event": "Existing Home Sales + Wholesale Trade",
-    "type": "Housing / Trade",
-    "level": "Medium",
-    "assets": "Housing - Rates - Consumer Stocks",
+    "date": "2026-09-24",
+    "event": "New Home Sales",
+    "type": "Housing",
+    "level": "High",
+    "assets": "Homebuilders - Rates - Consumer Stocks",
     "time_et": "10:00 AM",
     "time_jst": "23:00"
   },
   {
-    "date": "2026-09-10",
-    "event": "Weekly Economic Index",
-    "type": "Growth / Activity",
-    "level": "Medium",
-    "assets": "Stocks - Rates - Market Sentiment",
-    "time_et": "11:30 AM",
-    "time_jst": "00:30 next day"
-  },
-  {
-    "date": "2026-09-10",
-    "event": "Major Earnings: ORCL, ADBE, CPRT, RH",
+    "date": "2026-09-24",
+    "event": "Major Earnings: COST, DRI, BB, SNX",
     "type": "Earnings",
     "level": "Critical",
-    "assets": "AI - Software - Cloud - Retail",
-    "time_et": "After close",
-    "time_jst": "翌朝"
+    "assets": "Retail - Consumer - Software - Technology",
+    "time_et": "Before open / After close",
+    "time_jst": "米国市場前 / 翌朝"
   },
   {
-    "date": "2026-09-11",
-    "event": "Consumer Price Index",
-    "type": "Inflation",
+    "date": "2026-09-25",
+    "event": "Durable Goods Orders",
+    "type": "Manufacturing / Business Investment",
     "level": "Critical",
-    "assets": "Stocks - Bonds - USD - Gold - Growth",
+    "assets": "Industrials - USD - Bonds - Growth Stocks",
     "time_et": "8:30 AM",
     "time_jst": "21:30"
   },
   {
-    "date": "2026-09-11",
-    "event": "Michigan Consumer Survey Preliminary",
-    "type": "Consumer / Sentiment",
+    "date": "2026-09-25",
+    "event": "Michigan Consumer Survey Final",
+    "type": "Consumer / Inflation Expectations",
     "level": "High",
     "assets": "Consumer Stocks - Rates - Market Sentiment",
     "time_et": "10:00 AM",
     "time_jst": "23:00"
   },
   {
-    "date": "2026-09-11",
+    "date": "2026-09-25",
     "event": "New York Fed Staff Nowcast",
     "type": "Growth / Forecasts",
     "level": "Medium",
     "assets": "Rates - Bonds - Market Sentiment",
     "time_et": "12:45 PM",
     "time_jst": "01:45 next day"
-  },
-  {
-    "date": "2026-09-11",
-    "event": "Major Earnings: KR",
-    "type": "Earnings",
-    "level": "High",
-    "assets": "Consumer Staples - Retail - Food",
-    "time_et": "Before open",
-    "time_jst": "米国市場前"
-  },
-  {
-    "date": "2026-09-15",
-    "event": "Empire State Manufacturing Survey",
-    "type": "Manufacturing",
-    "level": "High",
-    "assets": "Industrials - USD - Rates",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
-  },
-  {
-    "date": "2026-09-16",
-    "event": "Retail Sales + Import / Export Prices",
-    "type": "Consumer / Inflation",
-    "level": "Critical",
-    "assets": "Consumer Stocks - USD - Rates - Bonds",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
-  },
-  {
-    "date": "2026-09-17",
-    "event": "Initial Claims + Housing Starts + Philadelphia Fed",
-    "type": "Labor / Housing / Manufacturing",
-    "level": "High",
-    "assets": "Stocks - Bonds - Housing - Industrials",
-    "time_et": "8:30 AM",
-    "time_jst": "21:30"
   }
 ]
