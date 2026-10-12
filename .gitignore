@@ -5,3 +5,29 @@ news_briefing.py
 news_error.txt
 news_log.txt
 .env
+
+# Local secrets (keep the placeholder example tracked)
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Python environments and generated files
+.venv/
+venv/
+env/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local logs and editor files
+*.log
+.vscode/
+.idea/
+
+# Future diagnostic outputs (tracked files remain preserved)
+push_error*.txt
